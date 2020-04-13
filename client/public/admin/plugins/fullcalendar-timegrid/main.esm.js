@@ -4,8 +4,53 @@ Docs & License: https://fullcalendar.io/
 (c) 2019 Adam Shaw
 */
 
-import { createFormatter, removeElement, computeEventDraggable, computeEventStartResizable, computeEventEndResizable, cssToStr, isMultiDayRange, htmlEscape, compareByFieldSpecs, applyStyle, FgEventRenderer, buildSegCompareObj, FillRenderer, memoize, memoizeRendering, createDuration, wholeDivideDurations, findElements, PositionCache, startOfDay, asRoughMs, formatIsoTimeString, addDurations, htmlToElement, createElement, multiplyDuration, DateComponent, hasBgRendering, Splitter, diffDays, buildGotoAnchorHtml, getAllDayHtml, ScrollComponent, matchCellWidths, uncompensateScroll, compensateScroll, subtractInnerElHeight, View, intersectRanges, Slicer, DayHeader, DaySeries, DayTable, createPlugin } from '@fullcalendar/core';
-import { DayBgRow, DayGrid, SimpleDayGrid } from '@fullcalendar/daygrid';
+import {
+    addDurations,
+    applyStyle,
+    asRoughMs,
+    buildGotoAnchorHtml,
+    buildSegCompareObj,
+    compareByFieldSpecs,
+    compensateScroll,
+    computeEventDraggable,
+    computeEventEndResizable,
+    computeEventStartResizable,
+    createDuration,
+    createElement,
+    createFormatter,
+    createPlugin,
+    cssToStr,
+    DateComponent,
+    DayHeader,
+    DaySeries,
+    DayTable,
+    diffDays,
+    FgEventRenderer,
+    FillRenderer,
+    findElements,
+    formatIsoTimeString,
+    getAllDayHtml,
+    hasBgRendering,
+    htmlEscape,
+    htmlToElement,
+    intersectRanges,
+    isMultiDayRange,
+    matchCellWidths,
+    memoize,
+    memoizeRendering,
+    multiplyDuration,
+    PositionCache,
+    removeElement,
+    ScrollComponent,
+    Slicer,
+    Splitter,
+    startOfDay,
+    subtractInnerElHeight,
+    uncompensateScroll,
+    View,
+    wholeDivideDurations
+} from '@fullcalendar/core';
+import {DayBgRow, DayGrid, SimpleDayGrid} from '@fullcalendar/daygrid';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.

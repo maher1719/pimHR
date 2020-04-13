@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import { logoutUser } from 'features/auth/authSlice';
+import React, {Component} from "react";
+import {useDispatch, useSelector} from 'react-redux';
+import {logoutUser} from 'features/auth/authSlice';
 
 export default class Header extends Component {
     render(){

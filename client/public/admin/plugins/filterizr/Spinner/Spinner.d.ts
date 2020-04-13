@@ -1,7 +1,8 @@
-import { Destructible, Styleable } from '../types/interfaces';
+import {Destructible, Styleable} from '../types/interfaces';
 import FilterizrOptions from '../FilterizrOptions';
 import FilterContainer from '../FilterContainer';
 import StyledSpinner from './StyledSpinner';
+
 export default class Spinner implements Destructible, Styleable {
     private node;
     private styledNode;

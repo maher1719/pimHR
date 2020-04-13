@@ -1,5 +1,6 @@
 import StyledFilterizrElements from '../StyledFilterizrElements';
 import FilterItem from '../FilterItem/FilterItem';
+
 export default class StyledFilterItems extends StyledFilterizrElements {
     private _filterItems;
     constructor(elements: FilterItem[]);

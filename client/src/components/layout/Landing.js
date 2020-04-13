@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React, {useEffect} from 'react';
+import {Link, useHistory} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
 const Landing = () => {
   const isAuth = useSelector(state => state.auth.isAuthenticated);

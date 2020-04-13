@@ -13,7 +13,7 @@ declare module '@fullcalendar/interaction' {
 }
 
 declare module '@fullcalendar/interaction/dnd/FeaturefulElementDragging' {
-    import { PointerDragEvent, ElementDragging } from '@fullcalendar/core';
+    import {ElementDragging, PointerDragEvent} from '@fullcalendar/core';
     import PointerDragging from '@fullcalendar/interaction/dnd/PointerDragging';
     import ElementMirror from '@fullcalendar/interaction/dnd/ElementMirror';
     import AutoScroller from '@fullcalendar/interaction/dnd/AutoScroller';
@@ -50,7 +50,7 @@ declare module '@fullcalendar/interaction/dnd/FeaturefulElementDragging' {
 }
 
 declare module '@fullcalendar/interaction/dnd/PointerDragging' {
-    import { EmitterMixin, PointerDragEvent } from '@fullcalendar/core';
+    import {EmitterMixin, PointerDragEvent} from '@fullcalendar/core';
     export { PointerDragging as default, PointerDragging };
     class PointerDragging {
         containerEl: EventTarget;
@@ -94,9 +94,10 @@ declare module '@fullcalendar/interaction/dnd/PointerDragging' {
 }
 
 declare module '@fullcalendar/interaction/interactions-external/ExternalDraggable' {
-    import { PointerDragEvent } from '@fullcalendar/core';
+    import {PointerDragEvent} from '@fullcalendar/core';
     import FeaturefulElementDragging from '@fullcalendar/interaction/dnd/FeaturefulElementDragging';
-    import { DragMetaGenerator } from '@fullcalendar/interaction/interactions-external/ExternalElementDragging';
+    import {DragMetaGenerator} from '@fullcalendar/interaction/interactions-external/ExternalElementDragging';
+
     export interface ExternalDraggableSettings {
         eventData?: DragMetaGenerator;
         itemSelector?: string;
@@ -116,8 +117,9 @@ declare module '@fullcalendar/interaction/interactions-external/ExternalDraggabl
 }
 
 declare module '@fullcalendar/interaction/interactions-external/ThirdPartyDraggable' {
-    import { DragMetaGenerator } from '@fullcalendar/interaction/interactions-external/ExternalElementDragging';
+    import {DragMetaGenerator} from '@fullcalendar/interaction/interactions-external/ExternalElementDragging';
     import InferredElementDragging from '@fullcalendar/interaction/interactions-external/InferredElementDragging';
+
     export interface ThirdPartyDraggableSettings {
         eventData?: DragMetaGenerator;
         itemSelector?: string;
@@ -132,7 +134,7 @@ declare module '@fullcalendar/interaction/interactions-external/ThirdPartyDragga
 }
 
 declare module '@fullcalendar/interaction/dnd/ElementMirror' {
-    import { Rect } from '@fullcalendar/core';
+    import {Rect} from '@fullcalendar/core';
     export { ElementMirror as default, ElementMirror };
     class ElementMirror {
         isVisible: boolean;
@@ -158,7 +160,7 @@ declare module '@fullcalendar/interaction/dnd/ElementMirror' {
 }
 
 declare module '@fullcalendar/interaction/dnd/AutoScroller' {
-    import { ScrollGeomCache } from '@fullcalendar/interaction/scroll-geom-cache';
+    import {ScrollGeomCache} from '@fullcalendar/interaction/scroll-geom-cache';
     export { AutoScroller as default, AutoScroller };
     class AutoScroller {
         isEnabled: boolean;
@@ -182,7 +184,18 @@ declare module '@fullcalendar/interaction/dnd/AutoScroller' {
 }
 
 declare module '@fullcalendar/interaction/interactions-external/ExternalElementDragging' {
-    import { Hit, PointerDragEvent, EventTuple, DatePointApi, Calendar, EventInteractionState, DragMetaInput, DragMeta, View, ElementDragging } from '@fullcalendar/core';
+    import {
+        Calendar,
+        DatePointApi,
+        DragMeta,
+        DragMetaInput,
+        ElementDragging,
+        EventInteractionState,
+        EventTuple,
+        Hit,
+        PointerDragEvent,
+        View
+    } from '@fullcalendar/core';
     import HitDragging from '@fullcalendar/interaction/interactions/HitDragging';
     export type DragMetaGenerator = DragMetaInput | ((el: HTMLElement) => DragMetaInput);
     export interface ExternalDropApi extends DatePointApi {
@@ -209,7 +222,7 @@ declare module '@fullcalendar/interaction/interactions-external/ExternalElementD
 }
 
 declare module '@fullcalendar/interaction/interactions-external/InferredElementDragging' {
-    import { PointerDragEvent, ElementDragging } from '@fullcalendar/core';
+    import {ElementDragging, PointerDragEvent} from '@fullcalendar/core';
     import PointerDragging from '@fullcalendar/interaction/dnd/PointerDragging';
     export { InferredElementDragging as default, InferredElementDragging };
     class InferredElementDragging extends ElementDragging {
@@ -228,7 +241,8 @@ declare module '@fullcalendar/interaction/interactions-external/InferredElementD
 }
 
 declare module '@fullcalendar/interaction/scroll-geom-cache' {
-    import { Rect, ScrollController } from '@fullcalendar/core';
+    import {Rect, ScrollController} from '@fullcalendar/core';
+
     export abstract class ScrollGeomCache extends ScrollController {
         clientRect: Rect;
         origScrollTop: number;
@@ -275,7 +289,14 @@ declare module '@fullcalendar/interaction/scroll-geom-cache' {
 }
 
 declare module '@fullcalendar/interaction/interactions/HitDragging' {
-    import { EmitterMixin, PointerDragEvent, Point, Hit, InteractionSettingsStore, ElementDragging } from '@fullcalendar/core';
+    import {
+        ElementDragging,
+        EmitterMixin,
+        Hit,
+        InteractionSettingsStore,
+        Point,
+        PointerDragEvent
+    } from '@fullcalendar/core';
     import OffsetTracker from '@fullcalendar/interaction/OffsetTracker';
     export { HitDragging as default, HitDragging };
     class HitDragging {
@@ -307,8 +328,8 @@ declare module '@fullcalendar/interaction/interactions/HitDragging' {
 }
 
 declare module '@fullcalendar/interaction/OffsetTracker' {
-    import { Rect } from '@fullcalendar/core';
-    import { ElementScrollGeomCache } from '@fullcalendar/interaction/scroll-geom-cache';
+    import {Rect} from '@fullcalendar/core';
+    import {ElementScrollGeomCache} from '@fullcalendar/interaction/scroll-geom-cache';
     export { OffsetTracker as default, OffsetTracker };
     class OffsetTracker {
         scrollCaches: ElementScrollGeomCache[];

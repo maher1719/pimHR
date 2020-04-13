@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, {useEffect} from 'react';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
-import { Register, Login } from './features/auth';
-import MaterialCss  from './features/auth/MaterialCss';
-import MaterialJs  from './features/auth/MaterialJs';
+import {Login, Register} from './features/auth';
+import MaterialCss from './features/auth/MaterialCss';
+import MaterialJs from './features/auth/MaterialJs';
 import D from "./features/dashboard/Dashboard";
 import HeaderFeature from './components/layout/HeaderFeature';
 import Sidebar from './components/layout/SideBar';
@@ -13,7 +13,6 @@ import Profile from "./components/layout/Profile";
 import PrivateRoute from './components/private-route/PrivateRoute';
 import checkAuth from './utils/checkAuth';
 import store from './store';
-import { Dashboard } from 'features/dashboard';
 
 const App = () => {
   // Check if user is already logged in

@@ -1,12 +1,10 @@
 // Helper styles for demo
 
-import { DisplayFormikState } from "./helperFormik";
+import {DisplayFormikState} from "./helperFormik";
 
 import React from "react";
-import { render } from "react-dom";
-import { Formik, Field, Form } from 'formik';
+import {Field, Formik} from 'formik';
 import * as Yup from "yup";
-import BigCalendar from "./Calendar/BigCalendar";
 
 const SearchPage = () => (
     <div className="content-wrapper">

@@ -1,6 +1,6 @@
 import React from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import { logoutUser } from 'features/auth/authSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {logoutUser} from 'features/auth/authSlice';
 
 const  SliderBar =() => {
     const user = useSelector(state => state.auth.user);

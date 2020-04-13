@@ -1,4 +1,5 @@
-import { Filter } from './types';
+import {Filter} from './types';
+
 /**
  * ActiveFilter represents the currently active filter over
  * the grid.

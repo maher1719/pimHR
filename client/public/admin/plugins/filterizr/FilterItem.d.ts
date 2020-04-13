@@ -1,5 +1,6 @@
-import { Dictionary } from './types/interfaces/Dictionary';
+import {Dictionary} from './types/interfaces/Dictionary';
 import FilterizrOptions from './FilterizrOptions/FilterizrOptions';
+
 export interface Position {
     left: number;
     top: number;

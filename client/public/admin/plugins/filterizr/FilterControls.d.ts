@@ -1,5 +1,6 @@
 import Filterizr from './Filterizr';
-import { Destructible } from './types/interfaces';
+import {Destructible} from './types/interfaces';
+
 export default class FilterControls implements Destructible {
     private filterControls;
     private filterizr;

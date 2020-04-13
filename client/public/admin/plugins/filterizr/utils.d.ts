@@ -1,5 +1,6 @@
-import { Dictionary } from './types/interfaces/Dictionary';
+import {Dictionary} from './types/interfaces/Dictionary';
 import FilterItem from './FilterItem';
+
 /**
  * A function to check that all elements of an array are found within another array.
  * @param {Array} arr1 is the array of strings to be checked

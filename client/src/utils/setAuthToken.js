@@ -1,4 +1,4 @@
-import { client } from '../api/request';
+import {client} from '../api/request';
 
 const setAuthToken = token => {
   if (token) {

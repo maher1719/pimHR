@@ -1,4 +1,5 @@
 import request from "./request"
+
 export const createEvent=(data)=>{
 
     console.log(data);

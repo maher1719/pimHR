@@ -13,8 +13,22 @@ declare module '@fullcalendar/daygrid' {
 }
 
 declare module '@fullcalendar/daygrid/SimpleDayGrid' {
-    import { DateProfile, EventStore, EventUiHash, DateSpan, EventInteractionState, DayTable, Duration, DateComponent, DateRange, Slicer, Hit, ComponentContext } from '@fullcalendar/core';
-    import { default as DayGrid, DayGridSeg } from '@fullcalendar/daygrid/DayGrid';
+    import {
+        ComponentContext,
+        DateComponent,
+        DateProfile,
+        DateRange,
+        DateSpan,
+        DayTable,
+        Duration,
+        EventInteractionState,
+        EventStore,
+        EventUiHash,
+        Hit,
+        Slicer
+    } from '@fullcalendar/core';
+    import {DayGridSeg, default as DayGrid} from '@fullcalendar/daygrid/DayGrid';
+
     export interface SimpleDayGridProps {
         dateProfile: DateProfile | null;
         dayTable: DayTable;
@@ -44,10 +58,19 @@ declare module '@fullcalendar/daygrid/SimpleDayGrid' {
 }
 
 declare module '@fullcalendar/daygrid/DayGrid' {
-    import { PositionCache, DateMarker, DateComponent, EventSegUiInteractionState, Seg, DateProfile, ComponentContext } from '@fullcalendar/core';
+    import {
+        ComponentContext,
+        DateComponent,
+        DateMarker,
+        DateProfile,
+        EventSegUiInteractionState,
+        PositionCache,
+        Seg
+    } from '@fullcalendar/core';
     import Popover from '@fullcalendar/daygrid/Popover';
     import DayGridEventRenderer from '@fullcalendar/daygrid/DayGridEventRenderer';
     import DayTile from '@fullcalendar/daygrid/DayTile';
+
     export interface RenderProps {
         renderNumberIntroHtml: (row: number, dayGrid: DayGrid) => string;
         renderBgIntroHtml: () => string;
@@ -147,7 +170,7 @@ declare module '@fullcalendar/daygrid/DayGrid' {
 }
 
 declare module '@fullcalendar/daygrid/AbstractDayGridView' {
-    import { ScrollComponent, View, Duration, ComponentContext, ViewProps } from '@fullcalendar/core';
+    import {ComponentContext, Duration, ScrollComponent, View, ViewProps} from '@fullcalendar/core';
     import DayGrid from '@fullcalendar/daygrid/DayGrid';
     export { AbstractDayGridView as default, AbstractDayGridView };
     abstract class AbstractDayGridView extends View {
@@ -183,7 +206,14 @@ declare module '@fullcalendar/daygrid/AbstractDayGridView' {
 }
 
 declare module '@fullcalendar/daygrid/DayGridView' {
-    import { DayHeader, ComponentContext, DateProfileGenerator, DateProfile, ViewProps, DayTable } from '@fullcalendar/core';
+    import {
+        ComponentContext,
+        DateProfile,
+        DateProfileGenerator,
+        DayHeader,
+        DayTable,
+        ViewProps
+    } from '@fullcalendar/core';
     import AbstractDayGridView from '@fullcalendar/daygrid/AbstractDayGridView';
     import SimpleDayGrid from '@fullcalendar/daygrid/SimpleDayGrid';
     export { DayGridView as default, DayGridView };
@@ -199,7 +229,8 @@ declare module '@fullcalendar/daygrid/DayGridView' {
 }
 
 declare module '@fullcalendar/daygrid/DayBgRow' {
-    import { ComponentContext, DateMarker, DateProfile } from '@fullcalendar/core';
+    import {ComponentContext, DateMarker, DateProfile} from '@fullcalendar/core';
+
     export interface DayBgCell {
         date: DateMarker;
         htmlAttrs?: string;
@@ -246,7 +277,7 @@ declare module '@fullcalendar/daygrid/Popover' {
 }
 
 declare module '@fullcalendar/daygrid/DayGridEventRenderer' {
-    import { Seg } from '@fullcalendar/core';
+    import {Seg} from '@fullcalendar/core';
     import DayGrid from '@fullcalendar/daygrid/DayGrid';
     import SimpleDayGridEventRenderer from '@fullcalendar/daygrid/SimpleDayGridEventRenderer';
     export { DayGridEventRenderer as default, DayGridEventRenderer };
@@ -272,8 +303,9 @@ declare module '@fullcalendar/daygrid/DayGridEventRenderer' {
 }
 
 declare module '@fullcalendar/daygrid/DayTile' {
-    import { DateComponent, Seg, Hit, DateMarker, ComponentContext, EventInstanceHash } from '@fullcalendar/core';
+    import {ComponentContext, DateComponent, DateMarker, EventInstanceHash, Hit, Seg} from '@fullcalendar/core';
     import SimpleDayGridEventRenderer from '@fullcalendar/daygrid/SimpleDayGridEventRenderer';
+
     export interface DayTileProps {
         date: DateMarker;
         fgSegs: Seg[];
@@ -300,7 +332,7 @@ declare module '@fullcalendar/daygrid/DayTile' {
 }
 
 declare module '@fullcalendar/daygrid/SimpleDayGridEventRenderer' {
-    import { FgEventRenderer, Seg } from '@fullcalendar/core';
+    import {FgEventRenderer, Seg} from '@fullcalendar/core';
     export { SimpleDayGridEventRenderer as default, SimpleDayGridEventRenderer };
     abstract class SimpleDayGridEventRenderer extends FgEventRenderer {
         renderSegHtml(seg: Seg, mirrorInfo: any): string;

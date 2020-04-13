@@ -1,7 +1,5 @@
 import React from "react";
 import BigCalendar from "./Calendar/BigCalendar";
-import HeaderFeature from "./HeaderFeature";
-import Sidebar from "./SideBar";
 
 
 const Content = () => {

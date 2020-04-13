@@ -4,7 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import "@fullcalendar/core/main.css";
-import  "@fullcalendar/daygrid/main.css";
+import "@fullcalendar/daygrid/main.css";
 
 
 //import './main.scss'

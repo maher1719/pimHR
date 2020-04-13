@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {Link, useHistory} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
 import classnames from 'classnames';
 
-import { register, clearErrors } from 'features/auth/authSlice';
+import {clearErrors, register} from 'features/auth/authSlice';
 import Icon from 'assets/Icon';
 
 const Register = () => {
