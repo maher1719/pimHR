@@ -22,25 +22,30 @@ class BigCalendar extends Component {
 
     };
 
+    constructor() {
+        super();
+        const now = new Date();
+    };
+
     componentDidMount() {
         //console.log("mount ",CurrentUser);
 
-         listEvents().then((data) => {
-             console.log("events mount", data);
-             const messages = {
-                 allDay: 'journée',
-                 previous: 'précédent',
-                 next: 'suivant',
-                 today: 'aujourd\'hui',
-                 month: 'mois',
-                 week: 'semaine',
-                 day: 'jour',
-                 agenda: 'Agenda',
-                 date: 'date',
-                 time: 'heure',
-                 event: 'événement', // Or anything you want
-                 showMore: total => `+ ${total} événement(s) supplémentaire(s)`
-             };
+        listEvents().then((data) => {
+            console.log("events mount", data);
+            const messages = {
+                allDay: 'journée',
+                previous: 'précédent',
+                next: 'suivant',
+                today: 'aujourd\'hui',
+                month: 'mois',
+                week: 'semaine',
+                day: 'jour',
+                agenda: 'Agenda',
+                date: 'date',
+                time: 'heure',
+                event: 'événement', // Or anything you want
+                showMore: total => `+ ${total} événement(s) supplémentaire(s)`
+            };
              const events=data;
              this.state = {
                  name: 'React',
@@ -60,10 +65,6 @@ class BigCalendar extends Component {
 
 
     }
-    constructor() {
-        super();
-        const now = new Date();
-    };
 
     handleSelect = ({start, end}) => {
         const title = window.prompt('New Event name');
