@@ -1,4 +1,4 @@
 {
-  "mongoURI": "mongodb://admin:admin123@ds335957.mlab.com:35957/mern-app-boilerplate",
+  "mongoURI": "mongodb+srv://MaherBen:MaherBen@cluster0-untz6.mongodb.net/test?retryWrites=true&w=majority",
   "secretOrKey": "theMostPowerfulSecretMessage3VeR"
 }
