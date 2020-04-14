@@ -17,7 +17,6 @@ const login = data => {
 };
 
 
-
 export default {
   register,
   login

@@ -3,7 +3,7 @@ import {Calendar, momentLocalizer} from 'react-big-calendar';
 import moment from 'moment';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import {createEvent, listEvents} from "../../../api/EventsApi";
+import {createEvent, current, listEvents} from "../../../api/EventsApi";
 
 
 const localizer = momentLocalizer(moment);
@@ -29,6 +29,9 @@ class BigCalendar extends Component {
 
     componentDidMount() {
         //console.log("mount ",CurrentUser);
+        current().then((data) => {
+            console.log("current", data)
+        });
 
         listEvents().then((data) => {
             console.log("events mount", data);
@@ -67,6 +70,7 @@ class BigCalendar extends Component {
     }
 
     handleSelect = ({start, end}) => {
+
         const title = window.prompt('New Event name');
 
 

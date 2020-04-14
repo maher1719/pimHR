@@ -1,15 +1,24 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
-import {logoutUser} from '../../features/auth/authSlice';
+import {logoutUser, setCurrentUser} from '../../features/auth/authSlice';
 
 
 const HeaderFeature = () => {
 
-    const dispatch = useDispatch();
-    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
+    const dispatch = useDispatch();
+    dispatch(setCurrentUser());
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+    useSelector(state => console.log(state.auth, state));
     const history = useHistory();
+    useEffect(() => {
+        //const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+        console.log("use effect", isAuthenticated);
+        if (!isAuthenticated) history.push("/login");
+
+    }, [isAuthenticated]);
+
     const onLogoutClick = e => {
         e.preventDefault();
         alert("hello");

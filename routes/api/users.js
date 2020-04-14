@@ -151,7 +151,7 @@ router.get('/current', auth, async (req, res) => {
 
 router.post("/search",async(req,res)=>{
   try{
-    const criteria=req.body.criteria;
+    const criteria = req.body;
     //const users= await User.find({criteria});
     res.send(criteria);
   }catch (err) {
