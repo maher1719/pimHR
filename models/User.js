@@ -22,6 +22,12 @@ const UserSchema = new Schema({
   phone: {
     type: Number,
   },
+  occupation: {
+    type: String
+  },
+  addresse: {
+    type: String,
+  },
 
   skills: [{
     label: String,

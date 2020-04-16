@@ -17,16 +17,16 @@ const Landing = () => {
     <div style={{ height: '75vh' }} className="container valign-wrapper">
       <div className="row">
         <div className="col s12 center-align">
+          <h1><b>Bienvenu</b></h1>
           <h4>
-            <b>Build</b> a login/auth app with the{' '}
-            <span style={{ fontFamily: 'monospace' }}>MERN</span> stack from
-            scratch
+            Vous
+            <span style={{fontFamily: 'monospace'}}> <b>CHERCHEZ</b></span> un emploi où bien des candidats pour votre
+            entrprise?
           </h4>
           <p className="flow-text grey-text text-darken-1">
-            Create a (minimal) full-stack app with user authentication via
-            passport and JWTs
+            Joindre pour optimiser vos recherches.
           </p>
-          <br />
+          <br/>
           <div className="col s6">
             <Link
               to="/register"
@@ -37,20 +37,20 @@ const Landing = () => {
               }}
               className="btn btn-large waves-effect waves-light hoverable blue accent-3"
             >
-              Register
+              Inscription
             </Link>
           </div>
           <div className="col s6">
             <Link
-              to="/login"
-              style={{
-                width: '140px',
-                borderRadius: '3px',
-                letterSpacing: '1.5px'
-              }}
-              className="btn btn-large btn-flat waves-effect white black-text"
+                to="/login"
+                style={{
+                  width: '140px',
+                  borderRadius: '3px',
+                  letterSpacing: '1.5px'
+                }}
+                className="btn btn-large btn-flat waves-effect hoverable white black-text"
             >
-              Log In
+              Connexion
             </Link>
           </div>
         </div>
