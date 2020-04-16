@@ -19,6 +19,9 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  phone: {
+    type: Number,
+  },
 
   skills: [{
     label: String,
