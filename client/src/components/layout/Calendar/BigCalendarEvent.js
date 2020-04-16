@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+/*
+import React, {Component, useEffect, useState} from 'react';
 import {Calendar, momentLocalizer} from 'react-big-calendar';
 import moment from 'moment';
 
@@ -9,50 +10,33 @@ import {createEvent, current, listEvents} from "../../../api/EventsApi";
 const localizer = momentLocalizer(moment);
 
 
-class BigCalendar extends Component {
+const BigCalendar =()=> {
 
-    state = {
-        events: [{
+
+        const InitialEvents= [{
             id: 2,
             title: 'DS STARTS',
             start: new Date(2016, 2, 13, 0, 0, 0),
             end: new Date(2016, 2, 20, 0, 0, 0),
-        }],
+        }];
 
 
-    };
 
 
-    constructor() {
-        super();
-        const now = new Date();
+    const [events,listEvent]=useState([]);
+    const [newEvent, addEvent]=useState(events.push(newEvent));
 
-    };
-
-    componentDidMount() {
+    useEffect(()=>{
         //console.log("mount ",CurrentUser);
+        current().then((data)=>{
+            console.log("current",data);
+        });
 
-        const messages = {
-            allDay: 'journée',
-            previous: 'précédent',
-            next: 'suivant',
-            today: 'aujourd\'hui',
-            month: 'mois',
-            week: 'semaine',
-            day: 'jour',
-            agenda: 'Agenda',
-            date: 'date',
-            time: 'heure',
-            event: 'événement', // Or anything you want
-            showMore: total => `+ ${total} événement(s) supplémentaire(s)`
-        };
-
-        //console.log("user Current",userCurrent);
-        listEvents({"id": "ba.maher94@gmail.com"}).then((data) => {
+        listEvents().then((data) => {
             console.log("events mount", data);
 
-            const events = data;
-            this.state = {
+            const events=data;
+            const listEvent = {
                 name: 'React',
                 events,
                 messages: messages,
@@ -60,23 +44,32 @@ class BigCalendar extends Component {
             };
 
             this.setState({
-                events: [
+                events:[
                     ...this.state.events,
                     data
                 ]
             })
         });
-        const loadEvents = () => {
-            current().then((data) => {
+        //console.log("user",this.state.userId);
 
-            });
 
-            window.setTimeout(loadEvents, 2000);
+    })
+    const messages = {
+        allDay: 'journée',
+        previous: 'précédent',
+        next: 'suivant',
+        today: 'aujourd\'hui',
+        month: 'mois',
+        week: 'semaine',
+        day: 'jour',
+        agenda: 'Agenda',
+        date: 'date',
+        time: 'heure',
+        event: 'événement', // Or anything you want
+        showMore: total => `+ ${total} événement(s) supplémentaire(s)`
+    };
 
-        }
-    }
-
-    handleSelect = ({start, end}) => {
+    const handleSelect = ({start, end}) => {
 
         const title = window.prompt('New Event name');
         if (title) {
@@ -91,12 +84,7 @@ class BigCalendar extends Component {
                     },
                 ],
             });
-            current().then((data) => {
-                console.log("current", data);
-                createEvent({id: data.email, title: title, start: start, end: end});
-                console.log(data.email);
-            });
-
+            createEvent({id: "eess", title: title, start: start, end: end});
         }
     };
 
@@ -108,12 +96,12 @@ class BigCalendar extends Component {
                 </p>
                 <div style={{height: '500pt'}}>
                     <Calendar
-                        messages={this.state.messages}
+                        messages={ this.messages}
                         events={this.state.events}
                         startAccessor="start"
                         endAccessor="end"
                         selectable
-                        onSelectSlot={this.handleSelect}
+                        onSelectSlot={handleSelect}
                         defaultDate={moment().toDate()}
                         localizer={localizer}
                     />
@@ -123,4 +111,4 @@ class BigCalendar extends Component {
     }
 }
 
-export default BigCalendar;
+export default BigCalendar;*/

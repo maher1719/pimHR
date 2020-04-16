@@ -41,11 +41,14 @@ router.post('/', async (req, res) =>{
     try {
 
         //const event = await Event.find();
-        const event= await Event.find();
+        const event = await Event.find(req.body, function (err, docs) {
+            console.log("error", err, docs);
+        });
         //const user =  User.findById(req.user.id);
         //const { title } = req.body;
+
         //const event =  await Event.find();
-        console.log('Got body:', req.body);
+        console.log('Got body:', event);
         res.send(event);
     } catch (err) {
         console.error(err.message);

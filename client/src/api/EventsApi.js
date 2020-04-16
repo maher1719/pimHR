@@ -11,10 +11,13 @@ console.log(data);
     })
 };
 
-export const listEvents = () => {
+export const listEvents = (data) => {
+    console.log("listeEvent Data", data);
+
     return request({
         url: "/api/event",
         method: 'POST',
+        data
     }).then(function (data) {
         return data;
     })
