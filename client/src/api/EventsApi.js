@@ -32,3 +32,14 @@ export const current = () => {
         return data;
     })
 };
+export const deleteOneEvent = (data) => {
+    console.log("Delete Event Data", data, "");
+    return request({
+        url: "/api/event/delete",
+        method: 'POST',
+        data
+    }).then(function (data) {
+        console.log("current user", data);
+        return data;
+    })
+};

@@ -3,7 +3,7 @@ import {Calendar, momentLocalizer} from 'react-big-calendar';
 import moment from 'moment';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import {createEvent, current, listEvents} from "../../../api/EventsApi";
+import {createEvent, current, deleteOneEvent, listEvents} from "../../../api/EventsApi";
 
 
 const localizer = momentLocalizer(moment);
@@ -48,12 +48,13 @@ class BigCalendar extends Component {
         };
 
         //console.log("user Current",userCurrent);
-        listEvents({"id": "ba.maher94@gmail.com"}).then((data) => {
+        listEvents({"user": "ba.maher94@gmail.com"}).then((data) => {
             console.log("events mount", data);
 
             const events = data;
             this.state = {
                 name: 'React',
+                culture: "fr",
                 events,
                 messages: messages,
 
@@ -76,6 +77,21 @@ class BigCalendar extends Component {
         }
     }
 
+    deleteEvent = (event) => {
+        const deleteEvent = window.confirm('Supprime ce évenement?');
+        if (deleteEvent) {
+            const events = this.state.events;
+            const eventToDeleteId = events.indexOf(event);
+            const eventToDelete = events[eventToDeleteId];
+            console.log("event to selete react", eventToDelete._id);
+            deleteOneEvent({_id: eventToDelete._id}).then((data) => {
+                console.log("data delete", data);
+            });
+            const e = events.splice(eventToDeleteId, 1);
+            console.log("eventDelete", typeof (e));
+            //console.log(events)
+        }
+    };
     handleSelect = ({start, end}) => {
 
         const title = window.prompt('New Event name');
@@ -87,16 +103,15 @@ class BigCalendar extends Component {
                         start,
                         end,
                         title,
-                        id: this.id,
+                        id: this._id,
                     },
                 ],
             });
             current().then((data) => {
                 console.log("current", data);
-                createEvent({id: data.email, title: title, start: start, end: end});
+                createEvent({user: data.email, title: title, start: start, end: end});
                 console.log(data.email);
             });
-
         }
     };
 
@@ -113,8 +128,10 @@ class BigCalendar extends Component {
                         startAccessor="start"
                         endAccessor="end"
                         selectable
+                        culture={this.state.culture}
                         onSelectSlot={this.handleSelect}
                         defaultDate={moment().toDate()}
+                        onSelectEvent={this.deleteEvent}
                         localizer={localizer}
                     />
                 </div>

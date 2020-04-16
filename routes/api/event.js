@@ -15,17 +15,17 @@ router.post('/create/', async (req, res) =>{
         const title="mm";
         const date1= Date.now();
         const allday=true;
-        console.log("requeqt "+req.body.allDay);
+        //console.log("requeqt "+req.body.allDay);
         //const user = await User.findById(req.user.id);
-        const userId= req.params.id;
+        //const userId= req.params.id;
          event = new Event({
-             id:Date.now(),
-            title:req.body.title,
-             allDay:req.body.allDay,
-            start:req.body.start,
-            end:req.body.end,
-             user:req.body.id
-        });
+             id: Date.now() + req.body.user,
+             title: req.body.title,
+             allDay: req.body.allDay,
+             start: req.body.start,
+             end: req.body.end,
+             user: req.body.user
+         });
 
         await event.save();
         //const user =  User.findById(req.user.id);
@@ -41,14 +41,33 @@ router.post('/', async (req, res) =>{
     try {
 
         //const event = await Event.find();
-        const event = await Event.find(req.body, function (err, docs) {
-            console.log("error", err, docs);
-        });
+        //const event=await Event.deleteMany({user:"ba.maher94@gmail.com"});
+        const event = await Event.find({user: req.body.user});
         //const user =  User.findById(req.user.id);
         //const { title } = req.body;
 
         //const event =  await Event.find();
-        console.log('Got body:', event);
+        console.log('Got body:', req.body, req.body.id);
+        res.send(event);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message);
+    }
+});
+
+router.post('/delete', async (req, res) => {
+    try {
+
+        //const event = await Event.find();
+        //Event.deleteMany();
+        const id = req.body._id;
+
+        const event = await Event.findOneAndDelete({_id: id});
+        console.log(req.body._id);
+        //const user =  User.findById(req.user.id);
+        //const { title } = req.body;
+
+        //const event =  await Event.find();
         res.send(event);
     } catch (err) {
         console.error(err.message);

@@ -20,6 +20,49 @@ const UserSchema = new Schema({
     default: Date.now
   },
 
+  skills: [{
+    label: String,
+    level: Number,
+  }],
+
+  softSkills: [],
+  education: [{
+
+    institute: String,
+
+    yearBegan: Date,
+
+    yearFinished: Date,
+
+    current: Boolean,
+
+    diploma: String,
+
+  }],
+
+  Stages: [{
+
+    title: String,
+
+    DateBegin: Date,
+
+    DateFinished: Date,
+
+    society: String,
+
+  }],
+
+  Projects: [{
+
+    title: String,
+
+    Description: String,
+
+    url: String,
+
+  }]
+
+
 });
 
 module.exports = User = mongoose.model("users", UserSchema);
