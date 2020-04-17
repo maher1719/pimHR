@@ -3,7 +3,7 @@ const config = require('config');
 
 module.exports = async function(req, res, next) {
   // Get token from header
-  const authHeader = req.header('Authorization').catch();
+  const authHeader = req.header('Authorization');
   const token = authHeader.split(' ')[1];
 
   // Check if not token

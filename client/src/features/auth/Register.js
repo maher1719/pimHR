@@ -33,6 +33,7 @@ const Register = () => {
             password2,
             role
         };
+        console.log(newUser);
 
         dispatch(register(newUser));
     };
@@ -61,7 +62,7 @@ const Register = () => {
                         <div><label>
                             <input
                                 onChange={e => setRole(e.target.value)}
-                                error={errors.name}
+
                                 id='role'
                                 type='checkbox'
                                 value={'recriteur'}

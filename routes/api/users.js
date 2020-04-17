@@ -33,7 +33,8 @@ router.post('/register', validateRegisterInput(), async (req, res) => {
     return res.status(400).json(formattedErrors);
   }
 
-  const { name, email, password } = req.body;
+  console.log("user registred",req.body);
+  const { name, email, password, role } = req.body;
 
   try {
     let user = await User.findOne({ email });
@@ -45,7 +46,8 @@ router.post('/register', validateRegisterInput(), async (req, res) => {
     user = new User({
       name,
       email,
-      password
+      password,
+      role
     });
 
     const salt = await bcrypt.genSalt(10);
@@ -67,6 +69,7 @@ router.post('/register', validateRegisterInput(), async (req, res) => {
         education: user.education,
         stages: user.Stages,
         projects: user.Projects,
+        role:user.role,
       }
     };
 
@@ -132,6 +135,7 @@ router.post('/login', validateLoginInput(), async (req, res) => {
         education: user.education,
         stages: user.Stages,
         projects: user.Projects,
+        role:user.Role
       }
     };
 

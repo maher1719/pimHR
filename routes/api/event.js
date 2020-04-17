@@ -12,12 +12,6 @@ const Event  = require('../../models/Event');
 
 router.post('/create/', async (req, res) =>{
     try {
-        const title="mm";
-        const date1= Date.now();
-        const allday=true;
-        //console.log("requeqt "+req.body.allDay);
-        //const user = await User.findById(req.user.id);
-        //const userId= req.params.id;
          const event = new Event({
              id:req.body.user,
              title: req.body.title,
@@ -48,7 +42,7 @@ router.post('/', async (req, res) =>{
         //const { title } = req.body;
 
         //const event =  await Event.find();
-        console.log('Got body:', event,req.body.user);
+        //console.log('Got body:', event,req.body.user);
         res.send(event);
     } catch (err) {
         console.error(err.message);
