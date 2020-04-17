@@ -57,7 +57,16 @@ router.post('/register', validateRegisterInput(), async (req, res) => {
     const payload = {
       user: {
         id: user.id,
-        name: user.name
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        occupation: user.occupation,
+        address: user.address,
+        skills: user.skills,
+        softSkills: user.softSkills,
+        education: user.education,
+        stages: user.Stages,
+        projects: user.Projects,
       }
     };
 

@@ -15,52 +15,51 @@ import checkAuth from './utils/checkAuth';
 import store from './store';
 
 const App = () => {
-  // Check if user is already logged in
-  useEffect(() => {
-    checkAuth(store);
-  }, []);
-  return (
-    <Router>
-      <div className='App'>
+    // Check if user is already logged in
+    useEffect(() => {
+        checkAuth(store);
+    }, []);
+    return (
+        <Router>
+            <div className='App'>
 
 
-        <Route exact path='/' >
-          <MaterialCss />
-          <Landing/>
-          <MaterialJs />
-        </Route>
-        <Route exact path='/Login' >
-          <MaterialCss />
-          <Login />
-          <MaterialJs />
-        </Route>
-        <Route exact path='/Register' >
-          <MaterialCss />
-          <Register />
-          <MaterialJs />
-        </Route>
+                <Route exact path='/'>
+                    <MaterialCss/>
+                    <Landing/>
+                    <MaterialJs/>
+                </Route>
+                <Route exact path='/Login'>
+                    <MaterialCss/>
+                    <Login/>
+                    <MaterialJs/>
+                </Route>
+                <Route exact path='/Register'>
+                    <MaterialCss/>
+                    <Register/>
+                    <MaterialJs/>
+                </Route>
 
+                <Switch>
 
-        <Switch>
+                    <PrivateRoute exact path='/dashboard'>
+                        <HeaderFeature/>
+                        <Sidebar/>
+                        <Content/>
+                    </PrivateRoute>
+                    <PrivateRoute exact path='/d'>
+                        <D/>
+                    </PrivateRoute>
+                    <PrivateRoute exact path='/Profile'>
+                        <HeaderFeature/>
+                        <Sidebar/>
+                        <Profile/>
+                    </PrivateRoute>
 
-          <PrivateRoute exact path='/dashboard'  >
-            <HeaderFeature />
-            <Sidebar />
-            <Content/>
-          </PrivateRoute>
-          <PrivateRoute exact path='/d'  >
-            <D/>
-          </PrivateRoute>
-          <PrivateRoute exact path='/Profile'  >
-            <HeaderFeature />
-            <Sidebar />
-            <Profile />
-          </PrivateRoute>
-
-        </Switch>
-      </div>
-    </Router>
-  );
+                </Switch>
+            </div>
+        </Router>
+    );
 };
 export default App;
 

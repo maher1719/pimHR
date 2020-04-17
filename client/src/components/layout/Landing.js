@@ -29,20 +29,20 @@ const Landing = () => {
                             Joindre pour optimiser vos recherches.
                         </p>
                         <br/>
-                        <div className="col s6">
+                        <div className="col s4">
                             <Link
                                 to="/register"
                                 style={{
-                                    width: '140px',
+                                    width: 'auto',
                                     borderRadius: '3px',
                                     letterSpacing: '1.5px'
                                 }}
                                 className="btn btn-large waves-effect waves-light hoverable blue accent-3"
                             >
-                                Inscription
+                                Inscription Recuriteur
                             </Link>
                         </div>
-                        <div className="col s6">
+                        <div className="col s4">
                             <Link
                                 to="/login"
                                 style={{

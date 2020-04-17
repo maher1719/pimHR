@@ -28,8 +28,6 @@ const HeaderFeature = () => {
     };
 
 
-
-
     return (
         <nav className="main-header navbar navbar-expand navbar-white navbar-light">
             {/* Left navbar links */}

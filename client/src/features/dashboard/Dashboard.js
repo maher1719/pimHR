@@ -3,26 +3,26 @@ import {useDispatch, useSelector} from 'react-redux';
 import {logoutUser} from 'features/auth/authSlice';
 
 const Dashboard = () => {
-  // Get user from state
-  const user = useSelector(state => state.auth.user);
-  console.log(user);
+    // Get user from state
+    const user = useSelector(state => state.auth.user);
+    console.log(user);
 
-  /*if(user.name==undefined){
-    const user= useSelector(state=>state.auth.user.user);
-  }*/
-  const dispatch = useDispatch();
+    /*if(user.name==undefined){
+      const user= useSelector(state=>state.auth.user.user);
+    }*/
+    const dispatch = useDispatch();
 
-  const onLogoutClick = e => {
-    e.preventDefault();
-    dispatch(logoutUser());
-  };
+    const onLogoutClick = e => {
+        e.preventDefault();
+        dispatch(logoutUser());
+    };
 
-  return (
-    <div>
+    return (
+        <div>
 
-    </div>
-    
-  );
+        </div>
+
+    );
 };
 
 export default Dashboard;

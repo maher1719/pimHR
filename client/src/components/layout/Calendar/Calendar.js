@@ -10,7 +10,7 @@ import "@fullcalendar/daygrid/main.css";
 //import './main.scss'
 
 export default class Calendar extends React.Component {
-    componentDidMount()  {
+    componentDidMount() {
         this.handleDateClick = (arg) => {
             alert("hello");
             console.log('hel');
@@ -25,21 +25,24 @@ export default class Calendar extends React.Component {
             }
         }
     }
-    calendarComponentRef = React.createRef()
+
+    calendarComponentRef = React.createRef();
     state = {
         calendarWeekends: true,
         calendarEvents: [ // initial event data
-            { title: 'Event Now', start: new Date() },
-            { title: 'Event Now', start: "2020-04-03"}
+            {title: 'Event Now', start: new Date()},
+            {title: 'Event Now', start: "2020-04-03"}
         ]
-    }
+    };
 
     render() {
         return (
             <div className='demo-app'>
                 <div className='demo-app-top'>
-                    <button onClick={ this.toggleWeekends }>toggle weekends</button>&nbsp;
-                    <button onClick={ this.gotoPast }>go to a date in the past</button>&nbsp;
+                    <button onClick={this.toggleWeekends}>toggle weekends</button>
+                    &nbsp;
+                    <button onClick={this.gotoPast}>go to a date in the past</button>
+                    &nbsp;
                     (also, click a date/time to add an event)
                 </div>
                 <div className='demo-app-calendar'>
@@ -50,22 +53,23 @@ export default class Calendar extends React.Component {
                             center: 'title',
                             right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
                         }}
-                        plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin ]}
-                        ref={ this.calendarComponentRef }
-                        weekends={ this.state.calendarWeekends }
-                        events={ this.state.calendarEvents }
+                        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                        ref={this.calendarComponentRef}
+                        weekends={this.state.calendarWeekends}
+                        events={this.state.calendarEvents}
                         selectable={true}
                         editable={true}
                         draggable={true}
                         droppable={true}
                         eventClcik={this.handleDateClick}
-                        dateClick={  this.handleDateClick }
-                        onClick={ this.handleDateClick }
+                        dateClick={this.handleDateClick}
+                        onClick={this.handleDateClick}
                     />
                 </div>
             </div>
         )
     }
+
     toggleWeekends = () => {
         this.setState({ // update a property
             calendarWeekends: !this.state.calendarWeekends
@@ -73,10 +77,9 @@ export default class Calendar extends React.Component {
     };
 
     gotoPast = () => {
-        let calendarApi = this.calendarComponentRef.current.getApi()
+        let calendarApi = this.calendarComponentRef.current.getApi();
         calendarApi.gotoDate('2000-01-01') // call a method on the Calendar object
     };
-
 
 
 }

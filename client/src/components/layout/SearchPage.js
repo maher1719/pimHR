@@ -43,7 +43,7 @@ const SearchPage = () => (
                             data-toggle="tooltip"
                             title="Collapse"
                         >
-                            <i className="fas fa-minus" />
+                            <i className="fas fa-minus"/>
                         </button>
                         <button
                             type="button"
@@ -52,7 +52,7 @@ const SearchPage = () => (
                             data-toggle="tooltip"
                             title="Remove"
                         >
-                            <i className="fas fa-times" />
+                            <i className="fas fa-times"/>
                         </button>
                     </div>
                 </div>
@@ -61,7 +61,7 @@ const SearchPage = () => (
                     <div className="app">
 
                         <Formik
-                            initialValues={{ email: "" }}
+                            initialValues={{email: ""}}
                             onSubmit={async values => {
                                 await new Promise(resolve => setTimeout(resolve, 500));
                                 alert(JSON.stringify(values, null, 2));
@@ -102,18 +102,18 @@ const SearchPage = () => (
                                             What best describes you? (check all that apply)
                                         </div>
                                         <label>
-                                            <Field type="checkbox" name="jobType" value="designer" />
+                                            <Field type="checkbox" name="jobType" value="designer"/>
                                             Designer
                                         </label>
                                         <label>
-                                            <Field type="checkbox" name="jobType" value="developer" />
+                                            <Field type="checkbox" name="jobType" value="developer"/>
                                             Developer
                                         </label>
                                         <label>
-                                            <Field type="checkbox" name="jobType" value="product" />
+                                            <Field type="checkbox" name="jobType" value="product"/>
                                             Product Manager
                                         </label>
-                                        <label htmlFor="email" style={{ display: "block" }}>
+                                        <label htmlFor="email" style={{display: "block"}}>
                                             Email
                                         </label>
                                         <input

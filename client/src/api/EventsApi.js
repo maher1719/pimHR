@@ -1,12 +1,12 @@
 import request from './request';
 
 
-export const createEvent=(data)=>{
+export const createEvent = (data) => {
 
-console.log(data);
+    console.log(data);
     return request({
-        url:'/api/event/create',
-        method:'Post',
+        url: '/api/event/create',
+        method: 'Post',
         data
     })
 };
