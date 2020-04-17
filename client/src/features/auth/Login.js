@@ -18,6 +18,7 @@ const Login = () => {
 
     // If logged in and user navigates to Login page, should redirect them to dashboard
     useEffect(() => {
+
         if (isAuthenticated) {
             console.log("history", history);
             history.push('/dashboard');

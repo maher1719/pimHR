@@ -1,8 +1,8 @@
-import React, {Component} from "react";
+import React from "react";
 
-export default class Profile extends Component {
-  render() {
-    return (
+const Profile = () => {
+
+  return (
       <div className="content-wrapper">
         <div className="container-fluid">
           <div className="row mb-2">
@@ -550,6 +550,7 @@ export default class Profile extends Component {
           {/* /.container-fluid */}
         </section>
       </div>
-    );
-  }
-}
+  );
+
+};
+export default Profile;

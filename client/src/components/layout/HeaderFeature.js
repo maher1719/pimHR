@@ -8,7 +8,8 @@ const HeaderFeature = () => {
 
 
     const dispatch = useDispatch();
-    dispatch(setCurrentUser());
+    const user = useSelector(state => state.auth.user);
+    dispatch(setCurrentUser(user));
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
     const history = useHistory();
