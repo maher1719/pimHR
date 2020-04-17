@@ -40,7 +40,7 @@ const HeaderFeature = () => {
                     </a>
                 </li>
                 <li className="nav-item d-none d-sm-inline-block">
-                    <a href="../../index3.html" className="nav-link">
+                    <a href="/dashboard" className="nav-link">
                         Accueil
                     </a>
                 </li>
