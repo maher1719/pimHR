@@ -25,7 +25,7 @@ const UserSchema = new Schema({
   occupation: {
     type: String
   },
-  addresse: {
+  address: {
     type: String,
   },
 
