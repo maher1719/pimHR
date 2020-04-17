@@ -159,6 +159,7 @@ router.post('/login', validateLoginInput(), async (req, res) => {
 router.get('/current', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
+    //console.log("current user",user);
     res.json(user);
   } catch (err) {
     console.error(err.message);

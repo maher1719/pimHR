@@ -18,8 +18,8 @@ router.post('/create/', async (req, res) =>{
         //console.log("requeqt "+req.body.allDay);
         //const user = await User.findById(req.user.id);
         //const userId= req.params.id;
-         event = new Event({
-             id: Date.now() + req.body.user,
+         const event = new Event({
+             id:req.body.user,
              title: req.body.title,
              allDay: req.body.allDay,
              start: req.body.start,
@@ -28,6 +28,7 @@ router.post('/create/', async (req, res) =>{
          });
 
         await event.save();
+        console.log("created",event);
         //const user =  User.findById(req.user.id);
         //const { title } = req.body;
         //const event =  Event.find();
@@ -42,12 +43,12 @@ router.post('/', async (req, res) =>{
 
         //const event = await Event.find();
         //const event=await Event.deleteMany({user:"ba.maher94@gmail.com"});
-        const event = await Event.find({user: req.body.user});
+        const event = await Event.find({id: req.body.user});
         //const user =  User.findById(req.user.id);
         //const { title } = req.body;
 
         //const event =  await Event.find();
-        console.log('Got body:', req.body, req.body.id);
+        console.log('Got body:', event,req.body.user);
         res.send(event);
     } catch (err) {
         console.error(err.message);

@@ -11,6 +11,7 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
+    const [role, setRole] = useState('candidat');
     const errors = useSelector(state => state.auth.errors);
 
     const history = useHistory();
@@ -29,7 +30,8 @@ const Register = () => {
             name,
             email,
             password,
-            password2
+            password2,
+            role
         };
 
         dispatch(register(newUser));
@@ -56,6 +58,18 @@ const Register = () => {
                         </p>
                     </div>
                     <form noValidate onSubmit={onSubmit}>
+                        <div><label>
+                            <input
+                                onChange={e => setRole(e.target.value)}
+                                error={errors.name}
+                                id='role'
+                                type='checkbox'
+                                value={'recriteur'}
+                            />
+                            <span>je suis récriteur</span>
+                        </label>
+
+                        </div>
                         <div className='input-field col s12'>
                             <input
                                 onChange={e => setName(e.target.value)}
