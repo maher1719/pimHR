@@ -28,6 +28,10 @@ const UserSchema = new Schema({
   address: {
     type: String,
   },
+  Role: {
+    type: String,
+
+  },
 
   skills: [{
     label: String,

@@ -8,18 +8,19 @@ const app = express();
 connectDB();
 
 // Initialize middleware
-app.use(express.json({ extended: true }));
-app.use(express.urlencoded({ extended: true }))
+app.use(express.json({extended: true}));
+app.use(express.urlencoded({extended: true}));
 app.use(
-  cors({
-    origin: 'http://localhost:3000'
-  })
+    cors({
+      origin: 'http://localhost:3000'
+    })
 );
 
 // Routes
 app.use('/api/users', require('./routes/api/users'));
 
 app.use('/api/event', require('./routes/api/event'));
+app.use('/api/jobscrap', require('./routes/api/jobScrap'));
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
