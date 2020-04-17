@@ -5,6 +5,7 @@ import {logoutUser} from 'features/auth/authSlice';
 const SliderBar = () => {
     const user = useSelector(state => state.auth.user);
     const dispatch = useDispatch();
+    console.log("side bar",user);
 
     const onLogoutClick = e => {
         e.preventDefault();
@@ -21,6 +22,7 @@ const SliderBar = () => {
                 <span className="brand-text font-weight-light">AdminLTE 3</span>
             </a>
             {/* Sidebar */}
+
             <div className="sidebar">
                 {/* Sidebar user (optional) */}
                 <div className="user-panel mt-3 pb-3 mb-3 d-flex">

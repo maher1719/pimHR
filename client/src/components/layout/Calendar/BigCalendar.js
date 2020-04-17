@@ -31,7 +31,7 @@ class BigCalendar extends Component {
 
     componentDidMount() {
         //console.log("mount ",CurrentUser);
-        const cur=current().then((data)=>{return data});
+        //const cur=current().then((data)=>{return data});
 
 
         const messages = {
@@ -73,7 +73,7 @@ class BigCalendar extends Component {
                 })
             });
         });};
-        window.setTimeout(getEvents,2000);
+        window.setTimeout(getEvents,200);
 
 
     }
