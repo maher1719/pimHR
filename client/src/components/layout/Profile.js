@@ -1,13 +1,16 @@
 import React from "react";
+import {useSelector} from "react-redux";
 
 const Profile = () => {
+  const user = useSelector(state => state.auth.user);
+  console.log("useruser", user);
 
   return (
       <div className="content-wrapper">
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1>Profile utilisateur 4</h1>
+              <h1>{user.name}</h1>
             </div>
             <div className="col-sm-6">
               <ol className="breadcrumb float-sm-right">
