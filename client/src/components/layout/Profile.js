@@ -38,12 +38,12 @@ const Profile = () => {
                       />
                     </div>
                     <h3 className="profile-username text-center">
-                      Nina Mcintire
+                      {user.name}
                     </h3>
                     <p className="text-muted text-center">Software Engineer</p>
                     <ul className="list-group list-group-unbordered mb-3">
                       <li className="list-group-item">
-                        <b>Followers</b> <a className="float-right">1,322</a>
+                        <b>{user.email}</b>
                       </li>
                       <li className="list-group-item">
                         <b>Following</b> <a className="float-right">543</a>
