@@ -1,13 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const config = require('config');
-const auth = require('../../middleware/auth');
-const { validationResult } = require('express-validator');
 
 
-const User = require('../../models/User');
 const Event  = require('../../models/Event');
 
 router.post('/create/', async (req, res) =>{

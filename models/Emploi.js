@@ -8,33 +8,42 @@ const EmploiSchema = new Schema({
         type: String,
         required: true,
     },
+
     description: {
         type: String,
         required: true,
     },
+
     dateCreated: {
-        type: date,
+        type: Date,
         default: Date.now()
     },
+
     dateEnd: {
-        type: date,
+        type: Date,
         required: true
     },
+
     tags: [],
+
     keyword: [],
+
     address: {
         type: String,
         required: true
     },
+
     soceity: {
         type: String,
         required: true
 
     },
-    userCreated: {
+
+    user: {
         type: String,
         required: true
     },
+
     usersIntersted: [{
         userId: String,
     }]
