@@ -173,11 +173,24 @@ router.get('/current', auth, async (req, res) => {
 
 
 router.post("/search",async(req,res)=>{
-  try{
+  try {
     const criteria = req.body;
-    //const users= await User.find({criteria});
-    res.send(criteria);
-  }catch (err) {
+    const users = await User.find(criteria);
+    //console.log(req);
+    res.send(users);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(err.message);
+  }
+});
+
+router.post("/profile", async (req, res) => {
+  try {
+    const criteria = req.body;
+    const users = await User.find(criteria);
+    //console.log(req);
+    res.send(users);
+  } catch (err) {
     console.error(err.message);
     res.status(500).send(err.message);
   }

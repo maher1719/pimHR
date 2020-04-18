@@ -3,7 +3,6 @@ import {useSelector} from "react-redux";
 
 const Profile = () => {
     const user = useSelector(state => state.auth.user);
-    console.log("useruser", user);
 
     return (
         <div className="content-wrapper">
