@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
-import {logoutUser, setCurrentUser} from '../../features/auth/authSlice';
+import {logoutUser, setCurrentUser} from '../../../../features/auth/authSlice';
 
 
 const HeaderFeature = () => {
