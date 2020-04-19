@@ -1,5 +1,7 @@
 import React from "react";
 import BigCalendar from "./Calendar/BigCalendar";
+import HeaderFeature from "./Common/Header/HeaderFeature";
+import Sidebar from "./Common/Sidebar/SideBar";
 
 
 const Content = () => {
@@ -7,6 +9,9 @@ const Content = () => {
 
     return (
         <div>
+            <HeaderFeature/>
+
+            <Sidebar/>
 
             <div className="content-wrapper">
                 {/* Content Header (Page header) */}

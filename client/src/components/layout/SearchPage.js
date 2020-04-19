@@ -65,6 +65,7 @@ const SearchPage = () => (
                             onSubmit={async values => {
                                 await new Promise(resolve => setTimeout(resolve, 500));
                                 alert(JSON.stringify(values, null, 2));
+                                console.log()
                             }}
                             validationSchema={Yup.object().shape({
                                 email: Yup.string()

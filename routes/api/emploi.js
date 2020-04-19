@@ -21,5 +21,15 @@ router.post('/mine', async (req, res) => {
         res.status(500).send(err.message);
     }
 });
+router.post('/create', async (req, res) => {
+    try {
+        const emploi = new Emploi(req.body);
+        await emploi.save();
+        res.send(emploi);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message);
+    }
+});
 
 module.exports = router;

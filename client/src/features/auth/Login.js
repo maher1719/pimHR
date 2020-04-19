@@ -11,6 +11,8 @@ const Login = () => {
     const [password, setPassword] = useState('');
 
     const {errors, isAuthenticated, loading} = useSelector(state => state.auth);
+    const user = useSelector(state => state.auth);
+    console.log("the state is =====>", user);
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -19,7 +21,7 @@ const Login = () => {
     // If logged in and user navigates to Login page, should redirect them to dashboard
     useEffect(() => {
 
-        if (isAuthenticated) {
+        if (user.user.name) {
             console.log("history", history);
             history.push('/dashboard');
         }

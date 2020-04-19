@@ -12,7 +12,11 @@ import Landing from './components/layout/Landing';
 import Profile from "./components/layout/Profile/Profile";
 import PrivateRoute from './components/private-route/PrivateRoute';
 import checkAuth from './utils/checkAuth';
+import AddEmploi from './components/layout/Emploi/AddEmploi'
 import store from './store';
+import ListeEmploi from "./components/layout/Emploi/ListeEmploi";
+import SingleEmploi from "./components/layout/Emploi/SingleEmploi";
+import SearchPage from "./components/layout/SearchPage";
 
 const App = () => {
     // Check if user is already logged in
@@ -43,8 +47,6 @@ const App = () => {
                 <Switch>
 
                     <PrivateRoute exact path='/dashboard'>
-                        <HeaderFeature/>
-                        <Sidebar/>
                         <Content/>
                     </PrivateRoute>
                     <PrivateRoute exact path='/d'>
@@ -55,6 +57,29 @@ const App = () => {
                         <Sidebar/>
                         <Profile/>
                     </PrivateRoute>
+                    <PrivateRoute path='/emploiAdd'>
+
+                        <HeaderFeature/>
+                        <Sidebar/>
+                        <AddEmploi/>
+
+                    </PrivateRoute>
+                    <PrivateRoute path='/emploiList'>
+                        <HeaderFeature/>
+                        <Sidebar/>
+                        <ListeEmploi/>
+                    </PrivateRoute>
+                    <PrivateRoute path='/emploiSingle'>
+                        <HeaderFeature/>
+                        <Sidebar/>
+                        <SingleEmploi/>
+                    </PrivateRoute>
+                    <PrivateRoute exact path='/search'>
+                        <HeaderFeature/>
+                        <Sidebar/>
+                        <SearchPage/>
+                    </PrivateRoute>
+
 
                 </Switch>
             </div>

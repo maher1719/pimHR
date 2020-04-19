@@ -19,8 +19,9 @@ const Register = () => {
 
     const {isAuthenticated, loading} = useSelector(state => state.auth);
     // If logged in and user navigates to Register page, should redirect them to dashboard
+    const nameUser = useSelector(state => state.auth.user.name)
     useEffect(() => {
-        if (isAuthenticated) history.push('/dashboard');
+        if (nameUser) history.push('/dashboard');
     }, [isAuthenticated]);
 
     const onSubmit = e => {

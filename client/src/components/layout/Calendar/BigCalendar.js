@@ -25,7 +25,9 @@ class BigCalendar extends Component {
 
     constructor() {
         super();
-        const cur=current().then((data)=>{return data});
+        const cur = current().then((data) => {
+            return data
+        });
 
     };
 
@@ -51,29 +53,31 @@ class BigCalendar extends Component {
 
         //console.log("user Current",userCurrent);
 
-        const getEvents=()=>{current().then((currentUser)=>{
-            console.log("current",currentUser);
-            listEvents({"user": currentUser.email}).then((data) => {
-                console.log("events mount", data);
+        const getEvents = () => {
+            current().then((currentUser) => {
+                console.log("current", currentUser);
+                listEvents({"user": currentUser.email}).then((data) => {
+                    console.log("events mount", data);
 
-                const events = data;
-                this.state = {
-                    name: 'React',
-                    culture: "fr",
-                    events,
-                    messages: messages,
+                    const events = data;
+                    this.state = {
+                        name: 'React',
+                        culture: "fr",
+                        events,
+                        messages: messages,
 
-                };
+                    };
 
-                this.setState({
-                    events: [
-                        ...this.state.events,
-                        data
-                    ]
-                })
+                    this.setState({
+                        events: [
+                            ...this.state.events,
+                            data
+                        ]
+                    })
+                });
             });
-        });};
-        window.setTimeout(getEvents,200);
+        };
+        window.setTimeout(getEvents, 200);
 
 
     }

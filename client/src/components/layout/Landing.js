@@ -3,7 +3,7 @@ import {Link, useHistory} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
 const Landing = () => {
-    const isAuth = useSelector(state => state.auth.isAuthenticated);
+    const isAuth = useSelector(state => state.auth.user.name);
     const history = useHistory();
 
     // If logged in redirect to dashboard

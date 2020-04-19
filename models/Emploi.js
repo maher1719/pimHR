@@ -13,27 +13,12 @@ const EmploiSchema = new Schema({
         type: String,
         required: true,
     },
-
-    dateCreated: {
-        type: Date,
-        default: Date.now()
-    },
-
-    dateEnd: {
-        type: Date,
-        required: true
-    },
-
-    tags: [],
-
-    keyword: [],
-
     address: {
         type: String,
         required: true
     },
 
-    soceity: {
+    society: {
         type: String,
         required: true
 
@@ -43,6 +28,22 @@ const EmploiSchema = new Schema({
         type: String,
         required: true
     },
+
+    dateCreated: {
+        type: Date,
+        default: Date.now()
+    },
+
+    dateEnd: {
+        type: Date,
+        required: false
+    },
+
+    tags: [],
+
+    keyword: [],
+
+
 
     usersIntersted: [{
         userId: String,
