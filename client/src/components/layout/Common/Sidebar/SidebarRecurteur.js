@@ -49,13 +49,13 @@ const SidebarRecurteur = () => {
                     </a>
                     <ul className="nav nav-treeview">
                         <li className="nav-item">
-                            <a href="/emploi/add" className="nav-link">
+                            <a href="/emploiAdd" className="nav-link">
                                 <i className="far fa-circle nav-icon"/>
                                 <p>Ajouter emploi</p>
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a href="../../index3.html" className="nav-link">
+                            <a href="/emploiList" className="nav-link">
                                 <i className="far fa-circle nav-icon"/>
                                 <p>Liste de mes emplois</p>
                             </a>

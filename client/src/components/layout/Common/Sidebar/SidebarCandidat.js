@@ -49,7 +49,7 @@ const SidebarCandidat = () => {
                     </a>
                     <ul className="nav nav-treeview">
                         <li className="nav-item">
-                            <a href="../../index3.html" className="nav-link">
+                            <a href="/emploiList" className="nav-link">
                                 <i className="far fa-circle nav-icon"/>
                                 <p>Liste d'emploi</p>
                             </a>
