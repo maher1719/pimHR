@@ -98,7 +98,7 @@ const AddEmploi = () => {
 
                                     <form className="form" onSubmit={handleSubmit}>
                                         <div className="form-group">
-                                            <label htmlFor="name">Project Name</label>
+                                            <label htmlFor="name">titre</label>
                                             <input
                                                 id="name"
                                                 placeholder="Enter your email"
@@ -118,7 +118,7 @@ const AddEmploi = () => {
                                             )}
                                         </div>
                                         <div className="form-group">
-                                            <label htmlFor="description">Project Name</label>
+                                            <label htmlFor="description">description</label>
                                             <textarea
                                                 id="description"
                                                 placeholder="Enter your email"
@@ -139,7 +139,7 @@ const AddEmploi = () => {
                                             )}
                                         </div>
                                         <div className="form-group">
-                                            <label htmlFor="society">Project Name</label>
+                                            <label htmlFor="society">nom de societé</label>
                                             <input
                                                 id="society"
                                                 placeholder="Enter your email"
@@ -154,52 +154,10 @@ const AddEmploi = () => {
                                                         : "text-input"
                                                 }
                                             />
-                                            <input
-                                                id="address"
-                                                type="text"
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                name="address"
-
-                                                value={userEmploi._id}
-                                            />
                                             {errors.society && touched.society && (
                                                 <div className="input-feedback">{errors.society}</div>
                                             )}
                                         </div>
-
-
-                                        <label htmlFor="location">Where do you work?</label>
-                                        <Field
-                                            className="form-control custom-select"
-                                            component="select"
-                                            id="location"
-                                            name="location"
-                                            multiple={true}
-                                        >
-                                            <option value="NY">New York</option>
-                                            <option value="SF">San Francisco</option>
-                                            <option value="CH">Chicago</option>
-                                            <option value="OTHER">Other</option>
-                                        </Field>
-                                        <div className="label">
-                                            What best describes you? (check all that apply)
-                                        </div>
-                                        <label>
-                                            <Field type="checkbox" name="jobType" value="designer"/>
-                                            Designer
-                                        </label>
-                                        <label>
-                                            <Field type="checkbox" name="jobType" value="developer"/>
-                                            Developer
-                                        </label>
-                                        <label>
-                                            <Field type="checkbox" name="jobType" value="product"/>
-                                            Product Manager
-                                        </label>
-                                        <label htmlFor="email" style={{display: "block"}}>
-                                            Email
-                                        </label>
 
 
                                         <button
