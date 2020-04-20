@@ -4,6 +4,8 @@ import {Formik} from "formik";
 import * as Yup from "yup";
 import {DisplayFormikState} from "../helperFormik";
 import {createEmplois} from "../../../api/EmploiApi";
+import TagsInput from "react-tagsinput";
+import "react-tagsinput/react-tagsinput.css";
 
 
 const AddEmploi = () => {
@@ -17,7 +19,7 @@ const AddEmploi = () => {
                 <div className="container-fluid">
                     <div className="row mb-2">
                         <div className="col-sm-6">
-                            <h1>Blank Page</h1>
+                            <h1>Ajouter un emploi</h1>
                         </div>
                         <div className="col-sm-6">
                             <ol className="breadcrumb float-sm-right">
@@ -38,7 +40,7 @@ const AddEmploi = () => {
                 {/* Default box */}
                 <div className="card">
                     <div className="card-header">
-                        <h3 className="card-title">Title</h3>
+                        <h3 className="card-title">Ajouter un emploi</h3>
                         <div className="card-tools">
                             <button
                                 type="button"
@@ -64,13 +66,11 @@ const AddEmploi = () => {
 
 
                         <Formik
-                            initialValues={{user: userEmploi._id}}
+                            initialValues={{user: userEmploi._id, tags: ["emploi"]}}
                             onSubmit={async values => {
                                 values.user = userEmploi.id;
-                                console.log("values", values);
                                 await new Promise(resolve => setTimeout(resolve, 500));
-                                alert(JSON.stringify(values, null, 0));
-                                const data = JSON.stringify(values, null, 0);
+                                alert(JSON.stringify(values, null, 2));
                                 await createEmplois(values);
                                 alert(JSON.stringify(values, null, 2));
                                 console.log()
@@ -94,7 +94,8 @@ const AddEmploi = () => {
                                     handleChange,
                                     handleBlur,
                                     handleSubmit,
-                                    handleReset
+                                    handleReset,
+                                    setFieldValue
                                 } = props;
                                 return (
 
@@ -161,7 +162,7 @@ const AddEmploi = () => {
                                             )}
                                         </div>
                                         <div className="form-group">
-                                            <label htmlFor="society">address</label>
+                                            <label htmlFor="address">address</label>
                                             <input
                                                 id="address"
                                                 placeholder="Enter your email"
@@ -179,16 +180,35 @@ const AddEmploi = () => {
                                                 <div className="input-feedback">{errors.address}</div>
                                             )}
                                         </div>
+                                        <div className="form-group">
+                                            <label htmlFor="tags">tags <span>(les mot clé de votre emploi ex tunis,javascript...)</span></label>
+                                            <TagsInput
+                                                name="tags"
+                                                value={values.tags}
+                                                className={
+                                                    errors.tags && touched.tags
+                                                        ? "text-input form-control error"
+                                                        : "text-input form-control"
+                                                }
+                                                onChange={tags => {
+                                                    console.log(tags);
+                                                    setFieldValue("tags", tags);
+                                                }}
+                                            />
+                                            {errors.tags && touched.tags && (
+                                                <div className="input-feedback">{errors.tags}</div>
+                                            )}
+                                        </div>
 
 
-                                        address <button
-                                        type="button"
-                                        className="outline"
-                                        onClick={handleReset}
-                                        disabled={!dirty || isSubmitting}
-                                    >
-                                        Reset
-                                    </button>
+                                        <button
+                                            type="button"
+                                            className="outline"
+                                            onClick={handleReset}
+                                            disabled={!dirty || isSubmitting}
+                                        >
+                                            Reset
+                                        </button>
                                         <button type="submit" disabled={isSubmitting}>
                                             Submit
                                         </button>
