@@ -4,9 +4,11 @@ import BigCalendar from "../Calendar/BigCalendar";
 import {Field, Formik} from "formik";
 import * as Yup from "yup";
 import {DisplayFormikState} from "../helperFormik";
+import {createEmplois} from "../../../api/EmploiApi";
+
 
 const AddEmploi = () => {
-    const user = useSelector(state => state.auth.user);
+    const userEmploi = useSelector(state => state.auth.user);
 
     return (
         <div className="content-wrapper">
@@ -62,16 +64,22 @@ const AddEmploi = () => {
 
 
                         <Formik
-                            initialValues={{email: ""}}
+                            initialValues={{user: userEmploi._id}}
                             onSubmit={async values => {
+                                values.user = userEmploi.id;
+                                console.log("values", values);
                                 await new Promise(resolve => setTimeout(resolve, 500));
+                                alert(JSON.stringify(values, null, 0));
+                                const data = JSON.stringify(values, null, 0);
+                                await createEmplois(values);
                                 alert(JSON.stringify(values, null, 2));
                                 console.log()
                             }}
                             validationSchema={Yup.object().shape({
-                                email: Yup.string()
-                                    .email()
-                                    .required("Required")
+                                name: Yup.string()
+                                    .required("Required"),
+
+
                             })}
                         >
                             {props => {
@@ -87,9 +95,83 @@ const AddEmploi = () => {
                                     handleReset
                                 } = props;
                                 return (
-                                    <form onSubmit={handleSubmit}>
+
+                                    <form className="form" onSubmit={handleSubmit}>
+                                        <div className="form-group">
+                                            <label htmlFor="name">Project Name</label>
+                                            <input
+                                                id="name"
+                                                placeholder="Enter your email"
+                                                type="text"
+                                                value={values.name}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+
+                                                className={
+                                                    errors.name && touched.name
+                                                        ? "text-input error"
+                                                        : "text-input"
+                                                }
+                                            />
+                                            {errors.name && touched.name && (
+                                                <div className="input-feedback">{errors.name}</div>
+                                            )}
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="description">Project Name</label>
+                                            <textarea
+                                                id="description"
+                                                placeholder="Enter your email"
+                                                type="textarea"
+                                                rows="4"
+                                                value={values.description}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                className="form-control"
+                                                className={
+                                                    errors.description && touched.description
+                                                        ? "text-input error"
+                                                        : "text-input"
+                                                }
+                                            />
+                                            {errors.description && touched.description && (
+                                                <div className="input-feedback">{errors.description}</div>
+                                            )}
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="society">Project Name</label>
+                                            <input
+                                                id="society"
+                                                placeholder="Enter your email"
+                                                type="text"
+                                                value={values.society}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                className="form-control"
+                                                className={
+                                                    errors.society && touched.society
+                                                        ? "text-input error"
+                                                        : "text-input"
+                                                }
+                                            />
+                                            <input
+                                                id="address"
+                                                type="text"
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                name="address"
+
+                                                value={userEmploi._id}
+                                            />
+                                            {errors.society && touched.society && (
+                                                <div className="input-feedback">{errors.society}</div>
+                                            )}
+                                        </div>
+
+
                                         <label htmlFor="location">Where do you work?</label>
                                         <Field
+                                            className="form-control custom-select"
                                             component="select"
                                             id="location"
                                             name="location"
@@ -118,22 +200,7 @@ const AddEmploi = () => {
                                         <label htmlFor="email" style={{display: "block"}}>
                                             Email
                                         </label>
-                                        <input
-                                            id="email"
-                                            placeholder="Enter your email"
-                                            type="text"
-                                            value={values.email}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            className={
-                                                errors.email && touched.email
-                                                    ? "text-input error"
-                                                    : "text-input"
-                                            }
-                                        />
-                                        {errors.email && touched.email && (
-                                            <div className="input-feedback">{errors.email}</div>
-                                        )}
+
 
                                         <button
                                             type="button"

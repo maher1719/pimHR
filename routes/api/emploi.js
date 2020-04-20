@@ -24,6 +24,7 @@ router.post('/mine', async (req, res) => {
 router.post('/create', async (req, res) => {
     try {
         const emploi = new Emploi(req.body);
+        console.log(req.body);
         await emploi.save();
         res.send(emploi);
     } catch (err) {

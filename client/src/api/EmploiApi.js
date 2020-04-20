@@ -1,8 +1,7 @@
 import request from './request';
-
-const getMyEmplois = data => {
+export const createEmplois = data => {
     return request({
-        url: '/api/emploi/mine',
+        url: '/api/emploi/create',
         method: 'POST',
         data
     });
