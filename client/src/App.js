@@ -2,6 +2,9 @@ import React, {useEffect} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 import {Login, Register} from './features/auth';
+import {NotificationContainer} from 'react-notifications';
+
+import 'react-notifications/lib/notifications.css';
 import MaterialCss from './features/auth/MaterialCss';
 import MaterialJs from './features/auth/MaterialJs';
 import D from "./features/dashboard/Dashboard";
@@ -82,6 +85,7 @@ const App = () => {
 
 
                 </Switch>
+                <NotificationContainer/>
             </div>
         </Router>
     );

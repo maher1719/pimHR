@@ -1,7 +1,6 @@
 import React from "react";
 import {useSelector} from "react-redux";
-import BigCalendar from "../Calendar/BigCalendar";
-import {Field, Formik} from "formik";
+import {Formik} from "formik";
 import * as Yup from "yup";
 import {DisplayFormikState} from "../helperFormik";
 import {createEmplois} from "../../../api/EmploiApi";
@@ -9,6 +8,7 @@ import {createEmplois} from "../../../api/EmploiApi";
 
 const AddEmploi = () => {
     const userEmploi = useSelector(state => state.auth.user);
+    document.getElementsByTagName("input").addClass = "form-control";
 
     return (
         <div className="content-wrapper">
@@ -25,7 +25,7 @@ const AddEmploi = () => {
                                     <a href="#">Home</a>
                                 </li>
                                 <li className="breadcrumb-item active">
-                                    Blank Page
+                                    Ajouter Emploi
                                 </li>
                             </ol>
                         </div>
@@ -77,7 +77,9 @@ const AddEmploi = () => {
                             }}
                             validationSchema={Yup.object().shape({
                                 name: Yup.string()
-                                    .required("Required"),
+                                    .required("Le titre d'emploi est obligatoire"),
+                                description: Yup.string()
+                                    .required("La description d'emploi est obligatoire"),
 
 
                             })}
@@ -109,8 +111,8 @@ const AddEmploi = () => {
 
                                                 className={
                                                     errors.name && touched.name
-                                                        ? "text-input error"
-                                                        : "text-input"
+                                                        ? "text-input form-control error"
+                                                        : "text-input form-control"
                                                 }
                                             />
                                             {errors.name && touched.name && (
@@ -127,13 +129,13 @@ const AddEmploi = () => {
                                                 value={values.description}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
-                                                className="form-control"
+                                                className=""
                                                 className={
                                                     errors.description && touched.description
-                                                        ? "text-input error"
-                                                        : "text-input"
+                                                        ? "text-input form-control error"
+                                                        : "text-input form-control"
                                                 }
-                                            />
+                                            > </textarea>
                                             {errors.description && touched.description && (
                                                 <div className="input-feedback">{errors.description}</div>
                                             )}
@@ -150,24 +152,43 @@ const AddEmploi = () => {
                                                 className="form-control"
                                                 className={
                                                     errors.society && touched.society
-                                                        ? "text-input error"
-                                                        : "text-input"
+                                                        ? "text-input form-control error"
+                                                        : "text-input form-control"
                                                 }
                                             />
                                             {errors.society && touched.society && (
                                                 <div className="input-feedback">{errors.society}</div>
                                             )}
                                         </div>
+                                        <div className="form-group">
+                                            <label htmlFor="society">address</label>
+                                            <input
+                                                id="address"
+                                                placeholder="Enter your email"
+                                                type="text"
+                                                value={values.address}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                className={
+                                                    errors.address && touched.address
+                                                        ? "text-input form-control error"
+                                                        : "text-input form-control"
+                                                }
+                                            />
+                                            {errors.address && touched.address && (
+                                                <div className="input-feedback">{errors.address}</div>
+                                            )}
+                                        </div>
 
 
-                                        <button
-                                            type="button"
-                                            className="outline"
-                                            onClick={handleReset}
-                                            disabled={!dirty || isSubmitting}
-                                        >
-                                            Reset
-                                        </button>
+                                        address <button
+                                        type="button"
+                                        className="outline"
+                                        onClick={handleReset}
+                                        disabled={!dirty || isSubmitting}
+                                    >
+                                        Reset
+                                    </button>
                                         <button type="submit" disabled={isSubmitting}>
                                             Submit
                                         </button>

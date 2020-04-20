@@ -1,4 +1,5 @@
 import axios from 'axios';
+import notification from "../components/layout/Common/Notification/notification";
 
 /**
  * Create an Axios Client with defaults
@@ -14,15 +15,18 @@ export const client = axios.create({
 const request = function (options) {
     const onSuccess = function (response) {
         console.log('Request Successful!', response);
+        notification("success", "succés", "Tous les modifications sont enregistrés");
         return response.data;
     };
 
     const onError = function (error) {
+        notification("erreur", "votre modifications peuve pas etre enregistré", "non");
         console.error('Request Failed:', error.config);
 
         if (error.response) {
             // Request was made but server responded with something
             // other than 2xx
+
             console.log('Status:', error.response.status);
             console.log('Data:', error.response.data);
             console.log('Headers:', error.response.headers);
@@ -31,6 +35,7 @@ const request = function (options) {
             // triggered the error
             console.log('Error Message:', error.message);
         }
+
 
         return Promise.reject(error.response || error.message);
     };
