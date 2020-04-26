@@ -13,6 +13,8 @@ const Profile = () => {
     const user = useSelector(state => state.auth.user);
     const userLocal = localStorage[storeKey] ? JSON.parse(localStorage[storeKey]) : undefined
     const userProfile = userLocal ? userLocal.user : user
+    const Activity = userProfile.education.concat(userProfile.Stages)
+    console.log(Activity);
     console.log("profile", userProfile);
 
 
@@ -86,25 +88,40 @@ const Profile = () => {
                                     <strong>
                                         <i className="fas fa-book mr-1"/> Education
                                     </strong>
-                                    <p className="text-muted">
-                                        B.S. in Computer Science from the University of Tennessee
-                                        at Knoxville
-                                    </p>
+                                    <div className="text-muted">
+                                        <ul>
+                                            {userProfile.education.map((value, index) => {
+                                                return <li>{value.diploma} de <b>{value.institute}</b></li>
+
+                                            })}
+                                        </ul>
+                                    </div>
                                     <hr/>
                                     <strong>
-                                        <i className="fas fa-map-marker-alt mr-1"/> Location
+                                        <i className="fas fa-map-marker-alt mr-1"/> Address
                                     </strong>
-                                    <p className="text-muted">Malibu, California</p>
+                                    <p className="text-muted">{userProfile.address}</p>
                                     <hr/>
                                     <strong>
                                         <i className="fas fa-pencil-alt mr-1"/> Skills
                                     </strong>
                                     <p className="text-muted">
-                                        <span className="tag tag-danger">UI Design</span>
-                                        <span className="tag tag-success">Coding</span>
-                                        <span className="tag tag-info">Javascript</span>
-                                        <span className="tag tag-warning">PHP</span>
-                                        <span className="tag tag-primary">Node.js</span>
+                                        {userProfile.skills.map((value, index) => {
+                                            return <span className="badge badge-success">{value}</span>
+
+                                        })}
+
+                                    </p>
+                                    <hr/>
+                                    <strong>
+                                        <i className="fas fa-pencil-alt mr-1"/> Skills
+                                    </strong>
+                                    <p className="text-muted">
+                                        {userProfile.softSkills.map((value, index) => {
+                                            return <span className="badge badge-info">{value}</span>
+
+                                        })}
+
                                     </p>
                                     <hr/>
                                     <strong>
@@ -707,11 +724,6 @@ const Profile = () => {
                                                                                 Ajouter une Education
                                                                             </button>
                                                                         )}
-                                                                        <div>
-                                                                            <button className="btn btn-success"
-                                                                                    type="submit">Inserer une education
-                                                                            </button>
-                                                                        </div>
 
                                                                     </div>
                                                                 )}
@@ -767,11 +779,7 @@ const Profile = () => {
                                                                                 Ajouter une Experience
                                                                             </button>
                                                                         )}
-                                                                        <div>
-                                                                            <button className="btn btn-success"
-                                                                                    type="submit">Inserer une education
-                                                                            </button>
-                                                                        </div>
+
 
                                                                     </div>
                                                                 )}
@@ -824,11 +832,6 @@ const Profile = () => {
                                                                                 Ajouter une Experience
                                                                             </button>
                                                                         )}
-                                                                        <div>
-                                                                            <button className="btn btn-success"
-                                                                                    type="submit">Inserer une education
-                                                                            </button>
-                                                                        </div>
 
                                                                     </div>
                                                                 )}
