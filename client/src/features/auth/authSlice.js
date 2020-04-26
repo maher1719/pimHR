@@ -3,12 +3,16 @@ import jwt_decode from 'jwt-decode';
 import authAPI from 'api/authAPI';
 import setAuthToken from 'utils/setAuthToken';
 
-let initialState = {
-    isAuthenticated: false,
-    user: {},
-    errors: {},
-    loading: 'idle'
-};
+export const storeKey = 'Pim-hr-dev';
+console.log("authSlice", JSON.parse(localStorage[storeKey]))
+const initialState = localStorage[storeKey] ? JSON.parse(localStorage[storeKey]) :
+    {
+        isAuthenticated: false,
+        user: {},
+        errors: {},
+        loading: 'idle'
+    };
+console.log("intial state", initialState);
 
 export const login = createAsyncThunk(
     'auth/login',

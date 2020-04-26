@@ -1,19 +1,19 @@
 import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {Formik} from "formik";
+import {useSelector} from "react-redux";
+import {Field, FieldArray, Formik} from "formik";
+import store from '../../../store';
 import * as Yup from "yup";
 import TagsInput from "react-tagsinput";
 import {DisplayFormikState} from "../helperFormik";
+
+import {setCurrentUser, storeKey} from "../../../features/auth/authSlice";
 import {updateUser} from "../../../api/profileApi";
 
-//import {setUpdatedUser} from "../../../features/auth/authSlice";
-
 const Profile = () => {
-    const auth = useSelector(state => state.auth);
-    const userProfile = useSelector(state => state.auth.user);
-    const dispatch = useDispatch();
-    var skills = userProfile.skills;
-    var softSkills = userProfile.softSkills;
+    const user = useSelector(state => state.auth.user);
+    const userLocal = localStorage[storeKey] ? JSON.parse(localStorage[storeKey]) : undefined
+    const userProfile = userLocal ? userLocal.user : user
+    console.log("profile", userProfile);
 
 
     useEffect(() => {
@@ -459,10 +459,16 @@ const Profile = () => {
                                             <Formik
                                                 enableReinitialize={true}
                                                 initialValues={{
+                                                    education: userProfile.education || [{
+                                                        institute: "",
+                                                        yearBegan: "",
+                                                        yearFinished: "",
+                                                        diploma: ""
+                                                    }],
                                                     name: userProfile.name,
                                                     phone: userProfile.phone,
                                                     occupation: userProfile.occupation,
-                                                    address: userProfile.addresse,
+                                                    address: userProfile.address,
                                                     skills: userProfile.skills || [],
                                                     softSkills: userProfile.softSkills || [],
 
@@ -470,9 +476,26 @@ const Profile = () => {
                                                 onSubmit={async values => {
                                                     values.email = userProfile.email;
                                                     await new Promise(resolve => setTimeout(resolve, 500));
-                                                    //alert(JSON.stringify(values, null, 2));
+                                                    alert(JSON.stringify(values, null, 2));
 
                                                     await updateUser(values).then((data) => {
+
+                                                        store.dispatch(setCurrentUser(data));
+
+                                                        //console.log("perssiste",store.getState())
+                                                        function persist() {
+
+                                                            let json = JSON.stringify(store.getState());
+                                                            let json2 = JSON.parse(json);
+                                                            let json3 = json2.auth;
+                                                            localStorage.setItem(storeKey, JSON.stringify(json3));
+
+                                                            console.log("loccal profile", localStorage[storeKey]);
+                                                        }
+
+
+                                                        store.subscribe(persist);
+                                                        console.log("localstorage", localStorage[storeKey]);
 
 
                                                     });
@@ -512,6 +535,7 @@ const Profile = () => {
                                                     return (
 
                                                         <form className="form" onSubmit={handleSubmit}>
+
                                                             <div className="form-group">
                                                                 <label htmlFor="name">titre</label>
                                                                 <input
@@ -633,6 +657,182 @@ const Profile = () => {
                                                                         className="input-feedback">{errors.softSkills}</div>
                                                                 )}
                                                             </div>
+                                                            <FieldArray
+                                                                name="education"
+                                                                render={arrayHelpers => (
+                                                                    <div>
+                                                                        {values.education && values.education.length > 0 ? (
+                                                                            values.education.map((friend, index) => (
+                                                                                <div key={index}>
+                                                                                    <label>Institue</label>
+                                                                                    <Field className="form-control"
+                                                                                           name={`education.${index}.institute`}/>
+                                                                                    <br/>
+                                                                                    <label>Diplome </label>
+                                                                                    <Field className="form-control"
+                                                                                           name={`education.${index}.diploma`}/>
+                                                                                    <br/>
+                                                                                    <label>Date de debut</label>
+                                                                                    <Field className="form-control"
+                                                                                           type="date"
+                                                                                           name={`education.${index}.yearBegan`}/>
+                                                                                    <br/>
+                                                                                    <label>Date de fin</label>
+                                                                                    <Field className="form-control"
+                                                                                           type="date"
+                                                                                           name={`education.${index}.yearFinished`}/>
+                                                                                    <hr/>
+
+                                                                                    <button
+                                                                                        type="button"
+                                                                                        className="btn btn-outline-danger"
+                                                                                        onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
+                                                                                    >
+                                                                                        -
+                                                                                    </button>
+                                                                                    <button
+                                                                                        type="button"
+                                                                                        className="btn btn-outline-info"
+                                                                                        onClick={() => arrayHelpers.insert(index, "")} // insert an empty string at a position
+                                                                                    >
+                                                                                        +
+                                                                                    </button>
+                                                                                </div>
+                                                                            ))
+                                                                        ) : (
+                                                                            <button type="button"
+                                                                                    className="btn btn-success"
+                                                                                    onClick={() => arrayHelpers.push("")}>
+                                                                                {/* show this when user has removed all friends from the list */}
+                                                                                Ajouter une Education
+                                                                            </button>
+                                                                        )}
+                                                                        <div>
+                                                                            <button className="btn btn-success"
+                                                                                    type="submit">Inserer une education
+                                                                            </button>
+                                                                        </div>
+
+                                                                    </div>
+                                                                )}
+                                                            />
+                                                            <FieldArray
+                                                                name="Stages"
+                                                                render={arrayHelpers => (
+                                                                    <div>
+                                                                        {values.Stages && values.Stages.length > 0 ? (
+                                                                            values.Stages.map((friend, index) => (
+                                                                                <div key={index}>
+                                                                                    <label>Role</label>
+                                                                                    <Field className="form-control"
+                                                                                           name={`Stages.${index}.title`}/>
+                                                                                    <br/>
+                                                                                    <label>Diplome </label>
+                                                                                    <Field className="form-control"
+                                                                                           type="TextArea"
+                                                                                           name={`Stages.${index}.society`}/>
+                                                                                    <br/>
+                                                                                    <label>Date de debut</label>
+                                                                                    <Field className="form-control"
+                                                                                           type="date"
+                                                                                           name={`Stages.${index}.DateBegin`}/>
+                                                                                    <br/>
+                                                                                    <label>Date de fin</label>
+                                                                                    <Field className="form-control"
+                                                                                           type="date"
+                                                                                           name={`Stages.${index}.DateFinished`}/>
+                                                                                    <hr/>
+
+                                                                                    <button
+                                                                                        type="button"
+                                                                                        className="btn btn-outline-danger"
+                                                                                        onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
+                                                                                    >
+                                                                                        -
+                                                                                    </button>
+                                                                                    <button
+                                                                                        type="button"
+                                                                                        className="btn btn-outline-info"
+                                                                                        onClick={() => arrayHelpers.insert(index, "")} // insert an empty string at a position
+                                                                                    >
+                                                                                        +
+                                                                                    </button>
+                                                                                </div>
+                                                                            ))
+                                                                        ) : (
+                                                                            <button type="button"
+                                                                                    className="btn btn-success"
+                                                                                    onClick={() => arrayHelpers.push("")}>
+                                                                                {/* show this when user has removed all friends from the list */}
+                                                                                Ajouter une Experience
+                                                                            </button>
+                                                                        )}
+                                                                        <div>
+                                                                            <button className="btn btn-success"
+                                                                                    type="submit">Inserer une education
+                                                                            </button>
+                                                                        </div>
+
+                                                                    </div>
+                                                                )}
+                                                            />
+
+                                                            <FieldArray
+                                                                name="Projects"
+                                                                render={arrayHelpers => (
+                                                                    <div>
+                                                                        {values.Projects && values.Projects.length > 0 ? (
+                                                                            values.Projects.map((friend, index) => (
+                                                                                <div key={index}>
+                                                                                    <label>titre de projet</label>
+                                                                                    <Field className="form-control"
+                                                                                           name={`Projects.${index}.title`}/>
+                                                                                    <br/>
+                                                                                    <label>Description </label>
+                                                                                    <Field className="form-control"
+                                                                                           type="TextArea"
+                                                                                           name={`Projects.${index}.description`}/>
+                                                                                    <br/>
+                                                                                    <label>URL (optionel)</label>
+                                                                                    <Field className="form-control"
+                                                                                           type="date"
+                                                                                           name={`Projects.${index}.url`}/>
+                                                                                    <br/>
+
+
+                                                                                    <button
+                                                                                        type="button"
+                                                                                        className="btn btn-outline-danger"
+                                                                                        onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
+                                                                                    >
+                                                                                        -
+                                                                                    </button>
+                                                                                    <button
+                                                                                        type="button"
+                                                                                        className="btn btn-outline-info"
+                                                                                        onClick={() => arrayHelpers.insert(index, "")} // insert an empty string at a position
+                                                                                    >
+                                                                                        +
+                                                                                    </button>
+                                                                                </div>
+                                                                            ))
+                                                                        ) : (
+                                                                            <button type="button"
+                                                                                    className="btn btn-success"
+                                                                                    onClick={() => arrayHelpers.push("")}>
+                                                                                {/* show this when user has removed all friends from the list */}
+                                                                                Ajouter une Experience
+                                                                            </button>
+                                                                        )}
+                                                                        <div>
+                                                                            <button className="btn btn-success"
+                                                                                    type="submit">Inserer une education
+                                                                            </button>
+                                                                        </div>
+
+                                                                    </div>
+                                                                )}
+                                                            />
 
 
                                                             <button
