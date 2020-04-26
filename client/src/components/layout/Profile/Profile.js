@@ -1,8 +1,26 @@
-import React from "react";
-import {useSelector} from "react-redux";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {Formik} from "formik";
+import * as Yup from "yup";
+import TagsInput from "react-tagsinput";
+import {DisplayFormikState} from "../helperFormik";
+import {updateUser} from "../../../api/profileApi";
+
+//import {setUpdatedUser} from "../../../features/auth/authSlice";
 
 const Profile = () => {
-    const user = useSelector(state => state.auth.user);
+    const auth = useSelector(state => state.auth);
+    const userProfile = useSelector(state => state.auth.user);
+    const dispatch = useDispatch();
+    var skills = userProfile.skills;
+    var softSkills = userProfile.softSkills;
+
+
+    useEffect(() => {
+
+
+    }, [userProfile]);
+    //userProfile.skills=["hello"];
 
     return (
         <div className="content-wrapper">
@@ -16,7 +34,7 @@ const Profile = () => {
                             <li className="breadcrumb-item">
                                 <a href="#">Home</a>
                             </li>
-                            <li className="breadcrumb-item active">{user.name}</li>
+                            <li className="breadcrumb-item active">{userProfile.name}</li>
                         </ol>
                     </div>
                 </div>
@@ -37,12 +55,12 @@ const Profile = () => {
                                         />
                                     </div>
                                     <h3 className="profile-username text-center">
-                                        {user.name}
+                                        {userProfile.name}
                                     </h3>
-                                    <p className="text-muted text-center">Software Engineer</p>
+                                    <p className="text-muted text-center">{userProfile.occupation}</p>
                                     <ul className="list-group list-group-unbordered mb-3">
                                         <li className="list-group-item">
-                                            <b>{user.email}</b>
+                                            <b>{userProfile.email}</b>
                                         </li>
                                         <li className="list-group-item">
                                             <b>Following</b> <a className="float-right">543</a>
@@ -437,105 +455,203 @@ const Profile = () => {
                                         </div>
                                         {/* /.tab-pane */}
                                         <div className="tab-pane" id="settings">
-                                            <form className="form-horizontal">
-                                                <div className="form-group row">
-                                                    <label
-                                                        htmlFor="inputName"
-                                                        className="col-sm-2 col-form-label"
-                                                    >
-                                                        Name
-                                                    </label>
-                                                    <div className="col-sm-10">
-                                                        <input
-                                                            type="email"
-                                                            className="form-control"
-                                                            id="inputName"
-                                                            placeholder="Name"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="form-group row">
-                                                    <label
-                                                        htmlFor="inputEmail"
-                                                        className="col-sm-2 col-form-label"
-                                                    >
-                                                        Email
-                                                    </label>
-                                                    <div className="col-sm-10">
-                                                        <input
-                                                            type="email"
-                                                            className="form-control"
-                                                            id="inputEmail"
-                                                            placeholder="Email"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="form-group row">
-                                                    <label
-                                                        htmlFor="inputName2"
-                                                        className="col-sm-2 col-form-label"
-                                                    >
-                                                        Name
-                                                    </label>
-                                                    <div className="col-sm-10">
-                                                        <input
-                                                            type="text"
-                                                            className="form-control"
-                                                            id="inputName2"
-                                                            placeholder="Name"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="form-group row">
-                                                    <label
-                                                        htmlFor="inputExperience"
-                                                        className="col-sm-2 col-form-label"
-                                                    >
-                                                        Experience
-                                                    </label>
-                                                    <div className="col-sm-10">
-                              <textarea
-                                  className="form-control"
-                                  id="inputExperience"
-                                  placeholder="Experience"
-                                  defaultValue={""}
-                              />
-                                                    </div>
-                                                </div>
-                                                <div className="form-group row">
-                                                    <label
-                                                        htmlFor="inputSkills"
-                                                        className="col-sm-2 col-form-label"
-                                                    >
-                                                        Skills
-                                                    </label>
-                                                    <div className="col-sm-10">
-                                                        <input
-                                                            type="text"
-                                                            className="form-control"
-                                                            id="inputSkills"
-                                                            placeholder="Skills"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="form-group row">
-                                                    <div className="offset-sm-2 col-sm-10">
-                                                        <div className="checkbox">
-                                                            <label>
-                                                                <input type="checkbox"/> I agree to the{" "}
-                                                                <a href="#">terms and conditions</a>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="form-group row">
-                                                    <div className="offset-sm-2 col-sm-10">
-                                                        <button type="submit" className="btn btn-danger">
-                                                            Submit
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </form>
+
+                                            <Formik
+                                                enableReinitialize={true}
+                                                initialValues={{
+                                                    name: userProfile.name,
+                                                    phone: userProfile.phone,
+                                                    occupation: userProfile.occupation,
+                                                    address: userProfile.addresse,
+                                                    skills: userProfile.skills || [],
+                                                    softSkills: userProfile.softSkills || [],
+
+                                                }}
+                                                onSubmit={async values => {
+                                                    values.email = userProfile.email;
+                                                    await new Promise(resolve => setTimeout(resolve, 500));
+                                                    //alert(JSON.stringify(values, null, 2));
+
+                                                    await updateUser(values).then((data) => {
+
+
+                                                    });
+                                                    //alert(JSON.stringify(values, null, 2));
+                                                    console.log()
+                                                }}
+                                                validationSchema={Yup.object().shape({
+                                                    name: Yup.string()
+                                                        .required("Le titre d'emploi est obligatoire"),
+                                                    phone: Yup.number()
+                                                        //TODO badelha
+                                                        .required("votre numéro de téléphone"),
+                                                    occupation: Yup.string()
+                                                        //TODO badelha
+                                                        .required("votre occupation"),
+                                                    address: Yup.string()
+                                                        //TODO badelha
+                                                        .required("votre address"),
+
+
+                                                })}
+                                            >
+                                                {props => {
+                                                    const {
+                                                        values,
+                                                        touched,
+                                                        errors,
+                                                        dirty,
+                                                        isSubmitting,
+                                                        handleChange,
+                                                        handleBlur,
+                                                        handleSubmit,
+                                                        handleReset,
+
+                                                        setFieldValue
+                                                    } = props;
+                                                    return (
+
+                                                        <form className="form" onSubmit={handleSubmit}>
+                                                            <div className="form-group">
+                                                                <label htmlFor="name">titre</label>
+                                                                <input
+                                                                    id="name"
+                                                                    placeholder="Enter your email"
+                                                                    type="text"
+                                                                    value={values.name}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+
+                                                                    className={
+                                                                        errors.name && touched.name
+                                                                            ? "text-input form-control error"
+                                                                            : "text-input form-control"
+                                                                    }
+                                                                />
+                                                                {errors.name && touched.name && (
+                                                                    <div className="input-feedback">{errors.name}</div>
+                                                                )}
+                                                            </div>
+                                                            <div className="form-group">
+                                                                <label htmlFor="occupation">ocuupation actuelle</label>
+                                                                <input
+                                                                    id="occupation"
+                                                                    placeholder="Enter your email"
+                                                                    type="text"
+                                                                    value={values.occupation}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+
+                                                                    className={
+                                                                        errors.occupation && touched.occupation
+                                                                            ? "text-input form-control error"
+                                                                            : "text-input form-control"
+                                                                    }
+                                                                />
+                                                                {errors.occupation && touched.occupation && (
+                                                                    <div
+                                                                        className="input-feedback">{errors.occupation}</div>
+                                                                )}
+                                                            </div>
+                                                            <div className="form-group">
+                                                                <label htmlFor="phone">numéro de téléphone</label>
+                                                                <input
+                                                                    id="phone"
+                                                                    placeholder="Enter your email"
+                                                                    type="number"
+                                                                    value={values.phone}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    className="form-control"
+                                                                    className={
+                                                                        errors.phone && touched.phone
+                                                                            ? "text-input form-control error"
+                                                                            : "text-input form-control"
+                                                                    }
+                                                                />
+                                                                {errors.phone && touched.phone && (
+                                                                    <div className="input-feedback">{errors.phone}</div>
+                                                                )}
+                                                            </div>
+                                                            <div className="form-group">
+                                                                <label htmlFor="address">address</label>
+                                                                <input
+                                                                    id="address"
+                                                                    placeholder="Enter your email"
+                                                                    type="text"
+                                                                    value={values.address}
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    className={
+                                                                        errors.address && touched.address
+                                                                            ? "text-input form-control error"
+                                                                            : "text-input form-control"
+                                                                    }
+                                                                />
+                                                                {errors.address && touched.address && (
+                                                                    <div
+                                                                        className="input-feedback">{errors.address}</div>
+                                                                )}
+                                                            </div>
+                                                            <div className="form-group">
+                                                                <label htmlFor="skills">tags <span>(les mot clé de votre emploi ex tunis,javascript...)</span></label>
+                                                                <TagsInput
+                                                                    name="skills"
+                                                                    value={values.skills}
+                                                                    className={
+                                                                        errors.skills && touched.skills
+                                                                            ? "text-input form-control error"
+                                                                            : "text-input form-control"
+                                                                    }
+                                                                    onChange={skills => {
+                                                                        console.log(skills);
+                                                                        setFieldValue("skills", skills);
+                                                                    }}
+                                                                />
+                                                                {errors.skills && touched.skills && (
+                                                                    <div
+                                                                        className="input-feedback">{errors.skills}</div>
+                                                                )}
+                                                            </div>
+                                                            <div className="form-group">
+                                                                <label htmlFor="softSkills">soft skills <span>(les mot clé de votre emploi ex tunis,javascript...)</span></label>
+                                                                <TagsInput
+                                                                    name="softSkills"
+                                                                    value={values.softSkills}
+                                                                    className={
+                                                                        errors.softSkills && touched.softSkills
+                                                                            ? "text-input form-control error"
+                                                                            : "text-input form-control"
+                                                                    }
+                                                                    onChange={softSkills => {
+                                                                        //console.log(softSkills);
+                                                                        setFieldValue("softSkills", softSkills);
+                                                                    }}
+                                                                />
+                                                                {errors.softSkills && touched.softSkills && (
+                                                                    <div
+                                                                        className="input-feedback">{errors.softSkills}</div>
+                                                                )}
+                                                            </div>
+
+
+                                                            <button
+                                                                type="button"
+                                                                className="outline"
+                                                                onClick={handleReset}
+                                                                disabled={!dirty || isSubmitting}
+                                                            >
+                                                                Reset
+                                                            </button>
+                                                            <button type="submit" disabled={isSubmitting}>
+                                                                Submit
+                                                            </button>
+
+                                                            <DisplayFormikState {...props} />
+                                                        </form>
+                                                    );
+                                                }}
+                                            </Formik>
                                         </div>
                                         {/* /.tab-pane */}
                                     </div>

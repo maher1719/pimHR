@@ -32,10 +32,7 @@ const UserSchema = new Schema({
     type: String,
   },
 
-  skills: [{
-    label: String,
-    level: Number,
-  }],
+  skills: [],
 
   softSkills: [],
   education: [{

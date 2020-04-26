@@ -195,5 +195,18 @@ router.post("/profile", async (req, res) => {
     res.status(500).send(err.message);
   }
 });
+router.post("/profile/update", async (req, res) => {
+  try {
+    const criteria = req.body;
+    const email = criteria.email;
+    await User.findOneAndUpdate({email: email}, criteria);
+    //console.log(req);
+    const users = await User.findOne({email: email});
+    res.send(users);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(err.message);
+  }
+});
 
 module.exports = router;

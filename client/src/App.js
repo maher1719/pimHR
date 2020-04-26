@@ -20,6 +20,7 @@ import store from './store';
 import ListeEmploi from "./components/layout/Emploi/ListeEmploi";
 import SingleEmploi from "./components/layout/Emploi/SingleEmploi";
 import SearchPage from "./components/layout/SearchPage";
+import MyEmploi from "./components/layout/Emploi/MyEmploi";
 
 const App = () => {
     // Check if user is already logged in
@@ -71,6 +72,11 @@ const App = () => {
                         <HeaderFeature/>
                         <Sidebar/>
                         <ListeEmploi/>
+                    </PrivateRoute>
+                    <PrivateRoute path='/myEmploi'>
+                        <HeaderFeature/>
+                        <Sidebar/>
+                        <MyEmploi/>
                     </PrivateRoute>
                     <PrivateRoute path='/emploiSingle'>
                         <HeaderFeature/>

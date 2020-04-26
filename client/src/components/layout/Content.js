@@ -10,9 +10,7 @@ const Content = () => {
     return (
         <div>
             <HeaderFeature/>
-
             <Sidebar/>
-
             <div className="content-wrapper">
                 {/* Content Header (Page header) */}
                 <section className="content-header">

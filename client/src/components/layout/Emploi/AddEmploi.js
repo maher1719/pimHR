@@ -19,7 +19,7 @@ const AddEmploi = () => {
                 <div className="container-fluid">
                     <div className="row mb-2">
                         <div className="col-sm-6">
-                            <h1>Ajouter un emploi</h1>
+                            <h1>{userEmploi.name}</h1>
                         </div>
                         <div className="col-sm-6">
                             <ol className="breadcrumb float-sm-right">
@@ -66,7 +66,7 @@ const AddEmploi = () => {
 
 
                         <Formik
-                            initialValues={{user: userEmploi._id, tags: ["emploi"]}}
+                            initialValues={{user: userEmploi._id, tags: ["emploi"], name: userEmploi.name}}
                             onSubmit={async values => {
                                 values.user = userEmploi.id;
                                 await new Promise(resolve => setTimeout(resolve, 500));

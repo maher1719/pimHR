@@ -57,6 +57,11 @@ const auth = createSlice({
             state.user = action.payload;
 
         },
+        setUpdatedUser: (state, action) => {
+            state.isAuthenticated = true;
+            state.user = action.payload;
+
+        },
         authFailed: (state, action) => {
             state.isAuthenticated = false;
             state.errors = action.payload;
