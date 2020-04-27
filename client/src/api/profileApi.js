@@ -7,3 +7,10 @@ export const updateUser = data => {
         data
     });
 };
+export const getUsers = data => {
+    return request({
+        url: '/api/users/profile/search',
+        method: 'POST',
+        data
+    });
+};

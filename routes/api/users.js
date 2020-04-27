@@ -208,5 +208,16 @@ router.post("/profile/update", async (req, res) => {
     res.status(500).send(err.message);
   }
 });
+router.post("/profile/search", async (req, res) => {
+  try {
+    const criteria = req.body;
+    const users = await User.find(criteria);
+    //console.log(req);
+    res.send(users);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(err.message);
+  }
+});
 
 module.exports = router;

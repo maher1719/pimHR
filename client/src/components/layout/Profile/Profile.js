@@ -165,7 +165,7 @@ const Profile = () => {
                                                 href="#settings"
                                                 data-toggle="tab"
                                             >
-                                                Settings
+                                                Parametre
                                             </a>
                                         </li>
                                     </ul>
@@ -493,7 +493,7 @@ const Profile = () => {
                                                 onSubmit={async values => {
                                                     values.email = userProfile.email;
                                                     await new Promise(resolve => setTimeout(resolve, 500));
-                                                    alert(JSON.stringify(values, null, 2));
+                                                    //alert(JSON.stringify(values, null, 2));
 
                                                     await updateUser(values).then((data) => {
 
