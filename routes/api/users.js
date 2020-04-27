@@ -212,7 +212,7 @@ router.post("/profile/search", async (req, res) => {
   try {
     const criteria = req.body;
     const users = await User.find(criteria);
-    //console.log(req);
+    console.log(criteria);
     res.send(users);
   } catch (err) {
     console.error(err.message);

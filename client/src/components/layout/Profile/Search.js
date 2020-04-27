@@ -21,7 +21,7 @@ const Search = () => {
             <div className="container-fluid">
                 <div className="row mb-2">
                     <div className="col-sm-6">
-                        <h1>Profile</h1>
+                        <h1>Chercher</h1>
                     </div>
                     <div className="col-sm-6">
                         <ol className="breadcrumb float-sm-right">
@@ -49,9 +49,24 @@ const Search = () => {
                             }}
                             onSubmit={async values => {
 
-                                await new Promise(resolve => setTimeout(resolve, 500));
+                                let valuesSubmit = {};
                                 alert(JSON.stringify(values, null, 2));
-                                await getUsers(values).then((data) => {
+                                if (values.name !== "") {
+                                    valuesSubmit.name = values.name;
+                                }
+                                if (values.occupation !== "") {
+                                    valuesSubmit.occupation = values.occupation;
+                                }
+                                if (values.skills.length !== 0) {
+                                    valuesSubmit.skills = values.skills;
+                                }
+                                if (values.softSkills.length !== 0) {
+                                    valuesSubmit.softSkills = values.softSkills;
+                                }
+
+                                await new Promise(resolve => setTimeout(resolve, 500));
+                                alert(JSON.stringify(valuesSubmit, null, 2));
+                                await getUsers(valuesSubmit).then((data) => {
                                     console.log(data);
                                     searchusers(data);
                                 });
