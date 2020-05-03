@@ -9,17 +9,7 @@ const jobsFilter = require('../../models/jobsFilter');
 router.post('/', async (req, res) => {
     try {
 
-        //console.log("requeqt "+req.body.allDay);
         const jobs = await jobsFilter.find();
-        //await jobsFilter.deleteMany();
-
-        //console.log(jobs.length);
-        //const userId= req.params.id;
-
-
-        //const user =  User.findById(req.user.id);
-        //const { title } = req.body;
-        //const event =  Event.find();
         res.send(jobs);
     } catch (err) {
         console.error(err.message);
@@ -29,7 +19,6 @@ router.post('/', async (req, res) => {
 router.post("/search", async (req, res) => {
     try {
         const jobs = await jobScrap.find();
-        //await jobsFilter.deleteMany();
         jobs.forEach((element) => {
             //console.log(jobs.length);
             let cities = element.city[0].toString().trim();
