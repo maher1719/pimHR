@@ -211,8 +211,16 @@ router.post("/profile/update", async (req, res) => {
 router.post("/profile/search", async (req, res) => {
   try {
     const criteria = req.body;
-    const users = await User.find(criteria);
     console.log(criteria);
+    if (criteria.skills !== undefined && criteria.skills.length === 1) {
+      criteria.skills = criteria.skills[0];
+    }
+    if (criteria.softSkills !== undefined && criteria.softSkills.length === 1) {
+      criteria.softSkills = criteria.softSkills[0];
+    }
+    console.log("criteria", criteria);
+    const users = await User.find(criteria);
+
     res.send(users);
   } catch (err) {
     console.error(err.message);
