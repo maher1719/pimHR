@@ -10,6 +10,24 @@ router.post('/', async (req, res) => {
     try {
 
         //console.log("requeqt "+req.body.allDay);
+        const jobs = await jobsFilter.find();
+        //await jobsFilter.deleteMany();
+
+        //console.log(jobs.length);
+        //const userId= req.params.id;
+
+
+        //const user =  User.findById(req.user.id);
+        //const { title } = req.body;
+        //const event =  Event.find();
+        res.send(jobs);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message);
+    }
+});
+router.post("/search", async (req, res) => {
+    try {
         const jobs = await jobScrap.find();
         //await jobsFilter.deleteMany();
         jobs.forEach((element) => {
@@ -37,25 +55,10 @@ router.post('/', async (req, res) => {
             jobFiltred.save();
             element.delete();
         });
-        //console.log(jobs.length);
-        //const userId= req.params.id;
-
-
-        //const user =  User.findById(req.user.id);
-        //const { title } = req.body;
-        //const event =  Event.find();
-        res.send(x);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send(err.message);
-    }
-});
-router.post("/search", async (req, res) => {
-    try {
         const criteria = req.body;
-        const jobs = await jobScrap.find({criteria});
+        const jobsSearch = await jobsFilter.find(criteria);
         console.log(criteria);
-        res.send(jobs);
+        res.send(jobsSearch);
     } catch (err) {
         console.error(err.message);
         res.status(500).send(err.message);
