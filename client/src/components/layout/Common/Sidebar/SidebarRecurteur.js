@@ -55,7 +55,7 @@ const SidebarRecurteur = () => {
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a href="/emploiList" className="nav-link">
+                            <a href="/myemploi" className="nav-link">
                                 <i className="far fa-circle nav-icon"/>
                                 <p>Liste de mes emplois</p>
                             </a>

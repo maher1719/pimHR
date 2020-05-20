@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {myEmploiList} from "../../../api/EmploiApi";
+import {myEmploiList, myEmploiListUpdate} from "../../../api/EmploiApi";
 import {useSelector} from "react-redux";
 import ReactDataGrid from "react-data-grid";
 import 'react-data-grid/dist/react-data-grid.css';
@@ -10,8 +10,9 @@ const MyEmploi = () => {
     // const [options, changeOptions]=useState({});
     const columns = [
         {key: "id", name: "ID", editable: false},
-        {key: "name", name: "Name", editable: true},
-        {key: "society", name: "Society", editable: true}
+        {key: "name", name: "nom", editable: true},
+        {key: "society", name: "Societé", editable: true},
+        {key: "description", name: "description", editable: true}
     ];
     let rowsA = [
         {id: "0", name: "Task 1", society: "20"},
@@ -19,9 +20,10 @@ const MyEmploi = () => {
     ];
     const [rows, setRows] = useState(rowsA);
     useEffect(() => {
+        const user_id = user._id;
         async function fetchData() {
             myEmploiList({
-                user: user.id
+                user: user_id
             }).then((data) => {
                 console.log(data);
                 const newData = [];
@@ -29,7 +31,8 @@ const MyEmploi = () => {
                     newData[index] = {
                         id: item._id,
                         name: item.name,
-                        society: item.society
+                        society: item.society,
+                        description: item.description
                     };
                 });
                 setRows(newData);
@@ -46,6 +49,11 @@ const MyEmploi = () => {
             for (let i = fromRow; i <= toRow; i++) {
                 newRows [i] = {...newRows [i], ...updated};
             }
+
+            const dataToSend = {"rows": newRows};
+            myEmploiListUpdate(dataToSend).then((data) => {
+                console.log(data)
+            });
             return newRows;
         });
 
@@ -68,7 +76,7 @@ const MyEmploi = () => {
                                         <a href="#">Home</a>
                                     </li>
                                     <li className="breadcrumb-item active">
-                                        Blank Page
+                                        Mes offres d'emploi
                                     </li>
                                 </ol>
                             </div>

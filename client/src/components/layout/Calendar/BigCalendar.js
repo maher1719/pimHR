@@ -15,7 +15,7 @@ class BigCalendar extends Component {
         events: [{
             id: 2,
             title: 'DS STARTS',
-            start: new Date(2016, 2, 13, 0, 0, 0),
+            start: new Date(2020, 5, 13, 0, 0, 0),
             end: new Date(2016, 2, 20, 0, 0, 0),
         }],
 

@@ -21,7 +21,6 @@ const HeaderFeature = () => {
 
     const onLogoutClick = e => {
         e.preventDefault();
-        alert("hello");
         dispatch(logoutUser());
         history.push('/');
 

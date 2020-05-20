@@ -11,6 +11,7 @@ export default class Header extends Component {
         }*/
         const dispatch = useDispatch();
 
+
         const onLogoutClick = e => {
             e.preventDefault();
             dispatch(logoutUser());
