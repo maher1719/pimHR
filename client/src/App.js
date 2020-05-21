@@ -24,6 +24,7 @@ import Search from "./components/layout/Profile/Search";
 //import MyEmploil from "./components/layout/Emploi/MyEmploil";
 import MesEmplois from "./components/layout/Emploi/MesEmplois";
 import ModifierEmploi from "./components/layout/Emploi/ModifierEmploi";
+import ProfileUser from "./components/layout/Profile/ProfileUser";
 
 
 const App = () => {
@@ -97,10 +98,10 @@ const App = () => {
                         <Sidebar/>
                         <ModifierEmploi/>
                     </PrivateRoute>
-                    <PrivateRoute exact path='/userProfile:id'>
+                    <PrivateRoute exact path='/Profile:id'>
                         <HeaderFeature/>
                         <Sidebar/>
-                        <ModifierEmploi/>
+                        <ProfileUser/>
                     </PrivateRoute>
                     <PrivateRoute exact path='/search'>
                         <HeaderFeature/>

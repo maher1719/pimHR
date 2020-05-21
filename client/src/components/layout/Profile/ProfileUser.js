@@ -1,23 +1,25 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
+import {useParams} from "react-router-dom";
+import {getProfile} from "../../../api/profileApi";
 
-import {storeKey} from "../../../features/auth/authSlice";
-
-const Profile = () => {
+const ProfileUser = () => {
     const user = useSelector(state => state.auth.user);
-    const userLocal = localStorage[storeKey] ? JSON.parse(localStorage[storeKey]) : undefined
-    const userProfile = userLocal ? userLocal.user : user
-    const Activity = userProfile.education.concat(userProfile.Stages)
-    console.log(Activity.sort(Activity.YearFinished));
-    console.log("ueser", userProfile)
+
+
+    let [userProfile,SetUserProfile]=useState({education:[],Stages:[],skills:[],softSkills:[]});
+
+    const id = useParams().id;
 
     //console.log("profile", userProfile);
 
 
     useEffect(() => {
+        getProfile({_id:id}).then((data)=>{
+            SetUserProfile(data);
+        })
 
-
-    }, [userProfile]);
+    }, []);
     //userProfile.skills=["hello"];
 
     return (
@@ -32,7 +34,7 @@ const Profile = () => {
                             <li className="breadcrumb-item">
                                 <a href="#">Home</a>
                             </li>
-                            <li className="breadcrumb-item active">{userProfile.name}</li>
+                            <li className="breadcrumb-item active">{userProfile.name||""}</li>
                         </ol>
                     </div>
                 </div>
@@ -53,12 +55,12 @@ const Profile = () => {
                                         />
                                     </div>
                                     <h3 className="profile-username text-center">
-                                        {userProfile.name}
+                                        {userProfile.name||""}
                                     </h3>
-                                    <p className="text-muted text-center">{userProfile.occupation}</p>
+                                    <p className="text-muted text-center">{userProfile.occupation||""}</p>
                                     <ul className="list-group list-group-unbordered mb-3">
                                         <li className="list-group-item">
-                                            <b>{userProfile.email}</b>
+                                            <b>{userProfile.email||""}</b>
                                         </li>
                                         <li className="list-group-item">
                                             <b>Following</b> <a className="float-right">543</a>
@@ -153,15 +155,6 @@ const Profile = () => {
                                                 data-toggle="tab"
                                             >
                                                 Timeline
-                                            </a>
-                                        </li>
-                                        <li className="nav-item">
-                                            <a
-                                                className="nav-link"
-                                                href="#settings"
-                                                data-toggle="tab"
-                                            >
-                                                Parametre
                                             </a>
                                         </li>
                                     </ul>
@@ -486,4 +479,4 @@ const Profile = () => {
     );
 
 };
-export default Profile;
+export default ProfileUser;
