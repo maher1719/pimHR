@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
-import {myEmploiList} from "../../../api/EmploiApi";
+import {myEmploiList, supprimerEmploi} from "../../../api/EmploiApi";
+import {confirmAlert} from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 const MesEmplois = () => {
     const user = useSelector(state => state.auth.user);
@@ -10,8 +12,26 @@ const MesEmplois = () => {
 
     useEffect(() => {
         const deleteEmploi = id => {
-            alert(id);
-        }
+
+            confirmAlert({
+                title: 'Supprimer',
+                message: "Voulez-vous supprimer l'offre d'emploi?",
+                buttons: [
+                    {
+                        label: 'Oui',
+                        onClick: () => {
+                            supprimerEmploi({"_id": id})
+
+                        }
+                    },
+                    {
+                        label: 'Non',
+                        onClick: () => console.log("no")
+                    },
+                ]
+            });
+        };
+
         myEmploiList({
             user: user._id
         }).then((data) => {
@@ -25,7 +45,7 @@ const MesEmplois = () => {
                     <td><a href={modifier}>
                         <button className="btn btn-success">modifier</button>
                     </a>
-                        <button onClick={e => deleteEmploi(obj._id)} className="btn btn-success">modifier</button>
+                        <button onClick={e => deleteEmploi(obj._id)} className="btn btn-danger">supprimer</button>
                     </td>
                 </tr>
             });

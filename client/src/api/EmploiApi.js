@@ -24,6 +24,14 @@ export const getEmploi = data => {
         data
     })
 };
+export const supprimerEmploi = data => {
+    console.log("emploi", data);
+    return request({
+        url: '/api/emploi/deleteEmploi',
+        method: 'POST',
+        data
+    })
+};
 export const updateEmploi = data => {
     console.log("emploi", data);
     return request({
