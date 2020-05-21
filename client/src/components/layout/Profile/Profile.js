@@ -14,8 +14,10 @@ const Profile = () => {
     const userLocal = localStorage[storeKey] ? JSON.parse(localStorage[storeKey]) : undefined
     const userProfile = userLocal ? userLocal.user : user
     const Activity = userProfile.education.concat(userProfile.Stages)
-    console.log(Activity);
-    console.log("profile", userProfile);
+    console.log(Activity.sort(Activity.YearFinished));
+    console.log("ueser", userProfile)
+
+    //console.log("profile", userProfile);
 
 
     useEffect(() => {
@@ -482,6 +484,13 @@ const Profile = () => {
                                                         yearFinished: "",
                                                         diploma: ""
                                                     }],
+                                                    Stages: userProfile.Stages || [{
+                                                        society: "",
+                                                        title: "",
+                                                        yearFinished: "",
+                                                        yearBegin: ""
+                                                        //_id: "5ec6185db0f4fe09f8128ae3"
+                                                    }],
                                                     name: userProfile.name,
                                                     phone: userProfile.phone,
                                                     occupation: userProfile.occupation,
@@ -554,7 +563,7 @@ const Profile = () => {
                                                         <form className="form" onSubmit={handleSubmit}>
 
                                                             <div className="form-group">
-                                                                <label htmlFor="name">titre</label>
+                                                                <label htmlFor="name">Nom complet</label>
                                                                 <input
                                                                     id="name"
                                                                     placeholder="Enter your email"
@@ -574,7 +583,7 @@ const Profile = () => {
                                                                 )}
                                                             </div>
                                                             <div className="form-group">
-                                                                <label htmlFor="occupation">ocuupation actuelle</label>
+                                                                <label htmlFor="occupation">occupation actuelle</label>
                                                                 <input
                                                                     id="occupation"
                                                                     placeholder="Enter your email"
@@ -674,6 +683,8 @@ const Profile = () => {
                                                                         className="input-feedback">{errors.softSkills}</div>
                                                                 )}
                                                             </div>
+                                                            <hr/>
+                                                            <h2>Education</h2>
                                                             <FieldArray
                                                                 name="education"
                                                                 render={arrayHelpers => (
@@ -683,21 +694,21 @@ const Profile = () => {
                                                                                 <div key={index}>
                                                                                     <label>Institue</label>
                                                                                     <Field className="form-control"
-                                                                                           name={`education.${index}.institute`}/>
+                                                                                           name={`education[${index}].institute`}/>
                                                                                     <br/>
                                                                                     <label>Diplome </label>
                                                                                     <Field className="form-control"
-                                                                                           name={`education.${index}.diploma`}/>
+                                                                                           name={`education[${index}].diploma`}/>
                                                                                     <br/>
                                                                                     <label>Date de debut</label>
                                                                                     <Field className="form-control"
                                                                                            type="date"
-                                                                                           name={`education.${index}.yearBegan`}/>
+                                                                                           name={`education[${index}].yearBegan`}/>
                                                                                     <br/>
                                                                                     <label>Date de fin</label>
                                                                                     <Field className="form-control"
                                                                                            type="date"
-                                                                                           name={`education.${index}.yearFinished`}/>
+                                                                                           name={`education[${index}].yearFinished`}/>
                                                                                     <hr/>
 
                                                                                     <button
@@ -728,6 +739,8 @@ const Profile = () => {
                                                                     </div>
                                                                 )}
                                                             />
+                                                            <hr/>
+                                                            <h2>Stages</h2>
                                                             <FieldArray
                                                                 name="Stages"
                                                                 render={arrayHelpers => (
@@ -737,22 +750,22 @@ const Profile = () => {
                                                                                 <div key={index}>
                                                                                     <label>Role</label>
                                                                                     <Field className="form-control"
-                                                                                           name={`Stages.${index}.title`}/>
+                                                                                           name={`Stages[${index}].title`}/>
                                                                                     <br/>
-                                                                                    <label>Diplome </label>
+                                                                                    <label>Sociéte </label>
                                                                                     <Field className="form-control"
                                                                                            type="TextArea"
-                                                                                           name={`Stages.${index}.society`}/>
+                                                                                           name={`Stages[${index}].society`}/>
                                                                                     <br/>
                                                                                     <label>Date de debut</label>
                                                                                     <Field className="form-control"
                                                                                            type="date"
-                                                                                           name={`Stages.${index}.DateBegin`}/>
+                                                                                           name={`Stages[${index}].yearBegin`}/>
                                                                                     <br/>
                                                                                     <label>Date de fin</label>
                                                                                     <Field className="form-control"
                                                                                            type="date"
-                                                                                           name={`Stages.${index}.DateFinished`}/>
+                                                                                           name={`Stages.${index}.yearFinished`}/>
                                                                                     <hr/>
 
                                                                                     <button
@@ -776,7 +789,7 @@ const Profile = () => {
                                                                                     className="btn btn-success"
                                                                                     onClick={() => arrayHelpers.push("")}>
                                                                                 {/* show this when user has removed all friends from the list */}
-                                                                                Ajouter une Experience
+                                                                                Ajouter un Stage
                                                                             </button>
                                                                         )}
 
@@ -784,7 +797,8 @@ const Profile = () => {
                                                                     </div>
                                                                 )}
                                                             />
-
+                                                            <hr/>
+                                                            <h2>Projets</h2>
                                                             <FieldArray
                                                                 name="Projects"
                                                                 render={arrayHelpers => (
@@ -803,7 +817,7 @@ const Profile = () => {
                                                                                     <br/>
                                                                                     <label>URL (optionel)</label>
                                                                                     <Field className="form-control"
-                                                                                           type="date"
+                                                                                           type="url"
                                                                                            name={`Projects.${index}.url`}/>
                                                                                     <br/>
 
@@ -829,7 +843,7 @@ const Profile = () => {
                                                                                     className="btn btn-success"
                                                                                     onClick={() => arrayHelpers.push("")}>
                                                                                 {/* show this when user has removed all friends from the list */}
-                                                                                Ajouter une Experience
+                                                                                Ajouter un Projet Personel
                                                                             </button>
                                                                         )}
 
@@ -847,7 +861,7 @@ const Profile = () => {
                                                                 Reset
                                                             </button>
                                                             <button type="submit" disabled={isSubmitting}>
-                                                                Submit
+                                                                Mise à jour
                                                             </button>
 
                                                             <DisplayFormikState {...props} />

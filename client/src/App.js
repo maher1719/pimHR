@@ -97,6 +97,11 @@ const App = () => {
                         <Sidebar/>
                         <ModifierEmploi/>
                     </PrivateRoute>
+                    <PrivateRoute exact path='/userProfile:id'>
+                        <HeaderFeature/>
+                        <Sidebar/>
+                        <ModifierEmploi/>
+                    </PrivateRoute>
                     <PrivateRoute exact path='/search'>
                         <HeaderFeature/>
                         <Sidebar/>

@@ -199,10 +199,10 @@ router.post("/profile/update", async (req, res) => {
   try {
     const criteria = req.body;
     const email = criteria.email;
-    await User.findOneAndUpdate({email: email}, criteria);
-    //console.log(req);
-    const users = await User.findOne({email: email});
-    res.send(users);
+    const userUpdate = await User.findOneAndUpdate({email: email}, criteria);
+    console.log("userYpdate", userUpdate);
+    //const users = await User.findOne({email: email});
+    res.send(userUpdate);
   } catch (err) {
     console.error(err.message);
     res.status(500).send(err.message);
@@ -227,5 +227,17 @@ router.post("/profile/search", async (req, res) => {
     res.status(500).send(err.message);
   }
 });
+
+router.post("/profile/user", async (req, res) => {
+  try {
+
+    const users = await User.findOne(req.body);
+    res.send(users);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(err.message);
+  }
+});
+
 
 module.exports = router;

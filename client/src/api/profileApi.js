@@ -14,3 +14,10 @@ export const getUsers = data => {
         data
     });
 };
+export const getProfile = data => {
+    return request({
+        url: '/api/users/profile/user',
+        method: 'POST',
+        data
+    });
+};

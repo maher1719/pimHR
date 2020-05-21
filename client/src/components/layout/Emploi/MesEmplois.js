@@ -38,10 +38,12 @@ const MesEmplois = () => {
             console.log(data)
             let offres1 = data.map(function (obj) {
                 let modifier = "/ModifierEmploi" + obj._id;
+                let numberIntersted = obj.usersIntersted.length || 0;
                 return <tr>
                     <td>{obj._id}</td>
                     <td>{obj.name}</td>
                     <td>{obj.description}</td>
+                    <td>{numberIntersted}</td>
                     <td><a href={modifier}>
                         <button className="btn btn-success">modifier</button>
                     </a>
@@ -108,10 +110,11 @@ const MesEmplois = () => {
                                         Description
                                     </th>
                                     <th>
-                                        Modifier
+                                        Candidat postulé
                                     </th>
 
                                     <th>
+                                        Modifier
                                     </th>
                                 </tr>
                                 </thead>

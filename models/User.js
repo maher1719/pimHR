@@ -53,9 +53,9 @@ const UserSchema = new Schema({
 
     title: String,
 
-    DateBegin: Date,
+    yearginBegin: Date,
 
-    DateFinished: Date,
+    yearFinished: Date,
 
     society: String,
 
