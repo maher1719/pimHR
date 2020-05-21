@@ -12,8 +12,9 @@ const MyEmploi = () => {
         {key: "id", name: "ID", editable: false},
         {key: "name", name: "nom", editable: true},
         {key: "society", name: "Societé", editable: true},
-        {key: "description", name: "description", editable: true}
-    ];
+        {key: "description", name: "description", editable: true},
+        {key: "Supprimer", name: "Supprimer", editable: false}
+    ].map(c => ({...c}));
     let rowsA = [
         {id: "0", name: "Task 1", society: "20"},
 
@@ -21,6 +22,7 @@ const MyEmploi = () => {
     const [rows, setRows] = useState(rowsA);
     useEffect(() => {
         const user_id = user._id;
+
         async function fetchData() {
             myEmploiList({
                 user: user_id
@@ -32,7 +34,8 @@ const MyEmploi = () => {
                         id: item._id,
                         name: item.name,
                         society: item.society,
-                        description: item.description
+                        description: item.description,
+
                     };
                 });
                 setRows(newData);
@@ -41,6 +44,21 @@ const MyEmploi = () => {
 
         fetchData();
     }, []);
+    const SupprimerAction = [{
+        icon: "fa fa-remove",
+        callback: () => {
+            alert("delete");
+        }
+    }];
+
+    function getCellActions(column, row) {
+        const cellActions = {
+            Supprimer: SupprimerAction,
+            id: SupprimerAction
+        };
+        return column.key === "action" ? cellActions : null;
+    }
+
     const onGridRowsUpdated = ({fromRow, toRow, updated}) => {
         console.log("row", toRow);
         setRows((state) => {
@@ -117,7 +135,7 @@ const MyEmploi = () => {
                                 columns={columns}
                                 rows={rows}
                                 onRowsUpdate={onGridRowsUpdated}
-
+                                getCellAction={getCellActions}
                                 enableCellSelect={true}
                             />
 

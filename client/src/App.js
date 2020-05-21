@@ -20,8 +20,10 @@ import store from './store';
 import ListeEmploi from "./components/layout/Emploi/ListeEmploi";
 import SingleEmploi from "./components/layout/Emploi/SingleEmploi";
 import SearchPage from "./components/layout/SearchPage";
-import MyEmploi from "./components/layout/Emploi/MyEmploi";
 import Search from "./components/layout/Profile/Search";
+//import MyEmploil from "./components/layout/Emploi/MyEmploil";
+import MesEmplois from "./components/layout/Emploi/MesEmplois";
+import ModifierEmploi from "./components/layout/Emploi/ModifierEmploi";
 
 
 const App = () => {
@@ -83,12 +85,17 @@ const App = () => {
                     <PrivateRoute path='/myEmploi'>
                         <HeaderFeature/>
                         <Sidebar/>
-                        <MyEmploi/>
+                        <MesEmplois/>
                     </PrivateRoute>
                     <PrivateRoute path='/emploiSingle'>
                         <HeaderFeature/>
                         <Sidebar/>
                         <SingleEmploi/>
+                    </PrivateRoute>
+                    <PrivateRoute exact path='/ModifierEmploi:id'>
+                        <HeaderFeature/>
+                        <Sidebar/>
+                        <ModifierEmploi/>
                     </PrivateRoute>
                     <PrivateRoute exact path='/search'>
                         <HeaderFeature/>

@@ -16,6 +16,22 @@ export const myEmploiList = data => {
         data
     })
 };
+export const getEmploi = data => {
+    console.log("emploi", data);
+    return request({
+        url: '/api/emploi/one',
+        method: 'POST',
+        data
+    })
+};
+export const updateEmploi = data => {
+    console.log("emploi", data);
+    return request({
+        url: '/api/emploi/updateEmploi',
+        method: 'POST',
+        data
+    })
+};
 export const myEmploiListUpdate = data => {
     console.log("emploi", data);
     return request({
