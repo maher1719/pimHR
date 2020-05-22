@@ -16,10 +16,6 @@ router.post('/create/', async (req, res) =>{
          });
 
         await event.save();
-        console.log("created",event);
-        //const user =  User.findById(req.user.id);
-        //const { title } = req.body;
-        //const event =  Event.find();
         res.send(req.body);
     } catch (err) {
         console.error(err.message);
@@ -28,15 +24,7 @@ router.post('/create/', async (req, res) =>{
 });
 router.post('/', async (req, res) =>{
     try {
-
-        //const event = await Event.find();
-        //const event=await Event.deleteMany({user:"ba.maher94@gmail.com"});
         const event = await Event.find({id: req.body.user});
-        //const user =  User.findById(req.user.id);
-        //const { title } = req.body;
-
-        //const event =  await Event.find();
-        //console.log('Got body:', event,req.body.user);
         res.send(event);
     } catch (err) {
         console.error(err.message);
@@ -46,17 +34,8 @@ router.post('/', async (req, res) =>{
 
 router.post('/delete', async (req, res) => {
     try {
-
-        //const event = await Event.find();
-        //Event.deleteMany();
         const id = req.body._id;
-
         const event = await Event.findOneAndDelete({_id: id});
-        console.log(req.body._id);
-        //const user =  User.findById(req.user.id);
-        //const { title } = req.body;
-
-        //const event =  await Event.find();
         res.send(event);
     } catch (err) {
         console.error(err.message);

@@ -19,8 +19,31 @@ router.post("/create", async (req, res) => {
 router.post("/getAll", async (req, res) => {
     try {
         const notification = await Notification.find(req.body);
-        //const unreaded= await Notification.find(req.body,)
-        res.send(notification)
+        const criteria = req.body;
+        criteria.noticed = false;
+        const unreadedReq = await Notification.find(criteria)
+
+        const unreaded = unreadedReq.length ? unreadedReq.length : 0
+        const reponse = {notification, unreaded}
+        res.send(reponse);
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message)
+    }
+})
+router.post("/updateReaded", async (req, res) => {
+    try {
+        //const notification = await Notification.find(req.body);
+        const unreadedReq = await Notification.find(req.body, {noticed: false})
+        if (unreadedReq.length > 0)
+            for (const unreadedReqKey of unreadedReq) {
+                console.log(unreadedReqKey)
+                await Notification.updateMany(unreadedReqKey, {noticed: true})
+            }
+
+
+        res.send(await Notification.find(req.body));
 
     } catch (err) {
         console.error(err.message);
