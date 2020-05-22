@@ -80,7 +80,6 @@ router.post('/updateEmploi', async (req, res) => {
 
 router.post('/show', async (req, res) => {
     try {
-
         //const event = await Event.find();
         //const event=await Event.deleteMany({user:"ba.maher94@gmail.com"});
         const emploi = await Emploi.find(req.body);

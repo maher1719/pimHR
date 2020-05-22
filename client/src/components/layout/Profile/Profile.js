@@ -13,18 +13,11 @@ const Profile = () => {
     const user = useSelector(state => state.auth.user);
     const userLocal = localStorage[storeKey] ? JSON.parse(localStorage[storeKey]) : undefined
     const userProfile = userLocal ? userLocal.user : user
-    /*const Activity = userProfile.education.concat(userProfile.Stages)
-    console.log(Activity.sort(Activity.YearFinished));
-    console.log("ueser", userProfile)*/
-
-    //console.log("profile", userProfile);
-
-
     useEffect(() => {
 
 
     }, [userProfile]);
-    //userProfile.skills=["hello"];
+
 
     return (
         <div className="content-wrapper">
@@ -185,14 +178,13 @@ const Profile = () => {
                                                         alt="user image"
                                                     />
                                                     <span className="username">
-                              <a href="#">Jonathan Burke Jr.</a>
-                              <a href="#" className="float-right btn-tool">
-                                <i className="fas fa-times"/>
-                              </a>
-                            </span>
-                                                    <span className="description">
-                              Shared publicly - 7:30 PM today
-                            </span>
+                                                      <a href="#">Jonathan Burke Jr.</a>
+                                                      <a href="#" className="float-right btn-tool">
+                                                        <i className="fas fa-times"/>
+                                                      </a>
+                                                    </span>
+                                                    <span className="description">Shared publicly - 7:30 PM today
+                                                    </span>
                                                 </div>
                                                 {/* /.user-block */}
                                                 <p>
@@ -211,11 +203,11 @@ const Profile = () => {
                                                         <i className="far fa-thumbs-up mr-1"/> Like
                                                     </a>
                                                     <span className="float-right">
-                              <a href="#" className="link-black text-sm">
-                                <i className="far fa-comments mr-1"/> Comments
-                                (5)
-                              </a>
-                            </span>
+                                                      <a href="#" className="link-black text-sm">
+                                                        <i className="far fa-comments mr-1"/> Comments
+                                                        (5)
+                                                      </a>
+                                                    </span>
                                                 </p>
                                                 <input
                                                     className="form-control form-control-sm"
@@ -233,14 +225,14 @@ const Profile = () => {
                                                         alt="User Image"
                                                     />
                                                     <span className="username">
-                              <a href="#">Sarah Ross</a>
-                              <a href="#" className="float-right btn-tool">
-                                <i className="fas fa-times"/>
-                              </a>
-                            </span>
+                                                      <a href="#">Sarah Ross</a>
+                                                      <a href="#" className="float-right btn-tool">
+                                                        <i className="fas fa-times"/>
+                                                      </a>
+                                                    </span>
                                                     <span className="description">
-                              Sent you a message - 3 days ago
-                            </span>
+                                                      Sent you a message - 3 days ago
+                                                    </span>
                                                 </div>
                                                 {/* /.user-block */}
                                                 <p>

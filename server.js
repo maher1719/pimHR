@@ -22,6 +22,7 @@ app.use('/api/users', require('./routes/api/users'));
 app.use('/api/event', require('./routes/api/event'));
 app.use('/api/jobscrap', require('./routes/api/jobScrap'));
 app.use('/api/emploi', require('./routes/api/emploi'));
+app.use('/api/notification', require('./routes/api/notification'));
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
