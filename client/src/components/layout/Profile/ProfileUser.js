@@ -74,7 +74,7 @@ const ProfileUser = () => {
                                         </li>
                                     </ul>
                                     <a href="#" className="btn btn-primary btn-block">
-                                        <b>Follow</b>
+                                        <b>Ajouter a favoris</b>
                                     </a>
                                 </div>
                                 {/* /.card-body */}

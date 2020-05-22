@@ -53,7 +53,7 @@ const UserSchema = new Schema({
 
     title: String,
 
-    yearginBegin: Date,
+    yearBegin: Date,
 
     yearFinished: Date,
 

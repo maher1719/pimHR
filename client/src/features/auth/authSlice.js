@@ -4,7 +4,7 @@ import authAPI from 'api/authAPI';
 import setAuthToken from 'utils/setAuthToken';
 
 export const storeKey = 'Pim-hr-dev';
-console.log("authSlice", JSON.parse(localStorage[storeKey]))
+//console.log("authSlice", JSON.parse(localStorage[storeKey]))
 const initialState = localStorage[storeKey] ? JSON.parse(localStorage[storeKey]) :
     {
         isAuthenticated: false,

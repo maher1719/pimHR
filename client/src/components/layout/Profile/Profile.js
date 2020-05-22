@@ -13,9 +13,9 @@ const Profile = () => {
     const user = useSelector(state => state.auth.user);
     const userLocal = localStorage[storeKey] ? JSON.parse(localStorage[storeKey]) : undefined
     const userProfile = userLocal ? userLocal.user : user
-    const Activity = userProfile.education.concat(userProfile.Stages)
+    /*const Activity = userProfile.education.concat(userProfile.Stages)
     console.log(Activity.sort(Activity.YearFinished));
-    console.log("ueser", userProfile)
+    console.log("ueser", userProfile)*/
 
     //console.log("profile", userProfile);
 
@@ -92,10 +92,10 @@ const Profile = () => {
                                     </strong>
                                     <div className="text-muted">
                                         <ul>
-                                            {userProfile.education.map((value, index) => {
+                                            {userProfile.education ? userProfile.education.map((value, index) => {
                                                 return <li>{value.diploma} de <b>{value.institute}</b></li>
 
-                                            })}
+                                            }) : ""}
                                         </ul>
                                     </div>
                                     <hr/>
@@ -108,10 +108,10 @@ const Profile = () => {
                                         <i className="fas fa-pencil-alt mr-1"/> Skills
                                     </strong>
                                     <p className="text-muted">
-                                        {userProfile.skills.map((value, index) => {
+                                        {userProfile.skills ? userProfile.skills.map((value, index) => {
                                             return <span className="badge badge-success">{value}</span>
 
-                                        })}
+                                        }) : ""}
 
                                     </p>
                                     <hr/>
@@ -119,10 +119,10 @@ const Profile = () => {
                                         <i className="fas fa-pencil-alt mr-1"/> Skills
                                     </strong>
                                     <p className="text-muted">
-                                        {userProfile.softSkills.map((value, index) => {
+                                        {userProfile.softSkills ? userProfile.softSkills.map((value, index) => {
                                             return <span className="badge badge-info">{value}</span>
 
-                                        })}
+                                        }) : ""}
 
                                     </p>
                                     <hr/>
@@ -491,7 +491,7 @@ const Profile = () => {
                                                         yearBegin: ""
                                                         //_id: "5ec6185db0f4fe09f8128ae3"
                                                     }],
-                                                    name: userProfile.name,
+                                                    name: userProfile.name || "",
                                                     phone: userProfile.phone,
                                                     occupation: userProfile.occupation,
                                                     address: userProfile.address,
@@ -516,17 +516,17 @@ const Profile = () => {
                                                             let json3 = json2.auth;
                                                             localStorage.setItem(storeKey, JSON.stringify(json3));
 
-                                                            console.log("loccal profile", localStorage[storeKey]);
+                                                            console.log("loccal profile", JSON.parse(localStorage[storeKey]));
                                                         }
 
 
                                                         store.subscribe(persist);
-                                                        console.log("localstorage", localStorage[storeKey]);
+                                                        console.log("localstorage", JSON.parse(localStorage[storeKey]));
 
 
                                                     });
                                                     //alert(JSON.stringify(values, null, 2));
-                                                    console.log()
+                                                    console.log("localstorage2", JSON.parse(localStorage[storeKey]));
                                                 }}
                                                 validationSchema={Yup.object().shape({
                                                     name: Yup.string()
@@ -566,7 +566,7 @@ const Profile = () => {
                                                                 <label htmlFor="name">Nom complet</label>
                                                                 <input
                                                                     id="name"
-                                                                    placeholder="Enter your email"
+                                                                    placeholder="Votr nom"
                                                                     type="text"
                                                                     value={values.name}
                                                                     onChange={handleChange}
