@@ -364,7 +364,7 @@ const ProfileUser = () => {
                                                             <div className="timeline-item">
 
                                                                 <h3 className="timeline-header border-0">
-                                                                    <a href="#">Diplome {obj.diploma}</a> De {obj.institute}
+                                                                    <a href="#">Dipolome {obj.diploma}</a> De {obj.institute}
 
                                                                 </h3>
                                                             </div>
