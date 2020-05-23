@@ -3,6 +3,7 @@ const router = express.Router();
 
 
 const Emploi = require('../../models/Emploi');
+const User = require('../../models/User');
 
 router.post('/deleteEmploi', async (req, res) => {
     try {
@@ -61,6 +62,42 @@ router.post('/create', async (req, res) => {
         console.log(req.body);
         await emploi.save();
         res.send(emploi);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message);
+    }
+});
+router.post('/favorisAdd', async (req, res) => {
+    try {
+        const yess = await Emploi.updateOne({"_id": req.body.id}, {$addToSet: {usersIntersted: req.body.user}});
+        res.send(yess);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message);
+    }
+});
+router.post('/favorisRemove', async (req, res) => {
+    try {
+        const update = await Emploi.updateOne({"_id": req.body.id}, {$pull: {usersIntersted: req.body.user}});
+
+        res.send(update);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message);
+    }
+});
+
+router.post('/emploiIntersted', async (req, res) => {
+    try {
+        const interstedEmploi = await Emploi.findOne(req.body);
+
+        const interstedPersons = [];
+        for (const user of interstedEmploi.usersIntersted) {
+            const person = await User.findOne({"_id": user})
+            interstedPersons.push(person);
+        }
+
+        res.send(interstedPersons);
     } catch (err) {
         console.error(err.message);
         res.status(500).send(err.message);

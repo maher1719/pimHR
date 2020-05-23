@@ -45,9 +45,7 @@ const EmploiSchema = new Schema({
 
 
 
-    usersIntersted: [{
-        userId: String,
-    }]
+    usersIntersted: []
 
 
 });
