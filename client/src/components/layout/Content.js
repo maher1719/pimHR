@@ -1,10 +1,45 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import BigCalendar from "./Calendar/BigCalendar";
 import HeaderFeature from "./Common/Header/HeaderFeature";
 import Sidebar from "./Common/Sidebar/SideBar";
+import {shortListIntersted} from "../../api/EmploiApi";
+import {useSelector} from "react-redux";
 
 
 const Content = () => {
+    const user = useSelector(state => state.auth.user);
+    let [shortList, SetShortList] = useState(null)
+
+    useEffect(() => {
+        if (user.role !== "candidat")
+            shortListIntersted({"user": user._id}).then((data) => {
+                console.log("usersIntersted", data);
+                const colors = ["success", "info", "warning", "danger"];
+                let i = 0;
+                const short = data.map(function (emploi) {
+                    const color = colors[i % 4];
+                    const className = "small-box bg-" + color;
+                    i++;
+                    const emploiPostule = "/EmploiPostule" + emploi._id
+                    return <div className="col-lg-3 col-6">
+
+                        <div className={className}>
+                            <div className="inner">
+                                <h4>{emploi.title}</h4>
+
+                                <p>Nomber postulé : <b>{emploi.number}</b></p>
+                            </div>
+                            <div className="icon">
+                                <i className="ion ion-person-add"/>
+                            </div>
+                            <a href={emploiPostule} className="small-box-footer">plus d'info <i
+                                className="fas fa-arrow-circle-right"/></a>
+                        </div>
+                    </div>
+                })
+                SetShortList(short);
+            })
+    }, [])
 
 
     return (
@@ -36,9 +71,15 @@ const Content = () => {
                 {/* Main content */}
                 <section className="content">
                     {/* Default box */}
+                    <div className="row">
+
+                        {shortList}
+
+
+                    </div>
                     <div className="card">
                         <div className="card-header">
-                            <h3 className="card-title">Title</h3>
+                            <h3 className="card-title">Ma calendrier</h3>
                             <div className="card-tools">
                                 <button
                                     type="button"

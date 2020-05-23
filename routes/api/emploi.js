@@ -105,4 +105,21 @@ router.post('/emploiIntersted', async (req, res) => {
 });
 
 
+router.post('/candidatIntersted', async (req, res) => {
+    try {
+        const interstedEmploi = await Emploi.find(req.body);
+        let response = [];
+        for (let emploi of interstedEmploi) {
+            numberIntersted = emploi.usersIntersted.length ? emploi.usersIntersted.length : 0;
+            response.push({"_id": emploi._id, "title": emploi.name, "number": numberIntersted})
+        }
+
+        res.send(response);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message);
+    }
+});
+
+
 module.exports = router;

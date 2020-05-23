@@ -124,7 +124,7 @@ class BigCalendar extends Component {
         return (
             <div>
                 <p>
-                    A test for the React Big Calendar.
+
                 </p>
                 <div style={{height: '500pt'}}>
                     <Calendar

@@ -25,6 +25,7 @@ import Search from "./components/layout/Profile/Search";
 import MesEmplois from "./components/layout/Emploi/MesEmplois";
 import ModifierEmploi from "./components/layout/Emploi/ModifierEmploi";
 import ProfileUser from "./components/layout/Profile/ProfileUser";
+import EmploiPostule from "./components/layout/Emploi/EmploiPostule";
 
 
 const App = () => {
@@ -107,6 +108,11 @@ const App = () => {
                         <HeaderFeature/>
                         <Sidebar/>
                         <SearchPage/>
+                    </PrivateRoute>
+                    <PrivateRoute exact path='/EmploiPostule:id'>
+                        <HeaderFeature/>
+                        <Sidebar/>
+                        <EmploiPostule/>
                     </PrivateRoute>
 
 

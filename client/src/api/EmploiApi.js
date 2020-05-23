@@ -48,3 +48,35 @@ export const myEmploiListUpdate = data => {
         data
     })
 };
+export const addEmploiTofavorite = data => {
+    console.log("emploi", data);
+    return request({
+        url: '/api/emploi/favorisAdd',
+        method: 'POST',
+        data
+    })
+};
+export const removeEmploiTofavorite = data => {
+    console.log("emploi", data);
+    return request({
+        url: '/api/emploi/favorisRemove',
+        method: 'POST',
+        data
+    })
+};
+export const shortListIntersted = data => {
+    console.log("emploi", data);
+    return request({
+        url: '/api/emploi/candidatIntersted',
+        method: 'POST',
+        data
+    })
+};
+export const ListIntersted = data => {
+    console.log("emploi", data);
+    return request({
+        url: '/api/emploi/emploiIntersted',
+        method: 'POST',
+        data
+    })
+};
