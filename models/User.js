@@ -69,7 +69,9 @@ const UserSchema = new Schema({
 
     url: String,
 
-  }]
+  }],
+
+  FavoriteUsers: []
 
 
 });

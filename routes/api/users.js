@@ -238,6 +238,33 @@ router.post("/profile/user", async (req, res) => {
     res.status(500).send(err.message);
   }
 });
+router.post("/profile/addFavorite", async (req, res) => {
+  try {
+
+    const users = await User.updateOne({"_id": req.body._id}, {$addToSet: {FavoriteUsers: req.body.user}});
+    res.send(users);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(err.message);
+  }
+});
+router.post("/profile/listFavorite", async (req, res) => {
+  try {
+
+    const interstedEmploi = await User.findOne(req.body);
+
+    const interstedPersons = [];
+    for (const user of interstedEmploi.FavoriteUsers) {
+      const person = await User.findOne({"_id": user})
+      interstedPersons.push(person);
+    }
+
+    res.send(interstedPersons);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(err.message);
+  }
+});
 
 
 module.exports = router;

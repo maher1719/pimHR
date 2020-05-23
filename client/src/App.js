@@ -26,6 +26,7 @@ import MesEmplois from "./components/layout/Emploi/MesEmplois";
 import ModifierEmploi from "./components/layout/Emploi/ModifierEmploi";
 import ProfileUser from "./components/layout/Profile/ProfileUser";
 import EmploiPostule from "./components/layout/Emploi/EmploiPostule";
+import ProfileFavoris from "./components/layout/Profile/ProfileFavoris";
 
 
 const App = () => {
@@ -113,6 +114,11 @@ const App = () => {
                         <HeaderFeature/>
                         <Sidebar/>
                         <EmploiPostule/>
+                    </PrivateRoute>
+                    <PrivateRoute exact path='/FavoriteUser:id'>
+                        <HeaderFeature/>
+                        <Sidebar/>
+                        <ProfileFavoris/>
                     </PrivateRoute>
 
 

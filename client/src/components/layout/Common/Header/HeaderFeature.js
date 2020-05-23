@@ -11,7 +11,7 @@ const HeaderFeature = () => {
     const user = useSelector(state => state.auth.user);
     dispatch(setCurrentUser(user));
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-
+    const favoriteLink = "/FavoriteUser" + user.id
     const history = useHistory();
     useEffect(() => {
         //const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
@@ -45,6 +45,11 @@ const HeaderFeature = () => {
                 <li className="nav-item d-none d-sm-inline-block">
                     <a href="/profile" className="nav-link">
                         Profile
+                    </a>
+                </li>
+                <li className="nav-item d-none d-sm-inline-block">
+                    <a href={favoriteLink} className="nav-link">
+                        Favoris
                     </a>
                 </li>
             </ul>

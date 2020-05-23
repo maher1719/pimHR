@@ -21,3 +21,17 @@ export const getProfile = data => {
         data
     });
 };
+export const addFavoriteUser = data => {
+    return request({
+        url: '/api/users/profile/addFavorite',
+        method: 'POST',
+        data
+    });
+};
+export const ListFavoriteUser = data => {
+    return request({
+        url: '/api/users/profile/listFavorite',
+        method: 'POST',
+        data
+    });
+};

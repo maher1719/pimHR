@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
-import {getProfile} from "../../../api/profileApi";
+import {addFavoriteUser, getProfile} from "../../../api/profileApi";
 
 const ProfileUser = () => {
     const user = useSelector(state => state.auth.user);
+    console.log("*********** user **********")
+    console.log(user)
+    console.log("*********** user **********")
 
 
     let [userProfile, SetUserProfile] = useState({education: [], Stages: [], skills: [], softSkills: []});
@@ -24,7 +27,16 @@ const ProfileUser = () => {
         })
 
     }, []);
+
     //userProfile.skills=["hello"];
+
+    function addFavorite() {
+        const data = {_id: user.id, user: id};
+        console.log("favoris", data);
+        addFavoriteUser(data).then((data) => {
+            console.log(data)
+        })
+    }
 
     return (
         <div className="content-wrapper">
@@ -73,7 +85,7 @@ const ProfileUser = () => {
                                             <b>Friends</b> <a className="float-right">13,287</a>
                                         </li>
                                     </ul>
-                                    <a href="#" className="btn btn-primary btn-block">
+                                    <a href="#" onClick={addFavorite} className="btn btn-primary btn-block">
                                         <b>Ajouter a favoris</b>
                                     </a>
                                 </div>
