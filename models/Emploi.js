@@ -42,7 +42,7 @@ const EmploiSchema = new Schema({
     tags: [],
 
     keyword: [],
-
+    acceptUser: [],
 
 
     usersIntersted: []

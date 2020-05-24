@@ -21,21 +21,22 @@ const Content = () => {
                     const className = "small-box bg-" + color;
                     i++;
                     const emploiPostule = "/EmploiPostule" + emploi._id
-                    return <div className="col-lg-3 col-6">
+                    if (emploi.number > 0)
+                        return <div className="col-lg-3 col-6">
 
-                        <div className={className}>
-                            <div className="inner">
-                                <h4>{emploi.title}</h4>
+                            <div className={className}>
+                                <div className="inner">
+                                    <h4>{emploi.title}</h4>
 
-                                <p>Nomber postulé : <b>{emploi.number}</b></p>
+                                    <p>Nomber postulé : <b>{emploi.number}</b></p>
+                                </div>
+                                <div className="icon">
+                                    <i className="ion ion-person-add"/>
+                                </div>
+                                <a href={emploiPostule} className="small-box-footer">plus d'info <i
+                                    className="fas fa-arrow-circle-right"/></a>
                             </div>
-                            <div className="icon">
-                                <i className="ion ion-person-add"/>
-                            </div>
-                            <a href={emploiPostule} className="small-box-footer">plus d'info <i
-                                className="fas fa-arrow-circle-right"/></a>
                         </div>
-                    </div>
                 })
                 SetShortList(short);
             })

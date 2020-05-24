@@ -5,11 +5,6 @@ import {addFavoriteUser, getProfile} from "../../../api/profileApi";
 
 const ProfileUser = () => {
     const user = useSelector(state => state.auth.user);
-    console.log("*********** user **********")
-    console.log(user)
-    console.log("*********** user **********")
-
-
     let [userProfile, SetUserProfile] = useState({education: [], Stages: [], skills: [], softSkills: []});
     let [education, setEducation] = useState([]);
     let [stages, setStages] = useState([]);

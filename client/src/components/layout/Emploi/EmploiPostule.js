@@ -5,9 +5,21 @@ import {useParams} from "react-router-dom";
 const EmploiPostule = () => {
     const id = useParams().id;
     let [candidat, setCandidat] = useState(null)
+    let [name, setName] = useState(null)
+
     useEffect(() => {
+        function acceptCandidat(id_user) {
+
+        }
+
+        function refuseCandidat(id_user) {
+
+        }
+
         ListIntersted({"_id": id}).then((data) => {
-            const candidats = data.map(function (candidat) {
+            setName(data.name)
+            console.log(data);
+            const candidats = data.intersed.map(function (candidat) {
                 let profile = "";
                 if (candidat !== null) {
                     profile = "/profile" + candidat._id;
@@ -46,11 +58,16 @@ const EmploiPostule = () => {
                             </div>
                             <div className="card-footer">
                                 <div className="text-right">
-                                    <a href="#" className="btn btn-sm bg-teal">
-                                        <i className="fas fa-comments"></i>
+                                    <a href="#" onClick={(e) => acceptCandidat(candidat._id)}
+                                       className="btn btn-sm bg-teal">
+                                        <i className="fas fa-check"/>Accepter
+                                    </a>
+                                    <a href="#" onClick={(e) => refuseCandidat(candidat._id)}
+                                       className="btn btn-sm bg-danger">
+                                        <i className="fas fa-remove"/>refuser
                                     </a>
                                     <a href={profile} className="btn btn-sm btn-primary">
-                                        <i className="fas fa-user"></i> View Profile
+                                        <i className="fas fa-user"/> Voire Profile
                                     </a>
                                 </div>
                             </div>
@@ -69,7 +86,7 @@ const EmploiPostule = () => {
                     <div className="container-fluid">
                         <div className="row mb-2">
                             <div className="col-sm-6">
-                                <h1>Blank Page</h1>
+                                <h1>{name}</h1>
                             </div>
                             <div className="col-sm-6">
                                 <ol className="breadcrumb float-sm-right">
@@ -77,7 +94,7 @@ const EmploiPostule = () => {
                                         <a href="#">Home</a>
                                     </li>
                                     <li className="breadcrumb-item active">
-                                        Blank Page
+                                        utilisateurs postulé
                                     </li>
                                 </ol>
                             </div>

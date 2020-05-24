@@ -80,3 +80,11 @@ export const ListIntersted = data => {
         data
     })
 };
+export const acceptUser = data => {
+    console.log("emploi", data);
+    return request({
+        url: '/api/emploi/acceptUser',
+        method: 'POST',
+        data
+    })
+};

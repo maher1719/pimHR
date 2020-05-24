@@ -90,14 +90,16 @@ router.post('/favorisRemove', async (req, res) => {
 router.post('/emploiIntersted', async (req, res) => {
     try {
         const interstedEmploi = await Emploi.findOne(req.body);
-
+        const name = interstedEmploi.name;
+        let responseSend = {"name": name};
         const interstedPersons = [];
         for (const user of interstedEmploi.usersIntersted) {
             const person = await User.findOne({"_id": user})
             interstedPersons.push(person);
         }
+        responseSend.intersed = interstedPersons;
 
-        res.send(interstedPersons);
+        res.send(responseSend);
     } catch (err) {
         console.error(err.message);
         res.status(500).send(err.message);
@@ -106,6 +108,21 @@ router.post('/emploiIntersted', async (req, res) => {
 
 
 router.post('/candidatIntersted', async (req, res) => {
+    try {
+        const interstedEmploi = await Emploi.find(req.body);
+        let response = [];
+        for (let emploi of interstedEmploi) {
+            numberIntersted = emploi.usersIntersted.length ? emploi.usersIntersted.length : 0;
+            response.push({"_id": emploi._id, "title": emploi.name, "number": numberIntersted})
+        }
+
+        res.send(response);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message);
+    }
+});
+router.post('/acceptUser', async (req, res) => {
     try {
         const interstedEmploi = await Emploi.find(req.body);
         let response = [];
