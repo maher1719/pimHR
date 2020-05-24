@@ -86,7 +86,7 @@ const ModifierEmploi = (props) => {
                         </div>
                         <div className="card-body p-0">
                             <Formik
-                                initialValues={{name: "", society: "", address: "", tags: []}}
+                                initialValues={{name: "", society: "", address: "", tags: [], active: true}}
                                 innerRef={formikRef}
                                 onSubmit={async values => {
                                     values.id = id;
@@ -123,6 +123,26 @@ const ModifierEmploi = (props) => {
                                     return (
 
                                         <form className="form" onSubmit={handleSubmit}>
+                                            <div className="form-group">
+                                                <label htmlFor="name">N'est pas active</label>
+                                                <input
+                                                    id="name"
+                                                    placeholder="Enter your email"
+                                                    type="checkbox"
+                                                    value={false}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+
+                                                    className={
+                                                        errors.name && touched.name
+                                                            ? "text-input form-control error"
+                                                            : "text-input form-control"
+                                                    }
+                                                />
+                                                {errors.name && touched.name && (
+                                                    <div className="input-feedback">{errors.name}</div>
+                                                )}
+                                            </div>
                                             <div className="form-group">
                                                 <label htmlFor="name">titre</label>
                                                 <input
@@ -224,16 +244,8 @@ const ModifierEmploi = (props) => {
                                             </div>
 
 
-                                            <button
-                                                type="button"
-                                                className="outline"
-                                                onClick={handleReset}
-                                                disabled={!dirty || isSubmitting}
-                                            >
-                                                Reset
-                                            </button>
                                             <button type="submit" disabled={isSubmitting}>
-                                                Submit
+                                                Sauvgarder
                                             </button>
 
                                             <DisplayFormikState {...props} />

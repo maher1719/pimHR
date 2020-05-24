@@ -40,6 +40,11 @@ const EmploiSchema = new Schema({
     },
 
     tags: [],
+    active: {
+        type: Boolean,
+        required: false,
+        default: true
+    },
 
     keyword: [],
     acceptUser: [],
