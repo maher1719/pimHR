@@ -10,11 +10,11 @@ const NotificationSchema = new Schema({
     },
     message: {
         type: String,
-        required: true,
+        required: false,
     },
     url: {
         type: String,
-        required: true,
+        required: false,
     },
     user: {
         type: String,
@@ -22,6 +22,7 @@ const NotificationSchema = new Schema({
     },
     noticed: {
         type: Boolean,
+        default: false,
         required: true,
     },
     otherUser: {

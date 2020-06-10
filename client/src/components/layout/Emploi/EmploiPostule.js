@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {ListIntersted} from "../../../api/EmploiApi";
+import {acceptUserEmploi, ListIntersted} from "../../../api/EmploiApi";
 import {useParams} from "react-router-dom";
 
 const EmploiPostule = () => {
@@ -9,6 +9,9 @@ const EmploiPostule = () => {
 
     useEffect(() => {
         function acceptCandidat(id_user) {
+            acceptUserEmploi({"_id": id, "user": id_user}).then((data) => {
+                console.log("accept", data);
+            })
 
         }
 

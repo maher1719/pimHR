@@ -1,7 +1,8 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import {logoutUser, setCurrentUser} from '../../../../features/auth/authSlice';
+import {getNotification} from "../../../../api/notification";
 
 
 const HeaderFeature = () => {
@@ -13,9 +14,27 @@ const HeaderFeature = () => {
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
     const favoriteLink = "/FavoriteUser" + user.id
     const history = useHistory();
+    const [notification, SetNotification] = useState(null);
+    const [unreaded, SetUnreaded] = useState(0);
+
     useEffect(() => {
         //const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
         if (!isAuthenticated) history.push("/login");
+        getNotification({"user": user._id}).then((data) => {
+            SetUnreaded(data.unreaded);
+            let notifications = data.notification.map(function (obj) {
+                return <div>
+                    <div className="dropdown-divider"/>
+                    <a href="#" className="dropdown-item">
+                        <i className="fas fa-users mr-2"/> {obj.title}
+                        <span className="float-right text-muted text-sm">12 hours</span>
+                    </a></div>
+
+            });
+            SetNotification(notifications)
+
+            console.log(data);
+        });
 
     }, [isAuthenticated]);
 
@@ -149,28 +168,13 @@ const HeaderFeature = () => {
                 <li className="nav-item dropdown">
                     <a className="nav-link" data-toggle="dropdown" href="#">
                         <i className="far fa-bell"/>
-                        <span className="badge badge-warning navbar-badge">15</span>
+                        <span className="badge badge-warning navbar-badge">{unreaded}</span>
                     </a>
                     <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                             <span className="dropdown-item dropdown-header">
-                                15 Notifications
+                                {unreaded} Notifications
               </span>
-                        <div className="dropdown-divider"/>
-                        <a href="#" className="dropdown-item">
-                            <i className="fas fa-envelope mr-2"/> 4 new messages
-                            <span className="float-right text-muted text-sm">3 mins</span>
-                        </a>
-                        <div className="dropdown-divider"/>
-                        <a href="#" className="dropdown-item">
-                            <i className="fas fa-users mr-2"/> 8 friend requests
-                            <span className="float-right text-muted text-sm">12 hours</span>
-                        </a>
-                        <div className="dropdown-divider"/>
-                        <a href="#" className="dropdown-item">
-                            <i className="fas fa-file mr-2"/> 3 new reports
-                            <span className="float-right text-muted text-sm">2 days</span>
-                        </a>
-                        <div className="dropdown-divider"/>
+                        {notification}
                         <a href="#" className="dropdown-item dropdown-footer">
                             See All Notifications
                         </a>

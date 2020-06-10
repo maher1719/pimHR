@@ -107,6 +107,7 @@ router.post('/login', validateLoginInput(), async (req, res) => {
   }
 
   const { email, password } = req.body;
+  console.log("server : ", email, password);
 
   // Find user by email
   try {

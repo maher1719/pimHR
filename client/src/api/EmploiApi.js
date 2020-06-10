@@ -88,3 +88,11 @@ export const acceptUser = data => {
         data
     })
 };
+export const acceptUserEmploi = data => {
+    console.log("emploi", data);
+    return request({
+        url: '/api/emploi/acceptUserEmploi',
+        method: 'POST',
+        data
+    })
+};

@@ -4,6 +4,7 @@ const router = express.Router();
 
 const Emploi = require('../../models/Emploi');
 const User = require('../../models/User');
+const Notification = require('../../models/Notification')
 
 router.post('/deleteEmploi', async (req, res) => {
     try {
@@ -132,6 +133,33 @@ router.post('/acceptUser', async (req, res) => {
         }
 
         res.send(response);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message);
+    }
+});
+
+router.post('/acceptUserEmploi', async (req, res) => {
+    try {
+        //const emploi = await Emploi.findOne(req.body);
+        const userAccepted = await User.findOne({"_id": req.body.user});
+        const notification = {
+            "title": "Votre 2 demande d'emploi a été accepter",
+            "message": "demande",
+            "user": userAccepted._id,
+            "noticed": false,
+        }
+        const notificationSave = new Notification({
+            "title": "Votre demande d'emploi a été accepter",
+            "message": "demande 2",
+            "user": userAccepted._id,
+            "noticed": false,
+        });
+        await notificationSave.save();
+        await Emploi.updateOne({"_id": req.body.id}, {$addToSet: {acceptUser: userAccepted}});
+
+
+        res.send(notificationSave);
     } catch (err) {
         console.error(err.message);
         res.status(500).send(err.message);
