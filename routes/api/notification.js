@@ -17,7 +17,8 @@ router.post("/create", async (req, res) => {
 
 router.post("/getAll", async (req, res) => {
     try {
-        const notification = await Notification.find(req.body);
+        //await Notification.deleteMany();
+        const notification = await Notification.find(req.body).sort({dateCreated: -1});
         const criteria = req.body;
         criteria.noticed = false;
         const unreadedReq = await Notification.find(criteria)

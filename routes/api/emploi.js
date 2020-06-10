@@ -71,6 +71,7 @@ router.post('/create', async (req, res) => {
 router.post('/favorisAdd', async (req, res) => {
     try {
         const yess = await Emploi.updateOne({"_id": req.body.id}, {$addToSet: {usersIntersted: req.body.user}});
+
         res.send(yess);
     } catch (err) {
         console.error(err.message);
@@ -111,6 +112,7 @@ router.post('/emploiIntersted', async (req, res) => {
 router.post('/candidatIntersted', async (req, res) => {
     try {
         const interstedEmploi = await Emploi.find(req.body);
+        console.log("intersted", interstedEmploi)
         let response = [];
         for (let emploi of interstedEmploi) {
             numberIntersted = emploi.usersIntersted.length ? emploi.usersIntersted.length : 0;
@@ -147,6 +149,7 @@ router.post('/acceptUserEmploi', async (req, res) => {
             "title": "Votre 2 demande d'emploi a été accepter",
             "message": "demande",
             "user": userAccepted._id,
+            "dateCreated": Date.now(),
             "noticed": false,
         }
         const notificationSave = new Notification({

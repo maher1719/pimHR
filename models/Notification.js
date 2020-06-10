@@ -20,6 +20,10 @@ const NotificationSchema = new Schema({
         type: String,
         required: true
     },
+    dateCreated: {
+        type: Date,
+        default: Date.now()
+    },
     noticed: {
         type: Boolean,
         default: false,

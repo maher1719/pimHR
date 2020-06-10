@@ -233,6 +233,14 @@ router.post("/profile/user", async (req, res) => {
   try {
 
     const users = await User.findOne(req.body);
+    const notificationSave = new Notification({
+      "title": "Une personne a vu ton profile",
+      "message": "demande 2",
+      "user": users._id,
+      "noticed": false,
+    });
+    await notificationSave.save();
+    console.log(users)
     res.send(users);
   } catch (err) {
     console.error(err.message);
@@ -243,6 +251,16 @@ router.post("/profile/addFavorite", async (req, res) => {
   try {
 
     const users = await User.updateOne({"_id": req.body._id}, {$addToSet: {FavoriteUsers: req.body.user}});
+    const user = await User.findOne({"_id": req.body._id});
+    const notificationSave = new Notification({
+      "title": user.name + " Vous ajoutez a son liste de Favoris",
+      "message": "demande 3",
+      "user": req.body.user,
+      "dateCreated": Date.now(),
+      "noticed": false
+    });
+    console.log("favorite", users);
+    await notificationSave.save();
     res.send(users);
   } catch (err) {
     console.error(err.message);
