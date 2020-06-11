@@ -7,3 +7,10 @@ export const getNotification = data => {
         data
     });
 };
+export const updateNotification = data => {
+    return request({
+        url: '/api/notification/updateReaded',
+        method: 'POST',
+        data
+    });
+};

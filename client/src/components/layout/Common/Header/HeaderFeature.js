@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import {logoutUser, setCurrentUser} from '../../../../features/auth/authSlice';
-import {getNotification} from "../../../../api/notification";
+import {getNotification, updateNotification} from "../../../../api/notification";
 
 
 const HeaderFeature = () => {
@@ -16,11 +16,26 @@ const HeaderFeature = () => {
     const history = useHistory();
     const [notification, SetNotification] = useState(null);
     const [unreaded, SetUnreaded] = useState(0);
+    function update(){
+        SetUnreaded(0);
+        updateNotification({"_id":user.id}).then((data)=>{
+            console.log(data);
+        });
+    }
 
     useEffect(() => {
-        //const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-        if (!isAuthenticated) history.push("/login");
-        getNotification({"user": user._id}).then((data) => {
+        if (!isAuthenticated)
+            history.push("/login")
+
+
+
+
+
+
+    }, [isAuthenticated]);
+    useEffect(()=>{
+        if(user.id!=undefined)
+        getNotification({"user": user.id}).then((data) => {
             SetUnreaded(data.unreaded);
             let notifications = data.notification.map(function (obj) {
                 return <div>
@@ -35,8 +50,7 @@ const HeaderFeature = () => {
 
             console.log(data);
         });
-
-    }, [isAuthenticated]);
+    },[user])
 
     const onLogoutClick = e => {
         e.preventDefault();
@@ -165,7 +179,7 @@ const HeaderFeature = () => {
                     </div>
                 </li>
                 {/* Notifications Dropdown Menu */}
-                <li className="nav-item dropdown">
+                <li onClick={(e) => update()} className="nav-item dropdown">
                     <a className="nav-link" data-toggle="dropdown" href="#">
                         <i className="far fa-bell"/>
                         <span className="badge badge-warning navbar-badge">{unreaded}</span>

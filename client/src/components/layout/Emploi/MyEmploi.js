@@ -21,7 +21,7 @@ const MyEmploi = () => {
     ];
     const [rows, setRows] = useState(rowsA);
     useEffect(() => {
-        const user_id = user._id;
+        const user_id = user.id;
 
         async function fetchData() {
             myEmploiList({

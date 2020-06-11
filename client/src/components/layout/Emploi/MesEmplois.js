@@ -33,7 +33,7 @@ const MesEmplois = () => {
         };
 
         myEmploiList({
-            user: user._id
+            user: user.id
         }).then((data) => {
             console.log(data)
             let offres1 = data.map(function (obj) {
@@ -58,7 +58,7 @@ const MesEmplois = () => {
             setOffres(offres1);
 
         });
-    }, []);
+    }, [user]);
 
 
     return (

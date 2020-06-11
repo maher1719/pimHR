@@ -11,8 +11,9 @@ const Content = () => {
     let [shortList, SetShortList] = useState(null)
 
     useEffect(() => {
-        if (user.role !== "candidat")
-            shortListIntersted({"user": user._id}).then((data) => {
+        console.log("user",user.id)
+        if (user.role !== "candidat" && user.id)
+            shortListIntersted({"user": user.id}).then((data) => {
                 console.log("usersIntersted", data);
                 const colors = ["success", "info", "warning", "danger"];
                 let i = 0;
@@ -40,7 +41,7 @@ const Content = () => {
                 })
                 SetShortList(short);
             })
-    }, [])
+    }, [user])
 
 
     return (

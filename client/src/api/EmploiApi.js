@@ -8,6 +8,14 @@ export const createEmplois = data => {
     });
 };
 
+export const getAllEmplois = data => {
+    return request({
+        url: '/api/emploi/show',
+        method: 'POST',
+        data
+    });
+};
+
 export const myEmploiList = data => {
     console.log("emploi", data);
     return request({

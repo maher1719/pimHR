@@ -66,9 +66,9 @@ const AddEmploi = () => {
 
 
                         <Formik
-                            initialValues={{user: userEmploi._id, tags: ["emploi"], name: ""}}
+                            initialValues={{user: userEmploi.id, tags: ["emploi"], name: ""}}
                             onSubmit={async values => {
-                                values.user = userEmploi._id;
+                                values.user = userEmploi.id;
                                 await new Promise(resolve => setTimeout(resolve, 500));
                                 alert(JSON.stringify(values, null, 2));
                                 await createEmplois(values);

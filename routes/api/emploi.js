@@ -56,6 +56,15 @@ router.post('/show', async (req, res) => {
         res.status(500).send(err.message);
     }
 });
+router.post('/showAll', async (req, res) => {
+    try {
+        const emploi = await Emploi.find();
+        res.send(emploi);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message);
+    }
+});
 
 router.post('/create', async (req, res) => {
     try {
@@ -71,6 +80,18 @@ router.post('/create', async (req, res) => {
 router.post('/favorisAdd', async (req, res) => {
     try {
         const yess = await Emploi.updateOne({"_id": req.body.id}, {$addToSet: {usersIntersted: req.body.user}});
+
+        const emploi= await Emploi.findOne({"_id": req.body.id});
+        const user=await User.findOne({"_id": emploi.user});
+        console.log("emploi user",user);
+        const notificationSave = new Notification({
+            "title": "un utilisateur postulé",
+            "message": "demande 2",
+            "user": user._id,
+            "noticed": false,
+        });
+        await notificationSave.save();
+
 
         res.send(yess);
     } catch (err) {
@@ -89,13 +110,26 @@ router.post('/favorisRemove', async (req, res) => {
     }
 });
 
+router.post('/postule', async (req, res) => {
+    try {
+        await Emploi.updateOne({"_id": req.body.id}, {$addToSet: {acceptUser: userAccepted}});
+
+        res.send(update);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message);
+    }
+});
+
 router.post('/emploiIntersted', async (req, res) => {
     try {
         const interstedEmploi = await Emploi.findOne(req.body);
         const name = interstedEmploi.name;
         let responseSend = {"name": name};
         const interstedPersons = [];
+
         for (const user of interstedEmploi.usersIntersted) {
+            console.log("user intersted",user)
             const person = await User.findOne({"_id": user})
             interstedPersons.push(person);
         }

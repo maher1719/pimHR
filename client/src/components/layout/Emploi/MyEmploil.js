@@ -6,7 +6,7 @@ const MyEmploil = () => {
     const user = useSelector(state => state.auth.user);
     let offres = null;
     myEmploiList({
-        user: user._id
+        user: user.id
     }).then((data) => {
         offres = data;
     });

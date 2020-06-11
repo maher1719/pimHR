@@ -6,26 +6,35 @@ const Notification = require('../../models/Notification')
 
 router.post("/create", async (req, res) => {
     try {
+
+
+
         const notification = new Notification(req.body);
         await notification.save();
         res.send(notification)
+
     } catch (err) {
         console.error(err.message);
         res.status(500).send(err.message)
+
     }
 })
 
 router.post("/getAll", async (req, res) => {
     try {
         //await Notification.deleteMany();
-        const notification = await Notification.find(req.body).sort({dateCreated: -1});
-        const criteria = req.body;
-        criteria.noticed = false;
-        const unreadedReq = await Notification.find(criteria)
-
-        const unreaded = unreadedReq.length ? unreadedReq.length : 0
-        const reponse = {notification, unreaded}
-        res.send(reponse);
+        if(req.body.user!=undefined) {
+            const notification = await Notification.find(req.body).sort({dateCreated: -1});
+            const criteria = req.body;
+            console.log("criteria", req.body)
+            criteria.noticed = false;
+            console.log(criteria)
+            const unreadedReq = await Notification.find(criteria)
+            console.log(unreadedReq);
+            const unreaded = unreadedReq.length ? unreadedReq.length : 0
+            const reponse = {notification, unreaded}
+            res.send(reponse);
+        }
 
     } catch (err) {
         console.error(err.message);
@@ -38,7 +47,7 @@ router.post("/updateReaded", async (req, res) => {
         const unreadedReq = await Notification.find(req.body, {noticed: false})
         if (unreadedReq.length > 0)
             for (const unreadedReqKey of unreadedReq) {
-                console.log(unreadedReqKey)
+
                 await Notification.updateMany(unreadedReqKey, {noticed: true})
             }
 
