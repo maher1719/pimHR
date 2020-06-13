@@ -7,10 +7,12 @@ import {getUsers} from "../../../api/profileApi";
 const Search = () => {
     const user = useSelector(state => state.auth.user);
     const [users, searchusers] = useState([]);
+    const [searchLinked, setSearchLinked] = useState([]);
     const [search, setSearch] = useState([]);
 
 
     useEffect(() => {
+        console.log(users)
         if (users.local) {
             let searchUsers = users.local.map(function (candidat) {
                 let profile = "";
@@ -56,6 +58,49 @@ const Search = () => {
                 </div>
             });
             setSearch(searchUsers);
+        }
+        if (users.linkedIn) {
+
+            let searchUsersLinked = users.linkedIn.map(function (candidat) {
+                let profile = "";
+                if (candidat.details?.imgUrl) {
+                    profile = candidat.details.imgUrl;
+
+                }
+                return <div className="col-3 col-sm-6 col-md-4 d-flex align-items-stretch">
+                    <div className="card bg-light">
+                        <div className="card-header text-muted border-bottom-0">
+                            {candidat.jobProfil}
+                        </div>
+                        <div className="card-body pt-0">
+                            <div className="row">
+                                <div className="col-7">
+                                    <h2 className="lead"><b>{candidat.NomProfil}</b></h2>
+                                    <p className="text-muted text-sm"><b>About: </b> Web
+                                        Designer / UX /
+                                        Graphic Artist / Coffee Lover </p>
+                                    <ul className="ml-4 mb-0 fa-ul text-muted">
+                                        <li className="small"><span className="fa-li"><i
+                                            className="fas fa-lg fa-building"/></span> Address:
+                                            {candidat.addressProfil}
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div className="col-5 text-center">
+                                    <img src={profile} alt=""
+                                         className="img-circle img-fluid"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card-footer">
+                            <a href={candidat.ItemURL} className="btn btn-sm btn-primary">
+                                <i className="fas fa-user"/> Voire Profile
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            });
+            setSearchLinked(searchUsersLinked);
         }
 
 
@@ -293,8 +338,10 @@ const Search = () => {
                         <div className="card-header">
                             <h3 className="card-title">Resultat Utilisateur Local</h3>
                         </div>
-                        <div className="card-body">
-                            {search}
+                        <div className="card-body pb-0">
+                            <div className="row d-flex align-items-stretch">
+                                {search}
+                            </div>
                         </div>
                         <div className="card-footer">
 
@@ -302,10 +349,10 @@ const Search = () => {
                     </div>
                     <div className="card">
                         <div className="card-header">
-                            <h3 className="card-title">Resultat Sur tanitJob</h3>
+                            <h3 className="card-title">Resultat Sur LinkedIn</h3>
                         </div>
-                        <div className="card-body">
-                            {search}
+                        <div className="card-body pb-0">
+                            {searchLinked}
                         </div>
                         <div className="card-footer">
 

@@ -214,16 +214,30 @@ router.post("/profile/search", async (req, res) => {
   try {
     const criteria = req.body;
     console.log(criteria);
+    const criteria2 = {};
+    if (criteria.name !== undefined) {
+      criteria2.NomProfil = {$regex: '.*' + criteria.name + '.*'};
+    }
+    if (criteria.occupation !== undefined) {
+      criteria2.jobProfil = {$regex: '.*' + criteria.occupation + '.*'};
+    }
+
     if (criteria.skills !== undefined && criteria.skills.length === 1) {
       criteria.skills = criteria.skills[0];
     }
     if (criteria.softSkills !== undefined && criteria.softSkills.length === 1) {
       criteria.softSkills = criteria.softSkills[0];
+      //criteria2.details.experience.descriptionExperience={criteria.skills}
+
     }
-    console.log("criteria", criteria);
+    console.log("criteria", criteria2);
     const users = await User.find(criteria);
+    const linked = await Profils.find(criteria2)
+
     const response = {};
     response.local = users;
+    response.linkedIn = linked;
+    console.log(response)
 
     res.send(response);
   } catch (err) {
@@ -255,7 +269,7 @@ router.post("/profile/user", async (req, res) => {
 router.post("/linked", async (req, res) => {
   try {
 
-    const users = await Profils.find(req.body);
+    const users = await Profils.find(req.body).limit(20);
     console.log(users)
     res.send(users);
   } catch (err) {
