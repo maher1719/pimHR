@@ -9,8 +9,8 @@ const {validationResult} = require('express-validator');
 
 // Load input validation
 const {
-  validateRegisterInput,
-  validateLoginInput
+    validateRegisterInput,
+    validateLoginInput
 } = require('../../validation/auth');
 
 // Load User model
@@ -20,312 +20,312 @@ const User = require('../../models/User');
 // @desc Register user
 // @access Public
 router.post('/register', validateRegisterInput(), async (req, res) => {
-  // Check validation
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    // Formatting errors to return object instead of an array
-    const formattedErrors = errors.array().reduce((acc, current) => {
-      acc[current['param']] = current.msg;
-      return acc;
-    }, {});
-    if (req.body.password !== req.body.password2) {
-      formattedErrors.password2 = 'Passwords do not match';
-    }
-    return res.status(400).json(formattedErrors);
-  }
-
-  console.log("user registred",req.body);
-  const { name, email, password, role } = req.body;
-
-  try {
-    let user = await User.findOne({ email });
-
-    if (user) {
-      return res.status(400).json({ email: 'User already exists' });
+    // Check validation
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        // Formatting errors to return object instead of an array
+        const formattedErrors = errors.array().reduce((acc, current) => {
+            acc[current['param']] = current.msg;
+            return acc;
+        }, {});
+        if (req.body.password !== req.body.password2) {
+            formattedErrors.password2 = 'Passwords do not match';
+        }
+        return res.status(400).json(formattedErrors);
     }
 
-    user = new User({
-      name,
-      email,
-      password,
-      role
-    });
+    console.log("user registred",req.body);
+    const { name, email, password, role } = req.body;
 
-    const salt = await bcrypt.genSalt(10);
+    try {
+        let user = await User.findOne({ email });
 
-    user.password = await bcrypt.hash(password, salt);
+        if (user) {
+            return res.status(400).json({ email: 'User already exists' });
+        }
 
-    await user.save();
-
-    const payload = {
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        occupation: user.occupation,
-        address: user.address,
-        skills: user.skills,
-        softSkills: user.softSkills,
-        education: user.education,
-        stages: user.Stages,
-        projects: user.Projects,
-        role:user.role,
-      }
-    };
-
-    jwt.sign(
-      payload,
-      config.get('secretOrKey'),
-      { expiresIn: 360000 },
-      (err, token) => {
-        if (err) throw err;
-        res.json({
-          success: true,
-          token: 'Bearer ' + token
+        user = new User({
+            name,
+            email,
+            password,
+            role
         });
-      }
-    );
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server error');
-  }
+
+        const salt = await bcrypt.genSalt(10);
+
+        user.password = await bcrypt.hash(password, salt);
+
+        await user.save();
+
+        const payload = {
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                occupation: user.occupation,
+                address: user.address,
+                skills: user.skills,
+                softSkills: user.softSkills,
+                education: user.education,
+                stages: user.Stages,
+                projects: user.Projects,
+                role:user.role,
+            }
+        };
+
+        jwt.sign(
+            payload,
+            config.get('secretOrKey'),
+            { expiresIn: 360000 },
+            (err, token) => {
+                if (err) throw err;
+                res.json({
+                    success: true,
+                    token: 'Bearer ' + token
+                });
+            }
+        );
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
 });
 
 // @route POST api/users/login
 // @desc Login user and return JWT token
 // @access Public
 router.post('/login', validateLoginInput(), async (req, res) => {
-  // Check Validation
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    // Formatting errors to return object instead of an array
-    const formattedErrors = errors.array().reduce((acc, current) => {
-      acc[current['param']] = current.msg;
-      return acc;
-    }, {});
-    return res.status(400).json(formattedErrors);
-  }
-
-  const { email, password } = req.body;
-  console.log("server : ", email, password);
-
-  // Find user by email
-  try {
-    let user = await User.findOne({ email });
-
-    if (!user) {
-      return res.status(400).json({ auth: 'Invalid Credentials' });
+    // Check Validation
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        // Formatting errors to return object instead of an array
+        const formattedErrors = errors.array().reduce((acc, current) => {
+            acc[current['param']] = current.msg;
+            return acc;
+        }, {});
+        return res.status(400).json(formattedErrors);
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const { email, password } = req.body;
+    console.log("server : ", email, password);
 
-    if (!isMatch) {
-      return res.status(400).json({ auth: 'Invalid Credentials' });
+    // Find user by email
+    try {
+        let user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(400).json({ auth: 'Invalid Credentials' });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+            return res.status(400).json({ auth: 'Invalid Credentials' });
+        }
+
+        const payload = {
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                occupation: user.occupation,
+                addresse: user.address,
+                skills: user.skills,
+                softSkills: user.softSkills,
+                education: user.education,
+                stages: user.Stages,
+                projects: user.Projects,
+                role:user.Role
+            }
+        };
+
+        jwt.sign(
+            payload,
+            config.get('secretOrKey'),
+            { expiresIn: 360000 },
+            (err, token) => {
+                if (err) throw err;
+                res.json({
+                    success: true,
+                    token: 'Bearer ' + token
+                });
+            }
+        );
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
     }
-
-    const payload = {
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        occupation: user.occupation,
-        addresse: user.address,
-        skills: user.skills,
-        softSkills: user.softSkills,
-        education: user.education,
-        stages: user.Stages,
-        projects: user.Projects,
-        role:user.Role
-      }
-    };
-
-    jwt.sign(
-      payload,
-      config.get('secretOrKey'),
-      { expiresIn: 360000 },
-      (err, token) => {
-        if (err) throw err;
-        res.json({
-          success: true,
-          token: 'Bearer ' + token
-        });
-      }
-    );
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server error');
-  }
 });
 
 // @route    GET api/users/current
 // @desc     Get user by token
 // @access   Private
 router.get('/current', auth, async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id).select('-password');
-    //console.log("current user",user);
-    res.json(user);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
+    try {
+        const user = await User.findById(req.user.id).select('-password');
+        //console.log("current user",user);
+        res.json(user);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
 });
 
 
 router.post("/search",async(req,res)=>{
-  try {
-    const criteria = req.body;
-    const users = await User.find(criteria);
-    //console.log(req);
-    res.send(users);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send(err.message);
-  }
+    try {
+        const criteria = req.body;
+        const users = await User.find(criteria);
+        //console.log(req);
+        res.send(users);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message);
+    }
 });
 
 router.post("/profile", async (req, res) => {
-  try {
-    const criteria = req.body;
-    const users = await User.find(criteria);
-    //console.log(req);
-    res.send(users);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send(err.message);
-  }
+    try {
+        const criteria = req.body;
+        const users = await User.find(criteria);
+        //console.log(req);
+        res.send(users);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message);
+    }
 });
 router.post("/profile/update", async (req, res) => {
-  try {
-    const criteria = req.body;
-    const email = criteria.email;
-    const userUpdate = await User.findOneAndUpdate({email: email}, criteria);
-    console.log("userYpdate", userUpdate);
-    //const users = await User.findOne({email: email});
-    res.send(userUpdate);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send(err.message);
-  }
+    try {
+        const criteria = req.body;
+        const email = criteria.email;
+        const userUpdate = await User.findOneAndUpdate({email: email}, criteria);
+        console.log("userYpdate", userUpdate);
+        //const users = await User.findOne({email: email});
+        res.send(userUpdate);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message);
+    }
 });
 router.post("/profile/search", async (req, res) => {
-  try {
-    const criteria = req.body;
-    console.log(criteria);
-    const criteria2 = {};
-    if (criteria.name !== undefined) {
-      criteria2.NomProfil = {$regex: '.*' + criteria.name + '.*'};
-    }
-    if (criteria.occupation !== undefined) {
-      criteria2.jobProfil = {$regex: '.*' + criteria.occupation + '.*'};
-    }
+    try {
+        const criteria = req.body;
+        console.log(criteria);
+        const criteria2 = {};
+        if (criteria.name !== undefined) {
+            criteria2.NomProfil = {$regex: '.*' + criteria.name + '.*'};
+        }
+        if (criteria.occupation !== undefined) {
+            criteria2.jobProfil = {$regex: '.*' + criteria.occupation + '.*'};
+        }
 
-    if (criteria.skills !== undefined && criteria.skills.length === 1) {
-      criteria.skills = criteria.skills[0];
+        if (criteria.skills !== undefined && criteria.skills.length === 1) {
+            criteria.skills = criteria.skills[0];
+        }
+        if (criteria.softSkills !== undefined && criteria.softSkills.length === 1) {
+            criteria.softSkills = criteria.softSkills[0];
+            //criteria2.details.experience.descriptionExperience={criteria.skills}
+
+        }
+        console.log("criteria", criteria2);
+        const users = await User.find(criteria);
+        const linked = await Profils.find(criteria2)
+
+        const response = {};
+        response.local = users;
+        response.linkedIn = linked;
+        console.log(response)
+
+        res.send(response);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message);
     }
-    if (criteria.softSkills !== undefined && criteria.softSkills.length === 1) {
-      criteria.softSkills = criteria.softSkills[0];
-      //criteria2.details.experience.descriptionExperience={criteria.skills}
-
-    }
-    console.log("criteria", criteria2);
-    const users = await User.find(criteria);
-    const linked = await Profils.find(criteria2)
-
-    const response = {};
-    response.local = users;
-    response.linkedIn = linked;
-    console.log(response)
-
-    res.send(response);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send(err.message);
-  }
 });
 
 router.post("/profile/user", async (req, res) => {
-  try {
+    try {
 
-    const users = await User.findOne(req.body);
-    const notificationSave = new Notification({
-      "title": "Une personne a vu ton profile",
-      "message": "demande 2",
-      "user": users._id,
+        const users = await User.findOne(req.body);
+        const notificationSave = new Notification({
+            "title": "Une personne a vu ton profile",
+            "message": "demande 2",
+            "user": users._id,
 
-      "noticed": false,
-    });
-    await notificationSave.save();
-    console.log(users)
-    res.send(users);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send(err.message);
-  }
+            "noticed": false,
+        });
+        await notificationSave.save();
+        console.log(users)
+        res.send(users);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message);
+    }
 });
 
 router.post("/linked", async (req, res) => {
-  try {
+    try {
 
-    const users = await Profils.find(req.body).limit(20);
-    console.log(users)
-    res.send(users);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send(err.message);
-  }
+        const users = await Profils.find(req.body).limit(20);
+        console.log(users)
+        res.send(users);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message);
+    }
 });
 router.post("/getUser", async (req, res) => {
-  try {
-    const criteria = req.body;
-    const users = await User.findOne(criteria);
-    //console.log(req);
-    res.send(users);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send(err.message);
-  }
+    try {
+        const criteria = req.body;
+        const users = await User.findOne(criteria);
+        //console.log(req);
+        res.send(users);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message);
+    }
 });
 
 
 router.post("/profile/addFavorite", async (req, res) => {
-  try {
+    try {
 
-    const users = await User.updateOne({"_id": req.body._id}, {$addToSet: {FavoriteUsers: req.body.user}});
-    const user = await User.findOne({"_id": req.body._id});
-    const notificationSave = new Notification({
-      "title": user.name + " Vous ajoutez a son liste de Favoris",
-      "message": "demande 3",
-      "user": req.body.user,
-      "dateCreated": Date.now(),
-      "noticed": false
-    });
-    console.log("favorite", users);
-    await notificationSave.save();
-    res.send(users);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send(err.message);
-  }
+        const users = await User.updateOne({"_id": req.body._id}, {$addToSet: {FavoriteUsers: req.body.user}});
+        const user = await User.findOne({"_id": req.body._id});
+        const notificationSave = new Notification({
+            "title": user.name + " Vous ajoutez a son liste de Favoris",
+            "message": "demande 3",
+            "user": req.body.user,
+            "dateCreated": Date.now(),
+            "noticed": false
+        });
+        console.log("favorite", users);
+        await notificationSave.save();
+        res.send(users);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message);
+    }
 });
 router.post("/profile/listFavorite", async (req, res) => {
-  try {
+    try {
 
-    const interstedEmploi = await User.findOne(req.body);
+        const interstedEmploi = await User.findOne(req.body);
 
-    const interstedPersons = [];
-    for (const user of interstedEmploi.FavoriteUsers) {
-      const person = await User.findOne({"_id": user})
-      interstedPersons.push(person);
+        const interstedPersons = [];
+        for (const user of interstedEmploi.FavoriteUsers) {
+            const person = await User.findOne({"_id": user})
+            interstedPersons.push(person);
+        }
+
+        res.send(interstedPersons);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message);
     }
-
-    res.send(interstedPersons);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send(err.message);
-  }
 });
 
 
