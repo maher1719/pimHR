@@ -63,7 +63,7 @@ const ProfileFavoris = () => {
             })
             setCandidat(candidats);
         })
-    }, [])
+    }, [user])
 
     return (
         <div>

@@ -56,6 +56,16 @@ router.post('/show', async (req, res) => {
         res.status(500).send(err.message);
     }
 });
+router.get('/show', async (req, res) => {
+    try {
+        const emploi = await Emploi.find(req.body);
+        res.send(emploi);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message);
+    }
+});
+
 router.post('/showAll', async (req, res) => {
     try {
         const emploi = await Emploi.find();
@@ -88,6 +98,7 @@ router.post('/favorisAdd', async (req, res) => {
             "title": "un utilisateur postulé",
             "message": "demande 2",
             "user": user._id,
+            "url": "http://localhost:3000/EmploiPostule" + emploi._id,
             "noticed": false,
         });
         await notificationSave.save();

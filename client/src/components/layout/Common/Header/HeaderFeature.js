@@ -16,10 +16,10 @@ const HeaderFeature = () => {
     const history = useHistory();
     const [notification, SetNotification] = useState(null);
     const [unreaded, SetUnreaded] = useState(0);
-    function update(){
+    function update(id_user) {
         SetUnreaded(0);
-        updateNotification({"_id":user.id}).then((data)=>{
-            console.log(data);
+        updateNotification({"_id": id_user}).then((data) => {
+            console.log("notification", data);
         });
     }
 
@@ -38,9 +38,13 @@ const HeaderFeature = () => {
         getNotification({"user": user.id}).then((data) => {
             SetUnreaded(data.unreaded);
             let notifications = data.notification.map(function (obj) {
+                let urlNotification = "#";
+                if (obj.url) {
+                    urlNotification = obj.url;
+                }
                 return <div>
                     <div className="dropdown-divider"/>
-                    <a href="#" className="dropdown-item">
+                    <a href={urlNotification} className="dropdown-item">
                         <i className="fas fa-users mr-2"/> {obj.title}
                         <span className="float-right text-muted text-sm">12 hours</span>
                     </a></div>
@@ -179,7 +183,7 @@ const HeaderFeature = () => {
                     </div>
                 </li>
                 {/* Notifications Dropdown Menu */}
-                <li onClick={(e) => update()} className="nav-item dropdown">
+                <li onClick={(e) => update(user.id)} className="nav-item dropdown">
                     <a className="nav-link" data-toggle="dropdown" href="#">
                         <i className="far fa-bell"/>
                         <span className="badge badge-warning navbar-badge">{unreaded}</span>

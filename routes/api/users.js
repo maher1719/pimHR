@@ -4,7 +4,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const auth = require('../../middleware/auth');
-const { validationResult } = require('express-validator');
+const Profils = require('../../models/profils');
+const {validationResult} = require('express-validator');
 
 // Load input validation
 const {
@@ -221,8 +222,10 @@ router.post("/profile/search", async (req, res) => {
     }
     console.log("criteria", criteria);
     const users = await User.find(criteria);
+    const response = {};
+    response.local = users;
 
-    res.send(users);
+    res.send(response);
   } catch (err) {
     console.error(err.message);
     res.status(500).send(err.message);
@@ -237,6 +240,7 @@ router.post("/profile/user", async (req, res) => {
       "title": "Une personne a vu ton profile",
       "message": "demande 2",
       "user": users._id,
+
       "noticed": false,
     });
     await notificationSave.save();
@@ -247,6 +251,31 @@ router.post("/profile/user", async (req, res) => {
     res.status(500).send(err.message);
   }
 });
+
+router.post("/linked", async (req, res) => {
+  try {
+
+    const users = await Profils.find(req.body);
+    console.log(users)
+    res.send(users);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(err.message);
+  }
+});
+router.post("/getUser", async (req, res) => {
+  try {
+    const criteria = req.body;
+    const users = await User.findOne(criteria);
+    //console.log(req);
+    res.send(users);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(err.message);
+  }
+});
+
+
 router.post("/profile/addFavorite", async (req, res) => {
   try {
 
