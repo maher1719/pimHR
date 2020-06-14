@@ -11,7 +11,7 @@ const Content = () => {
     let [shortList, SetShortList] = useState(null)
 
     useEffect(() => {
-        console.log("user",user.id)
+        console.log("user", user.id)
         if (user.role !== "candidat" && user.id)
             shortListIntersted({"user": user.id}).then((data) => {
                 console.log("usersIntersted", data);

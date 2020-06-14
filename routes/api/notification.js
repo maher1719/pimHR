@@ -41,6 +41,23 @@ router.post("/getAll", async (req, res) => {
         res.status(500).send(err.message)
     }
 })
+
+router.get("/getAll", async (req, res) => {
+    try {
+        console.log(req.query)
+        //await Notification.deleteMany();
+
+            const notification = await Notification.find(req.query).sort({dateCreated: -1});
+            //console.log(notification)
+            res.send(notification);
+
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err.message)
+    }
+})
+
 router.post("/updateReaded", async (req, res) => {
     try {
         //const notification = await Notification.find(req.body);

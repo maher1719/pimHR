@@ -5,45 +5,48 @@ import {addEmploiTofavorite, getAllEmplois} from "../../../api/EmploiApi";
 
 const ListeEmploi = () => {
     const user = useSelector(state => state.auth.user);
-    console.log("***************************",user);
-    const [emplois,getEmplois]= useState(null)
+    console.log("***************************", user);
+    const [emplois, getEmplois] = useState(null)
 
-    useEffect(()=>{
-        function postule(id_emploi){
+    useEffect(() => {
+        function postule(id_emploi) {
             addEmploiTofavorite({"id": id_emploi, "user": user.id});
 
         }
-        getAllEmplois().then((data)=>{
-            console.log("emplois",data)
-            let emploiList= data.map(function(obj){
-                const tags=obj.tags.map(function(obj){
-                    return obj+", ";
+
+        getAllEmplois().then((data) => {
+            console.log("emplois", data)
+            let emploiList = data.map(function (obj) {
+                const tags = obj.tags.map(function (obj) {
+                    return obj + ", ";
                 })
-                return <div className="col-md-4"> <div className="card">
-                    <div className="card-header">
-                        <h3 className="card-title">{obj.name}</h3>
-                        <div className="card-tools">
-                            <span className="badge badge-primary">{tags}</span>
+                return <div className="col-md-4">
+                    <div className="card">
+                        <div className="card-header">
+                            <h3 className="card-title">{obj.name}</h3>
+                            <div className="card-tools">
+                                <span className="badge badge-primary">{tags}</span>
+                            </div>
+
+                        </div>
+
+                        <div className="card-body">
+                            <div>{obj.description}</div>
+                            <div><i className="fa fa-home"/> {obj.address} </div>
+                        </div>
+
+                        <div className="card-footer">
+                            <div className="btn btn-success">Voir détail</div>
+                            <div onClick={(e) => postule(obj._id)} className="btn btn-primary">postuler</div>
                         </div>
 
                     </div>
-
-                    <div className="card-body">
-                        <div>{obj.description}</div>
-                        <div><i className="fa fa-home"/> {obj.address} </div>
-                    </div>
-
-                    <div className="card-footer">
-                        <div className="btn btn-success">Voir détail</div><div onClick={(e) => postule(obj._id)} className="btn btn-primary">postuler</div>
-                    </div>
-
-                </div>
                 </div>
 
             });
             getEmplois(emploiList);
         })
-    },[user])
+    }, [user])
 
     return (
         <div>
@@ -97,9 +100,9 @@ const ListeEmploi = () => {
                             </div>
                         </div>
                         <div className="card-body">
-                        <div className="row">
-                            {emplois}
-                        </div>
+                            <div className="row">
+                                {emplois}
+                            </div>
 
                         </div>
                         {/* /.card-body */}

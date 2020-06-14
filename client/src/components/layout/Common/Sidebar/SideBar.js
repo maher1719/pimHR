@@ -4,7 +4,7 @@ import {logoutUser} from 'features/auth/authSlice';
 import SidebarRecurteur from "./SidebarRecurteur";
 import SidebarCandidat from "./SidebarCandidat";
 
-const SliderBar = () =>{
+const SliderBar = () => {
     const user = useSelector(state => state.auth.user);
     const dispatch = useDispatch();
     console.log("side bar", user);

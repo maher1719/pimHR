@@ -190,13 +190,7 @@ router.post('/acceptUserEmploi', async (req, res) => {
     try {
         //const emploi = await Emploi.findOne(req.body);
         const userAccepted = await User.findOne({"_id": req.body.user});
-        const notification = {
-            "title": "Votre 2 demande d'emploi a été accepter",
-            "message": "demande",
-            "user": userAccepted._id,
-            "dateCreated": Date.now(),
-            "noticed": false,
-        }
+        Date.now();
         const notificationSave = new Notification({
             "title": "Votre demande d'emploi a été accepter",
             "message": "demande 2",

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import uuid from 'uuid';
 
 class items extends Component {
     state = {

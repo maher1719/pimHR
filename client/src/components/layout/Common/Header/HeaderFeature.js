@@ -16,6 +16,7 @@ const HeaderFeature = () => {
     const history = useHistory();
     const [notification, SetNotification] = useState(null);
     const [unreaded, SetUnreaded] = useState(0);
+
     function update(id_user) {
         SetUnreaded(0);
         updateNotification({"_id": id_user}).then((data) => {
@@ -28,33 +29,29 @@ const HeaderFeature = () => {
             history.push("/login")
 
 
-
-
-
-
     }, [isAuthenticated]);
-    useEffect(()=>{
-        if(user.id!=undefined)
-        getNotification({"user": user.id}).then((data) => {
-            SetUnreaded(data.unreaded);
-            let notifications = data.notification.map(function (obj) {
-                let urlNotification = "#";
-                if (obj.url) {
-                    urlNotification = obj.url;
-                }
-                return <div>
-                    <div className="dropdown-divider"/>
-                    <a href={urlNotification} className="dropdown-item">
-                        <i className="fas fa-users mr-2"/> {obj.title}
-                        <span className="float-right text-muted text-sm">12 hours</span>
-                    </a></div>
+    useEffect(() => {
+        if (user.id != undefined)
+            getNotification({"user": user.id}).then((data) => {
+                SetUnreaded(data.unreaded);
+                let notifications = data.notification.map(function (obj) {
+                    let urlNotification = "#";
+                    if (obj.url) {
+                        urlNotification = obj.url;
+                    }
+                    return <div>
+                        <div className="dropdown-divider"/>
+                        <a href={urlNotification} className="dropdown-item">
+                            <i className="fas fa-users mr-2"/> {obj.title}
+                            <span className="float-right text-muted text-sm">12 hours</span>
+                        </a></div>
 
+                });
+                SetNotification(notifications)
+
+                console.log(data);
             });
-            SetNotification(notifications)
-
-            console.log(data);
-        });
-    },[user])
+    }, [user])
 
     const onLogoutClick = e => {
         e.preventDefault();
